@@ -1,0 +1,11 @@
+#tab>tr                     { outline: thin solid black; }
+#tab                        { border-spacing: 5px 1em; }
+#tab>tr:nth-child(odd)		{ background-color:#eee; }
+#tab>tr:nth-child(even)		{ background-color:#fff; }
+#sidebar {
+  float: left;
+  width: 25%;
+}
+#response {
+  margin-left: 25%;
+}
