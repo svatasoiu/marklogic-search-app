@@ -53,20 +53,42 @@ declare variable $OPTIONS :=
     </search:range>
   </search:constraint>
   
-  <search:constraint name="topic">
+  <!--<search:constraint name="topic">
 	<search:range type="xs:string" facet="true" collation="http://marklogic.com/collation/en/S1">
       <search:path-index>
         /didl:DIDL/didl:Item/didl:Descriptor[@id='d310']/didl:Statement/subj-group/subject
       </search:path-index>
     </search:range>
+  </search:constraint>-->
+  
+  <search:constraint name="topic">
+	  <search:custom facet="true">
+	     <search:parse apply="topic" ns="http://www.nejm.org/custom-field-query" 
+	       at="/modules/custom-fields.xqy"/>
+	     <search:start-facet apply="start-topic" ns="http://www.nejm.org/custom-field-query" 
+	       at="/modules/custom-fields.xqy"/>
+	     <search:finish-facet apply="finish-topic" ns="http://www.nejm.org/custom-field-query" 
+	       at="/modules/custom-fields.xqy"/>
+	  </search:custom>
   </search:constraint>
   
-  <search:constraint name="specialty">
+  <!--<search:constraint name="specialty">
 	<search:range type="xs:string" facet="true" collation="http://marklogic.com/collation/en/S1">
       <search:path-index>
         /didl:DIDL/didl:Item/didl:Descriptor[@id='d310']/didl:Statement/subj-group/subj-group/subject
       </search:path-index>
     </search:range>
+  </search:constraint>-->
+  
+  <search:constraint name="specialty">
+	  <search:custom facet="true">
+	     <search:parse apply="specialty" ns="http://www.nejm.org/custom-field-query" 
+	       at="/modules/custom-fields.xqy"/>
+	     <search:start-facet apply="start-specialty" ns="http://www.nejm.org/custom-field-query" 
+	       at="/modules/custom-fields.xqy"/>
+	     <search:finish-facet apply="finish-specialty" ns="http://www.nejm.org/custom-field-query" 
+	       at="/modules/custom-fields.xqy"/>
+	  </search:custom>
   </search:constraint>
   
    <search:constraint name="authorSurname">
@@ -95,13 +117,6 @@ declare variable $OPTIONS :=
     </search:value>
   </search:constraint>  
   
-  <!--<search:constraint name="specialty">
-	  <search:custom facet="false">
-	     <search:parse apply="specialty" ns="http://www.nejm.org/custom-field-query" 
-	       at="/modules/custom-fields.xqy"/>
-	  </search:custom>
-  </search:constraint>-->
-
   <search:constraint name="year">
 	  <search:custom facet="false">
 	     <search:parse apply="year" ns="http://www.nejm.org/custom-field-query" 

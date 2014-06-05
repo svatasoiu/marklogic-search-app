@@ -12,8 +12,15 @@ declare namespace dii="urn:mpeg:mpeg21:2002:01-DII-NS";
 
 import module namespace search = "http://marklogic.com/appservices/search" 
   at "/MarkLogic/appservices/search/search.xqy";
+import module namespace topics = "http://www.nejm.org/topics"
+  at "topics.xqy";
+import module namespace specialties  = "http://www.nejm.org/specialties"
+  at "specialties.xqy";
 
 declare namespace cts    = "http://marklogic.com/cts";
+
+declare variable $topic-table := topics:get-topics();
+declare variable $spec-table  := specialties:get-specialties();
 
 declare variable $OPTIONS := ("case-insensitive","punctuation-insensitive","diacritic-insensitive");
 
@@ -29,16 +36,118 @@ as schema-element(cts:query)
 {
     <root>{
 
-        let $subject := fn:string($right//cts:text/text())
+        let $specialty := fn:string($right//cts:text/text())
         return
-            if($qtext eq "category:") then (
+            if($qtext eq "specialty:") then (
                  cts:path-range-query (  "/didl:DIDL/didl:Item/didl:Descriptor[@id='d310']/didl:Statement/subj-group/subj-group/subject",
                                          "=",
-                                         $subject,
-                                         "collation=http://marklogic.com/collation/"                                         
+                                         $specialty,
+                                         "collation=http://marklogic.com/collation/en/S1"                                         
                                       )
             ) else ()         
 	}</root>/*
+};
+
+declare function custom-field-query:start-specialty (
+ $constraint as element(search:constraint),
+ $query as cts:query?,
+ $facet-options as xs:string*,
+ $quality-weight as xs:double?,
+ $forests as xs:unsignedLong*) 
+as item()* {
+    for $spec in cts:values(cts:path-reference("/didl:DIDL/didl:Item/didl:Descriptor[@id='d310']/didl:Statement/subj-group/subj-group/subject",
+                                              ("collation=http://marklogic.com/collation/en/S1")),
+                                 (),
+                                 ($facet-options,"concurrent"),
+                                 $query,
+                                 $quality-weight,
+                                 $forests)
+    let $spec-name := fn:string($spec-table/specialty[@id eq $spec]/@spec)
+    order by $spec-name
+    return <specialty-type specID="{$spec}" spec="{$spec-name}" count="{cts:frequency($spec)}"/>
+};
+
+declare function custom-field-query:finish-specialty (
+ $start as item()*,
+ $constraint as element(search:constraint), 
+ $query as cts:query?,
+ $facet-options as xs:string*,
+ $quality-weight as xs:double?, 
+ $forests as xs:unsignedLong*)
+as element(search:facet) {
+   element search:facet {
+     attribute name {$constraint/@name},
+     for $range in $start 
+     return 
+        element search:facet-value { 
+            attribute name { $range/@specID }, 
+            attribute count { $range/@count }, 
+            fn:string($range/@spec) (: look up proper name :)
+        }
+   }
+};
+
+(: 
+   Returns a cts-query that searches documents with elements named "Identifier" having values enumerated in the $doi-list.
+
+   The $doi-list is a list of doi's of documents having the given subject number.
+:)
+declare function custom-field-query:topic (
+	$qtext as xs:string,
+	$right as schema-element(cts:query)) 
+as schema-element(cts:query)	
+{
+    <root>{
+
+        let $topic := fn:string($right//cts:text/text())
+        return
+            if($qtext eq "topic:") then (
+                 cts:path-range-query (  "/didl:DIDL/didl:Item/didl:Descriptor[@id='d310']/didl:Statement/subj-group/subject",
+                                         "=",
+                                         $topic,
+                                         "collation=http://marklogic.com/collation/en/S1"                                         
+                                      )
+            ) else ()         
+	}</root>/*
+};
+
+declare function custom-field-query:start-topic (
+ $constraint as element(search:constraint),
+ $query as cts:query?,
+ $facet-options as xs:string*,
+ $quality-weight as xs:double?,
+ $forests as xs:unsignedLong*) 
+as item()* {
+    for $top in cts:values(cts:path-reference("/didl:DIDL/didl:Item/didl:Descriptor[@id='d310']/didl:Statement/subj-group/subject",
+                                              ("collation=http://marklogic.com/collation/en/S1")),
+                                 (),
+                                 ($facet-options,"concurrent"),
+                                 $query,
+                                 $quality-weight,
+                                 $forests)
+    let $top-name := fn:string($topic-table/topic[@id eq $top]/@top)
+    order by $top-name
+    return <topic-type topID="{$top}" top="{$top-name}" count="{cts:frequency($top)}"/>
+};
+
+declare function custom-field-query:finish-topic (
+ $start as item()*,
+ $constraint as element(search:constraint), 
+ $query as cts:query?,
+ $facet-options as xs:string*,
+ $quality-weight as xs:double?, 
+ $forests as xs:unsignedLong*)
+as element(search:facet) {
+    element search:facet {
+     attribute name {$constraint/@name},
+     for $range in $start 
+     return 
+        element search:facet-value{ 
+            attribute name { $range/@topID }, 
+            attribute count { $range/@count }, 
+            fn:string($range/@top) (: look up proper name :)
+        }
+     }
 };
 
 (: 

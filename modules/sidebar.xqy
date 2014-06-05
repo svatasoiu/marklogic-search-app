@@ -8,6 +8,7 @@ declare namespace html = "http://www.w3.org/1999/xhtml";
 
 declare variable $curr-url := xdmp:get-request-url();
 declare variable $limit    := 10;
+declare variable $delim    := "__";
 
 declare function sidebar:create-facets($facets as element(search:facet)*, $query as xs:string)
 as element(html:div)* {
@@ -23,7 +24,7 @@ as element(html:div)* {
             let $_ := xdmp:set($count, $count + 1)
             let $bucket-name := $bucket/@name/data()
             let $added-facet := fn:concat($facet-name,':"',$bucket-name,'"')
-            let $new-url := fn:replace($curr-url,fn:concat("\?query=",$query),fn:concat("?query=",$query," ",$added-facet))
+            let $new-url := fn:replace($curr-url,fn:concat("\?query=",$query),fn:concat("?query=",$query,$delim,$added-facet))
             return  if ($count > $limit) 
                     then ()
                     else (
@@ -34,5 +35,32 @@ as element(html:div)* {
           }
           <!-- Need to add a More... button -->
           </html:ul>
+        </html:div>
+};
+
+declare function sidebar:create-chiclet($query-string as xs:string, $facet as xs:string, $constraint as xs:string)
+ {
+    let $new-url := fn:replace($curr-url, fn:concat($delim,$facet,":",fn:replace(fn:replace($constraint,'"',"%22")," ","%20")), "")
+    return
+      <html:a href="http://localhost:8003{$new-url}">
+        {$constraint}
+      </html:a>,<html:br/>
+};
+
+declare function sidebar:create-chiclets($query-string as xs:string)
+as element(html:div) {
+    let $matches := 
+        let $temp := fn:tokenize($query-string,$delim)
+        return 
+            if (fn:contains($temp[1],":")) (: if actual query is empty :)
+            then $temp
+            else fn:subsequence($temp,2)
+    return
+        <html:div>
+        {
+            for $match in $matches
+            let $split-match := fn:tokenize($match,":")
+            return sidebar:create-chiclet($query-string, $split-match[1], $split-match[2])
+        }
         </html:div>
 };
