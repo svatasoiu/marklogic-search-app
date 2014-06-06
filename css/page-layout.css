@@ -1,0 +1,12 @@
+#seachbar {
+}
+#sidebar {
+  float: left;
+  width: 25%;
+}
+#results {
+  margin-left: 25%;
+}
+.result-title                     { outline: thin solid black; border-spacing: 5px 1em; }
+.result-title:nth-child(even)		{ background-color:#eee; }
+.result-title:nth-child(odd)		{ background-color:#fff; }
