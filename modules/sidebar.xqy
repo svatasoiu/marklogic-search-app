@@ -11,6 +11,62 @@ declare variable $limit    := 10;
 declare variable $delim    := "__";
 
 declare function sidebar:create-facets($facets as element(search:facet)*, $query as xs:string)
+as element(div)* {
+    for $facet in $facets
+    let $facet-name := $facet/@name/data()
+    let $count := 0
+    return 
+        <div id="facet-box">
+          <h3>{$facet-name}</h3>
+          <ul facet-name="{$facet-name}">
+          {
+            for $bucket in $facet/search:facet-value
+            let $_ := xdmp:set($count, $count + 1)
+            let $bucket-name := $bucket/@name/data()
+            let $added-facet := fn:concat($facet-name,':"',$bucket-name,'"')
+            return  if ($count > $limit) 
+                    then (
+                          <li class="hidden" bucket-name="{$bucket-name}"> 
+                            <span class="constraint" constraint="{$added-facet}">{$bucket/text()} ({$bucket/@count/data()})</span>
+                          </li>
+                         )
+                    else (
+                          <li bucket-name="{$bucket-name}"> 
+                            <span class="constraint" constraint="{$added-facet}">{$bucket/text()} ({$bucket/@count/data()})</span>
+                          </li>
+                         )
+          }
+          <!-- Need to add a More... button -->
+          </ul>
+          { if ($count > $limit) then <span class="more-button">more...</span> else () }
+        </div>
+};
+
+declare function sidebar:create-chiclet($query-string as xs:string, $facet as xs:string, $constraint as xs:string)
+{
+    <span class="chiclet" constraint="{$facet}:{$constraint}">{$facet}: {$constraint}</span>,<br/>
+};
+
+declare function sidebar:create-chiclets($query-string as xs:string)
+as element(div) {
+    let $matches := 
+        let $temp := fn:tokenize($query-string,$delim)
+        return 
+            if (fn:contains($temp[1],":")) (: if actual query is empty :)
+            then $temp
+            else fn:subsequence($temp,2)
+    return
+        <div id="chiclet-box">
+        {
+            for $match in $matches
+            let $split-match := fn:tokenize($match,":")
+            return sidebar:create-chiclet($query-string, $split-match[1], $split-match[2])
+        }
+        </div>
+};
+
+(:
+declare function sidebar:create-facets($facets as element(search:facet)*, $query as xs:string)
 as element(html:div)* {
     for $facet in $facets
     let $facet-name := $facet/@name/data()
@@ -64,3 +120,4 @@ as element(html:div) {
         }
         </html:div>
 };
+:)

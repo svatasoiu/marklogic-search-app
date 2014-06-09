@@ -21,6 +21,9 @@ declare namespace cts    = "http://marklogic.com/cts";
 
 declare variable $topic-table := topics:get-topics();
 declare variable $spec-table  := specialties:get-specialties();
+declare variable $specialty-path := "/didl:DIDL/didl:Item/didl:Descriptor[@id='d310']/didl:Statement/subj-group/subj-group/subject";
+declare variable $topic-path := "/didl:DIDL/didl:Item/didl:Descriptor[@id='d310']/didl:Statement/subj-group/subject";
+declare variable $collation := "collation=http://marklogic.com/collation/en/S1";
 
 declare variable $OPTIONS := ("case-insensitive","punctuation-insensitive","diacritic-insensitive");
 
@@ -36,14 +39,11 @@ as schema-element(cts:query)
 {
     <root>{
 
-        let $specialty := fn:string($right//cts:text/text())
+        let $specialty := fn:string($right//cts:text/text()) (: convert from str to id :)
+        let $spec-id  := fn:string(($spec-table/specialty[@spec eq $specialty]/@id)[1])
         return
             if($qtext eq "specialty:") then (
-                 cts:path-range-query (  "/didl:DIDL/didl:Item/didl:Descriptor[@id='d310']/didl:Statement/subj-group/subj-group/subject",
-                                         "=",
-                                         $specialty,
-                                         "collation=http://marklogic.com/collation/en/S1"                                         
-                                      )
+                 cts:path-range-query ($specialty-path, "=", $spec-id, $collation)
             ) else ()         
 	}</root>/*
 };
@@ -55,8 +55,7 @@ declare function custom-field-query:start-specialty (
  $quality-weight as xs:double?,
  $forests as xs:unsignedLong*) 
 as item()* {
-    for $spec in cts:values(cts:path-reference("/didl:DIDL/didl:Item/didl:Descriptor[@id='d310']/didl:Statement/subj-group/subj-group/subject",
-                                              ("collation=http://marklogic.com/collation/en/S1")),
+    for $spec in cts:values(cts:path-reference($specialty-path, ($collation)),
                                  (),
                                  ($facet-options,"concurrent"),
                                  $query,
@@ -64,7 +63,7 @@ as item()* {
                                  $forests)
     let $spec-name := fn:string($spec-table/specialty[@id eq $spec]/@spec)
     order by $spec-name
-    return <specialty-type specID="{$spec}" spec="{$spec-name}" count="{cts:frequency($spec)}"/>
+    return <specialty-type spec="{$spec-name}" count="{cts:frequency($spec)}"/>
 };
 
 declare function custom-field-query:finish-specialty (
@@ -80,7 +79,7 @@ as element(search:facet) {
      for $range in $start 
      return 
         element search:facet-value { 
-            attribute name { $range/@specID }, 
+            attribute name { $range/@spec }, 
             attribute count { $range/@count }, 
             fn:string($range/@spec) (: look up proper name :)
         }
@@ -99,14 +98,11 @@ as schema-element(cts:query)
 {
     <root>{
 
-        let $topic := fn:string($right//cts:text/text())
+        let $topic := fn:string($right//cts:text/text()) (: convert from str to id :)
+        let $top-id  := fn:string(($topic-table/topic[@top eq $topic]/@id)[1])
         return
             if($qtext eq "topic:") then (
-                 cts:path-range-query (  "/didl:DIDL/didl:Item/didl:Descriptor[@id='d310']/didl:Statement/subj-group/subject",
-                                         "=",
-                                         $topic,
-                                         "collation=http://marklogic.com/collation/en/S1"                                         
-                                      )
+                 cts:path-range-query ($topic-path, "=", $top-id, $collation)
             ) else ()         
 	}</root>/*
 };
@@ -118,8 +114,7 @@ declare function custom-field-query:start-topic (
  $quality-weight as xs:double?,
  $forests as xs:unsignedLong*) 
 as item()* {
-    for $top in cts:values(cts:path-reference("/didl:DIDL/didl:Item/didl:Descriptor[@id='d310']/didl:Statement/subj-group/subject",
-                                              ("collation=http://marklogic.com/collation/en/S1")),
+    for $top in cts:values(cts:path-reference($topic-path, ($collation)),
                                  (),
                                  ($facet-options,"concurrent"),
                                  $query,
@@ -127,7 +122,7 @@ as item()* {
                                  $forests)
     let $top-name := fn:string($topic-table/topic[@id eq $top]/@top)
     order by $top-name
-    return <topic-type topID="{$top}" top="{$top-name}" count="{cts:frequency($top)}"/>
+    return <topic-type top="{$top-name}" count="{cts:frequency($top)}"/>
 };
 
 declare function custom-field-query:finish-topic (
@@ -143,7 +138,7 @@ as element(search:facet) {
      for $range in $start 
      return 
         element search:facet-value{ 
-            attribute name { $range/@topID }, 
+            attribute name { $range/@top }, 
             attribute count { $range/@count }, 
             fn:string($range/@top) (: look up proper name :)
         }
