@@ -16,21 +16,25 @@ $(document).on("change", "input[@name='sort']:radio", function () {
     getData(false);
 });
 
+// previous button press
 $(document).on("click", "a.previous", function () {
     start = Math.max(1, start - pageLength);
     getData(false);
 });
 
+// next button press
 $(document).on("click", "a.next", function () {
     start += pageLength;
     getData(false);
-});
-
+});    
+    
+// click on new constraint
 $(document).on("click", "span.constraint", function () {
     addConstraint($(this).attr("constraint"));
     getData();
 });
 
+// click on chiclet to remove constraint
 $(document).on("click", "span.chiclet", function () {
     removeConstraint($(this).attr("constraint"));
     getData();
@@ -58,10 +62,12 @@ $(document).on("click", "span.less-button", function () {
     $(this).removeClass("less-button");
 });
 
+// add constraint to array
 function addConstraint(constraint) {
     constraints.push(constraint);
 }
 
+// remove constraint from array
 function removeConstraint(constraint) {
     var ind = constraints.indexOf(constraint);
     if (ind > -1) {
@@ -69,6 +75,7 @@ function removeConstraint(constraint) {
     }
 }
 
+// update the html based on a query response
 function update() {
     if (http.readyState == 4) {
         // check if you need to get another update (i.e. if the user was typing while the search was going on)
@@ -83,6 +90,8 @@ function update() {
     }
 }
 
+// sends a request for new data based on what is pressed in the search box and which constraints are selected
+// newStart (boolean): true if request should start at 1, false if it shouldn't reset
 function getData(newStart) {
     if (isWorking) {
         // if isWorking, store query

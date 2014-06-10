@@ -28,9 +28,8 @@ declare variable $COLLATION := "collation=http://marklogic.com/collation/en/S1";
 declare variable $OPTIONS := ("case-insensitive","punctuation-insensitive","diacritic-insensitive");
 
 (: 
-   Returns a cts-query that searches documents with elements named "Identifier" having values enumerated in the $doi-list.
-
-   The $doi-list is a list of doi's of documents having the given subject number.
+   Returns a cts:path-range-query on the id that is represented by $right.
+	 $right is first converted to the appropriate specialty ID using a lookup table.
 :)
 declare function custom-field-query:specialty (
 	$qtext as xs:string,
@@ -47,6 +46,8 @@ as schema-element(cts:query)
             ) else ()         
 	}</root>/*
 };
+
+(: Returns specialties bucketed by unique values and ordered by name, along with counts :)
 
 declare function custom-field-query:start-specialty (
  $constraint as element(search:constraint),
@@ -87,9 +88,8 @@ as element(search:facet) {
 };
 
 (: 
-   Returns a cts-query that searches documents with elements named "Identifier" having values enumerated in the $doi-list.
-
-   The $doi-list is a list of doi's of documents having the given subject number.
+   Returns a cts:path-range-query on the id that is represented by $right.
+	 $right is first converted to the appropriate topic ID using a lookup table.
 :)
 declare function custom-field-query:topic (
 	$qtext as xs:string,
@@ -106,6 +106,8 @@ as schema-element(cts:query)
             ) else ()         
 	}</root>/*
 };
+
+(: Returns topics bucketed by unique values and ordered by name, along with counts :)
 
 declare function custom-field-query:start-topic (
  $constraint as element(search:constraint),
