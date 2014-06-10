@@ -17,13 +17,13 @@ import module namespace topics = "http://www.nejm.org/topics"
 import module namespace specialties  = "http://www.nejm.org/specialties"
   at "specialties.xqy";
 
-declare namespace cts    = "http://marklogic.com/cts";
+declare namespace cts = "http://marklogic.com/cts";
 
-declare variable $topic-table := topics:get-topics();
-declare variable $spec-table  := specialties:get-specialties();
-declare variable $specialty-path := "/didl:DIDL/didl:Item/didl:Descriptor[@id='d310']/didl:Statement/subj-group/subj-group/subject";
-declare variable $topic-path := "/didl:DIDL/didl:Item/didl:Descriptor[@id='d310']/didl:Statement/subj-group/subject";
-declare variable $collation := "collation=http://marklogic.com/collation/en/S1";
+declare variable $TOPIC-TABLE := topics:get-topics();
+declare variable $SPEC-TABLE  := specialties:get-specialties();
+declare variable $SPECIALTY-PATH := "/didl:DIDL/didl:Item/didl:Descriptor[@id='d310']/didl:Statement/subj-group/subj-group/subject";
+declare variable $TOPIC-PATH := "/didl:DIDL/didl:Item/didl:Descriptor[@id='d310']/didl:Statement/subj-group/subject";
+declare variable $COLLATION := "collation=http://marklogic.com/collation/en/S1";
 
 declare variable $OPTIONS := ("case-insensitive","punctuation-insensitive","diacritic-insensitive");
 
@@ -40,10 +40,10 @@ as schema-element(cts:query)
     <root>{
 
         let $specialty := fn:string($right//cts:text/text()) (: convert from str to id :)
-        let $spec-id  := fn:string(($spec-table/specialty[@spec eq $specialty]/@id)[1])
+        let $spec-id  := fn:string(($SPEC-TABLE/specialty[@spec eq $specialty]/@id)[1])
         return
             if($qtext eq "specialty:") then (
-                 cts:path-range-query ($specialty-path, "=", $spec-id, $collation)
+                 cts:path-range-query ($SPECIALTY-PATH, "=", $spec-id, $COLLATION)
             ) else ()         
 	}</root>/*
 };
@@ -55,13 +55,13 @@ declare function custom-field-query:start-specialty (
  $quality-weight as xs:double?,
  $forests as xs:unsignedLong*) 
 as item()* {
-    for $spec in cts:values(cts:path-reference($specialty-path, ($collation)),
+    for $spec in cts:values(cts:path-reference($SPECIALTY-PATH, ($COLLATION)),
                                  (),
                                  ($facet-options,"concurrent"),
                                  $query,
                                  $quality-weight,
                                  $forests)
-    let $spec-name := fn:string($spec-table/specialty[@id eq $spec]/@spec)
+    let $spec-name := fn:string($SPEC-TABLE/specialty[@id eq $spec]/@spec)
     order by $spec-name
     return <specialty-type spec="{$spec-name}" count="{cts:frequency($spec)}"/>
 };
@@ -99,10 +99,10 @@ as schema-element(cts:query)
     <root>{
 
         let $topic := fn:string($right//cts:text/text()) (: convert from str to id :)
-        let $top-id  := fn:string(($topic-table/topic[@top eq $topic]/@id)[1])
+        let $top-id  := fn:string(($TOPIC-TABLE/topic[@top eq $topic]/@id)[1])
         return
             if($qtext eq "topic:") then (
-                 cts:path-range-query ($topic-path, "=", $top-id, $collation)
+                 cts:path-range-query ($TOPIC-PATH, "=", $top-id, $COLLATION)
             ) else ()         
 	}</root>/*
 };
@@ -114,13 +114,13 @@ declare function custom-field-query:start-topic (
  $quality-weight as xs:double?,
  $forests as xs:unsignedLong*) 
 as item()* {
-    for $top in cts:values(cts:path-reference($topic-path, ($collation)),
+    for $top in cts:values(cts:path-reference($TOPIC-PATH, ($COLLATION)),
                                  (),
                                  ($facet-options,"concurrent"),
                                  $query,
                                  $quality-weight,
                                  $forests)
-    let $top-name := fn:string($topic-table/topic[@id eq $top]/@top)
+    let $top-name := fn:string($TOPIC-TABLE/topic[@id eq $top]/@top)
     order by $top-name
     return <topic-type top="{$top-name}" count="{cts:frequency($top)}"/>
 };

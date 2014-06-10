@@ -7,6 +7,7 @@ import module namespace search = "http://marklogic.com/appservices/search"
     at "/MarkLogic/appservices/search/search.xqy";
 
 declare option xdmp:mapping "false";
+declare variable $DIRECTORY := "/nejm_nlm_mpeg21/";
 declare variable $OPTIONS :=   
 
  <search:options xmlns="http://marklogic.com/appservices/search">
@@ -33,7 +34,11 @@ declare variable $OPTIONS :=
     <search:quotation>"</search:quotation>
     <search:joiner strength="50" apply="constraint">:</search:joiner>
   </search:grammar>
-   
+  
+  <search:additional-query xmlns="http://marklogic.com/appservices/search">
+    { cts:directory-query($DIRECTORY, "infinity") }
+  </search:additional-query>
+  
   <search:constraint name="century">
     <search:range type="xs:gYear" facet="true">
       <search:path-index>
@@ -53,14 +58,6 @@ declare variable $OPTIONS :=
     </search:range>
   </search:constraint>
   
-  <!--<search:constraint name="topic">
-	<search:range type="xs:string" facet="true" collation="http://marklogic.com/collation/en/S1">
-      <search:path-index>
-        /didl:DIDL/didl:Item/didl:Descriptor[@id='d310']/didl:Statement/subj-group/subject
-      </search:path-index>
-    </search:range>
-  </search:constraint>-->
-  
   <search:constraint name="topic">
 	  <search:custom facet="true">
 	     <search:parse apply="topic" ns="http://www.nejm.org/custom-field-query" 
@@ -71,14 +68,6 @@ declare variable $OPTIONS :=
 	       at="/modules/custom-fields.xqy"/>
 	  </search:custom>
   </search:constraint>
-  
-  <!--<search:constraint name="specialty">
-	<search:range type="xs:string" facet="true" collation="http://marklogic.com/collation/en/S1">
-      <search:path-index>
-        /didl:DIDL/didl:Item/didl:Descriptor[@id='d310']/didl:Statement/subj-group/subj-group/subject
-      </search:path-index>
-    </search:range>
-  </search:constraint>-->
   
   <search:constraint name="specialty">
 	  <search:custom facet="true">
@@ -99,11 +88,18 @@ declare variable $OPTIONS :=
     </search:range>
   </search:constraint>  
    
+  <!-- 
   <search:constraint name="pubDate">
     <search:value>
-      <search:element ns="http://www.massmed.org/elements/" name="publicationDate"/>
+      <search:element ns="mms" name="publicationDate"/>
     </search:value>
   </search:constraint>
+-->
+<!--  <search:constraint name="pubDate">
+    <search:range type="xs:date" facet="false">
+      <search:element ns="http://www.massmed.org/elements/" name="publicationDate"/>
+    </search:range>
+  </search:constraint> -->
   
   <search:constraint name="doi">
     <search:value>
@@ -140,6 +136,34 @@ declare variable $OPTIONS :=
 	     <search:parse apply="manuscriptId" ns="http://www.nejm.org/custom-field-query" at="/modules/custom-fields.xqy"/>
 	  </search:custom>
   </search:constraint>
+  
+  <search:operator name="sort">
+    <search:state name="relevance">
+      <search:sort-order>
+        <search:score/>
+      </search:sort-order>
+    </search:state>
+    <!--
+    <search:state name="pub-date">
+      <search:sort-order direction="descending" type="xs:date">
+        <search:path-index>
+          /didl:DIDL/didl:Item/didl:Descriptor[@id='d100']/didl:Statement/mms:publicationDate
+        </search:path-index>
+      </search:sort-order>
+      <search:sort-order>
+        <search:score/>
+      </search:sort-order>
+    </search:state>
+    -->
+    <search:state name="pub-date">
+      <search:sort-order direction="descending" type="xs:date">
+        <search:element ns="http://www.massmed.org/elements/" name="publicationDate"/>
+      </search:sort-order>
+      <search:sort-order>
+        <search:score/>
+      </search:sort-order>
+    </search:state>
+  </search:operator>
 
   <search:return-query xmlns="http://marklogic.com/appservices/search">false</search:return-query>
   <search:return-facets xmlns="http://marklogic.com/appservices/search">true</search:return-facets>
@@ -157,18 +181,5 @@ declare function search-lib:my-search($search-query as item()*,
    $start as item()*,
    $page-length as item()*) 
 as element(search:response) {
-    let $directory           := "/nejm_nlm_mpeg21/"
-    
-    let $additional-query    := 
-                                <search:additional-query xmlns="http://marklogic.com/appservices/search">
-                                {
-                                    cts:directory-query($directory, "infinity")
-                                }
-                                </search:additional-query>
-    let $options             :=  
-                        		<search:options xmlns="http://marklogic.com/appservices/search">
-                        			{$OPTIONS/*}
-                        			{$additional-query}
-                                </search:options>
-    return search:search($search-query, $options, $start, $page-length)
+    search:search($search-query, $OPTIONS, $start, $page-length)
 };

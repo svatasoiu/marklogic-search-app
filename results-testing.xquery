@@ -11,18 +11,19 @@ import module namespace search = "http://marklogic.com/appservices/search"
 import module namespace json="http://marklogic.com/xdmp/json"
     at "/MarkLogic/json/json.xqy";
 declare namespace html = "http://www.w3.org/1999/xhtml";
-declare variable $delim    := "__";
+declare variable $DELIM    := "__";
 
 let $query               := xdmp:get-request-field("query")
+let $sort                := xdmp:get-request-field("sort", "relevance")
 let $start               := search-lib:get-with-default-int(xdmp:get-request-field("start"), 1)
 let $page-length         := search-lib:get-with-default-int(xdmp:get-request-field("pageLength"), 10)
 
-let $highlight-query     := let $temp := fn:tokenize($query," ")[1] (: get the pure text, without constraints :)
+let $highlight-query     := let $temp := fn:tokenize($query,$DELIM)[1] (: get the pure text, without constraints :)
                             return if (fn:contains($temp, "[:]"))
                                    then ""
                                    else $temp
 
-let $search-query := fn:replace($query, $delim, " ")
+let $search-query := fn:concat(fn:replace($query, $DELIM, " "), " sort:", $sort)
 let $search-response := search-lib:my-search($search-query, $start, $page-length)
 
 let $response-total := $search-response/@total
@@ -31,6 +32,14 @@ let $response-page-length := $search-response/@page-length
 let $mpeg21-docs-uri := $search-response/search:result/@uri
     
 let $facets := $search-response/search:facet
+let $result-metrics := 
+                   <div class="result-metrics">
+                        <a class="previous">prev</a>
+                        Retrieved Articles {$response-start/data()} to {fn:min(($response-total/data(),$response-start/data() + $response-page-length/data() - 1))} 
+                        of {$response-total/data()} total results in 
+                        {xs:decimal(fn:substring-before(fn:substring($search-response/search:metrics/search:query-resolution-time/text(),3),"S"))*1000}ms
+                        <a class="next">next</a>
+                    </div>
 return
                 <span>
                 <div id="sidebar">
@@ -43,13 +52,7 @@ return
                 </div>
                 <div id="results">
                     <br/><br/><br/>
-                    <div id="result-metrics">
-                        <a class="previous">prev</a>
-                        Retrieved Articles {$response-start/data()} to {fn:min(($response-total/data(),$response-start/data() + $response-page-length/data() - 1))} 
-                        of {$response-total/data()} total results in 
-                        {xs:decimal(fn:substring-before(fn:substring($search-response/search:metrics/search:query-resolution-time/text(),3),"S"))*1000}ms
-                        <a class="next">next</a>
-                    </div>
+                    { $result-metrics }
                     {
                       for $uri in $mpeg21-docs-uri
                       let $uriSuffix := substring($uri, 20)
@@ -104,5 +107,6 @@ return
                             </span>
                         </div> 
                       }
+                      { if ($response-total > 0) then $result-metrics else () }
                   </div>
                   </span>

@@ -1,15 +1,15 @@
 #searchbar {
+  margin-left: 30%;
+  width: 90%;
+  position: fixed;
 }
 #sbox {
-  margin-left: 30%;
-  width: 50%;
   font-size: 30px;
-  position: fixed;
 }
 #sidebar {
   float: left;
   width: 24%;
-  height: 100%;
+  height: 98%;
   overflow-y: auto;
   overflow-x: hidden;
   position: fixed;
@@ -17,7 +17,7 @@
 #results {
   margin-left: 25%;
 }
-#result-metrics {
+.result-metrics {
   margin-left: 15%;
 }
 #chiclet-box {
