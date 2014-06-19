@@ -43,9 +43,24 @@ span.more-button, span.less-button {
   color: blue;
   text-decoration: underline;
 }
+span.more-button, span.less-button {
+  margin-left: 5px;
+}
 span.chiclet {
   margin-left: 5px;
 }
 .hidden {
   display:none;
+}
+div.facet-box {
+  outline: thin solid black; 
+  margin-right: 10px; 
+  margin-left: 5px;
+}
+div.facet-box > h3 {
+  text-align:center;
+  background-color: #eee;
+}
+span.count {
+  color: gray;
 }
