@@ -12,7 +12,7 @@ declare variable $OPTIONS :=
 
  <search:options xmlns="http://marklogic.com/appservices/search">
   <search:search-option>filtered</search:search-option>  <!-- [SUPPORT !11762] -->
-  <search:debug>false</search:debug>
+  <search:debug>true</search:debug>
   <search:term>
    <search:empty apply="all-results"/>
    <search:term-option>wildcarded</search:term-option>
@@ -111,6 +111,11 @@ declare variable $OPTIONS :=
     <search:value>
       <search:element ns="" name="article-title"/>
     </search:value>
+    <!--<search:range type="xs:string" facet="false" collation="http://marklogic.com/collation/en/S1">
+      <search:path-index>
+        /didl:DIDL/didl:Item/didl:Descriptor[@id='d400']/didl:Statement/article-meta/title-group/article-title
+      </search:path-index>
+    </search:range>-->
   </search:constraint>  
   
   <search:constraint name="year">
@@ -158,6 +163,14 @@ declare variable $OPTIONS :=
     <search:state name="pub-date">
       <search:sort-order direction="descending" type="xs:date">
         <search:element ns="http://www.massmed.org/elements/" name="publicationDate"/>
+      </search:sort-order>
+      <search:sort-order>
+        <search:score/>
+      </search:sort-order>
+    </search:state>
+    <search:state name="title">
+      <search:sort-order direction="ascending" type="xs:string" collation="http://marklogic.com/collation/">
+        <search:element ns="" name="article-title"/>
       </search:sort-order>
       <search:sort-order>
         <search:score/>

@@ -23,7 +23,7 @@ let $highlight-query     := let $temp := fn:tokenize($query,$DELIM)[1] (: get th
                                    then ""
                                    else $temp
 
-let $search-query := fn:concat(fn:replace($query, $DELIM, " "), " sort:", $sort)
+let $search-query := fn:concat(fn:replace($query, $DELIM, " "), ' sort:"', $sort, '"')
 let $search-response := search-lib:my-search($search-query, $start, $page-length)
 
 let $response-total := $search-response/@total
@@ -37,17 +37,17 @@ let $result-metrics :=
                         <a class="previous">prev</a>
                         Retrieved Articles {$response-start/data()} to {fn:min(($response-total/data(),$response-start/data() + $response-page-length/data() - 1))} 
                         of {$response-total/data()} total results in 
-                        {xs:decimal(fn:substring-before(fn:substring($search-response/search:metrics/search:query-resolution-time/text(),3),"S"))*1000}ms
+                        {xs:decimal(fn:substring-before(fn:substring($search-response/search:metrics/search:total-time/text(),3),"S"))*1000}ms
                         <a class="next">next</a>
                     </div>
 return
-                <span>
+                <span>{$search-response}
                 <div id="sidebar">
                   {
                     sidebar:create-chiclets($query)
                   }
                   {
-                    sidebar:create-facets($facets, $highlight-query)
+                    sidebar:create-facets($facets)
                   }
                 </div>
                 <div id="results">
@@ -81,7 +81,7 @@ return
                                   { extract-data:get-pub-date($article) }
                             |     { extract-data:get-journal-title($article) } 
                             |     { extract-data:get-volume-page($article) }
-                            </span>
+                            </span><br/>
                             <span style="font-family: Arial, Helvetica, sans-serif;font-size: 13px;line-height: 15px;font-weight: normal;color: #000000;margin-top: 0;margin-right: 0;margin-bottom: 15px;margin-left: 0;padding: 0;">
                                   { 
                                      let $abstract := extract-data:get-abstract($article)
