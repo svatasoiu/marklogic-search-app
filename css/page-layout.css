@@ -1,66 +1,84 @@
-#searchbar {
-  margin-left: 30%;
-  width: 90%;
-  position: fixed;
+#searchbar{
+    margin-left:30%;
+    width:90%;
+    position:fixed;
 }
-#sbox {
-  font-size: 30px;
+#sbox{
+    font-size:30px;
 }
-#sidebar {
-  float: left;
-  width: 24%;
-  height: 98%;
-  overflow-y: auto;
-  overflow-x: hidden;
-  position: fixed;
+.demo-section{
+    width:30%;
 }
-#results {
-  margin-left: 25%;
+.demo-section h2{
+    font-weight:normal;
 }
-.result-metrics {
-  margin-left: 15%;
+.demo-section label{
+    display:inline-block;
+    margin:15px 0 5px 0;
 }
-#chiclet-box {
-  outline: thin solid black; 
-  border-spacing: 5px 1em; 
-  background-color:#eee;
-  margin-right: 10px;
+.demo-section select{
+    width:30%;
 }
-.result-title { 
-  outline: thin solid black; 
-  border-spacing: 5px 1em; 
-  margin-top:10px; 
+#sidebar{
+    float:left;
+    width:24%;
+    height:98%;
+    overflow-y:auto;
+    overflow-x:hidden;
+    position:fixed;
 }
-.result-title:nth-child(even) { 
-  background-color:#eee;
- }
-.result-title:nth-child(odd) {
-  background-color:#fff;
- }
-a.next, a.previous, span.constraint, span.chiclet, 
-span.more-button, span.less-button {
-  cursor: pointer;
-  color: blue;
-  text-decoration: underline;
+#results{
+    margin-left:25%;
 }
-span.more-button, span.less-button {
-  margin-left: 5px;
+.result-metrics{
+    margin-left:15%;
 }
-span.chiclet {
-  margin-left: 5px;
+#chiclet-box{
+    outline:thin solid black;
+    border-spacing:5px 1em;
+    background-color:#eee;
+    margin-right:10px;
 }
-.hidden {
-  display:none;
+.result-title{
+    outline:thin solid black;
+    border-spacing:5px 1em;
+    margin-top:10px;
 }
-div.facet-box {
-  outline: thin solid black; 
-  margin-right: 10px; 
-  margin-left: 5px;
+.result-title:nth-child(even){
+    background-color:#eee;
 }
-div.facet-box > h3 {
-  text-align:center;
-  background-color: #eee;
+.result-title:nth-child(odd){
+    background-color:#fff;
 }
-span.count {
-  color: gray;
+a.next,
+a.previous,
+span.constraint,
+span.chiclet,
+span.more-button,
+span.less-button{
+    cursor:pointer;
+    color:blue;
+    text-decoration:underline;
+}
+span.more-button,
+span.less-button{
+    margin-left:5px;
+}
+span.chiclet{
+    margin-left:5px;
+}
+.hidden{
+    display:none;
+}
+div.facet-box{
+    outline:thin solid black;
+    margin-right:10px;
+    margin-left:5px;
+}
+div.facet-box > h3{
+    text-align:center;
+    background-color:#eee;
+}
+span.count{
+    color:gray;
 }

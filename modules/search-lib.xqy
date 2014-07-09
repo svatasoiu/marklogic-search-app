@@ -161,7 +161,7 @@ declare variable $OPTIONS :=
     </search:state>
     -->
     <search:state name="pub-date">
-      <search:sort-order direction="descending" type="xs:date">
+      <search:sort-order direction="descending" type="xs:string" collation="http://marklogic.com/collation/">
         <search:element ns="http://www.massmed.org/elements/" name="publicationDate"/>
       </search:sort-order>
       <search:sort-order>
@@ -178,7 +178,7 @@ declare variable $OPTIONS :=
     </search:state>
   </search:operator>
 
-  <search:return-query xmlns="http://marklogic.com/appservices/search">false</search:return-query>
+  <search:return-query xmlns="http://marklogic.com/appservices/search">true</search:return-query>
   <search:return-facets xmlns="http://marklogic.com/appservices/search">true</search:return-facets>
   <search:return-metrics xmlns="http://marklogic.com/appservices/search">true</search:return-metrics>
 </search:options> ;
@@ -192,7 +192,24 @@ as xs:integer {
       
 declare function search-lib:my-search($search-query as item()*,
    $start as item()*,
-   $page-length as item()*) 
+   $page-length as item()*,
+   $query-string as xs:string,
+   $targets as xs:string?) 
 as element(search:response) {
-    search:search($search-query, $OPTIONS, $start, $page-length)
+    if ($targets)
+    then let $targets := fn:tokenize($targets, ",")
+         let $additional-query := 
+                         <additional-query xmlns="http://marklogic.com/appservices/search">
+                           { cts:or-query( 
+                                for $target in $targets
+                                return cts:element-word-query(fn:QName("", $target),
+                                                    $query-string,
+                                                    ("case-insensitive", "punctuation-insensitive"))) }
+                         </additional-query>
+         let $options := <options xmlns="http://marklogic.com/appservices/search">
+                           {$OPTIONS/*}
+                           { $additional-query }
+                         </options>
+         return search:search($search-query, $options, $start, $page-length)
+    else search:search($search-query, $OPTIONS, $start, $page-length)
 };

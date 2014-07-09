@@ -17,6 +17,7 @@ let $query               := xdmp:get-request-field("query")
 let $sort                := xdmp:get-request-field("sort", "relevance")
 let $start               := search-lib:get-with-default-int(xdmp:get-request-field("start"), 1)
 let $page-length         := search-lib:get-with-default-int(xdmp:get-request-field("pageLength"), 10)
+let $target              := xdmp:get-request-field("target")
 
 let $highlight-query     := let $temp := fn:tokenize($query,$DELIM)[1] (: get the pure text, without constraints :)
                             return if (fn:contains($temp, "[:]"))
@@ -24,13 +25,12 @@ let $highlight-query     := let $temp := fn:tokenize($query,$DELIM)[1] (: get th
                                    else $temp
 
 let $search-query := fn:concat(fn:replace($query, $DELIM, " "), ' sort:"', $sort, '"')
-let $search-response := search-lib:my-search($search-query, $start, $page-length)
+let $search-response := search-lib:my-search($search-query, $start, $page-length, $highlight-query, $target)
 
 let $response-total := $search-response/@total
 let $response-start := $search-response/@start
 let $response-page-length := $search-response/@page-length
-let $mpeg21-docs-uri := $search-response/search:result/@uri
-    
+ 
 let $facets := $search-response/search:facet
 let $result-metrics := 
                    <div class="result-metrics">
@@ -41,7 +41,7 @@ let $result-metrics :=
                         <a class="next">next</a>
                     </div>
 return
-                <span>{$search-response}
+                <span>
                 <div id="sidebar">
                   {
                     sidebar:create-chiclets($query)
@@ -50,11 +50,13 @@ return
                     sidebar:create-facets($facets)
                   }
                 </div>
-                <div id="results">
+                <div id="results">{$search-response}
                     <br/><br/><br/>
                     { $result-metrics }
                     {
-                      for $uri in $mpeg21-docs-uri
+                    (:let $mpeg21-docs-uri := $search-response/search:result/@uri:)
+                      for $result in $search-response/search:result
+                      let $uri := $result/@uri
                       let $uriSuffix := substring($uri, 20)
                       let $article := fn:doc($uri)
                       return 

@@ -3,13 +3,26 @@
     <head>
         <title>NEJM Search</title>
         <script src="/application/lib/external/jquery-1.7.1.min.js" type="text/javascript"></script>
+        <link href="http://cdn.kendostatic.com/2014.1.416/styles/kendo.common.min.css" rel="stylesheet" />
+        <link href="http://cdn.kendostatic.com/2014.1.416/styles/kendo.default.min.css" rel="stylesheet" />
+        <script src="http://cdn.kendostatic.com/2014.1.416/js/kendo.ui.core.min.js" type="text/javascript"></script> 
         <script src="search.js" type="text/javascript"></script>
-        <link type="text/css" rel="stylesheet" href="/css/page-layout.css"
-            media="screen, print" />
+        <link type="text/css" rel="stylesheet" href="/css/page-layout.css" media="screen, print" />
     </head>
     <body>
         <div id="searchbar">
             <input id="sbox" type="text" placeholder="Search" />
+            <!--<input id="tbox" type="text" placeholder="Target" />-->
+            
+            <div class="demo-section k-header">
+                <select id="tbox" multiple="multiple" data-placeholder="Targets...">
+                    <option>article-title</option>
+                    <option>subject</option>
+                    <option>abstract</option>
+                    <option>publisher-name</option>
+                </select>
+            </div>
+            
             <input type="radio" name="sort" value="relevance">Relevance</input>
             <input type="radio" name="sort" value="pub-date">Pub Date</input>
             <input type="radio" name="sort" value="title">Title</input>
