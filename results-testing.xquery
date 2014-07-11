@@ -50,8 +50,8 @@ return
                     sidebar:create-facets($facets)
                   }
                 </div>
-                <div id="results">{$search-response}
-                    <br/><br/><br/>
+                <div id="results">
+                    <br/><br/><br/><br/><br/>
                     { $result-metrics }
                     {
                     (:let $mpeg21-docs-uri := $search-response/search:result/@uri:)

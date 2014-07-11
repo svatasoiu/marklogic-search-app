@@ -19,6 +19,7 @@ import module namespace specialties  = "http://www.nejm.org/specialties"
 
 declare namespace cts = "http://marklogic.com/cts";
 
+declare variable $CATEGORY-PATH := "/didl:DIDL/didl:Item/didl:Descriptor[@id='d400']/didl:Statement/article-meta/article-categories/subj-group[@subj-group-type='heading']/subject";
 declare variable $TOPIC-TABLE := topics:get-topics();
 declare variable $SPEC-TABLE  := specialties:get-specialties();
 declare variable $SPECIALTY-PATH := "/didl:DIDL/didl:Item/didl:Descriptor[@id='d310']/didl:Statement/subj-group/subj-group/subject";
@@ -26,6 +27,73 @@ declare variable $TOPIC-PATH := "/didl:DIDL/didl:Item/didl:Descriptor[@id='d310'
 declare variable $COLLATION := "collation=http://marklogic.com/collation/en/S1";
 
 declare variable $OPTIONS := ("case-insensitive","punctuation-insensitive","diacritic-insensitive");
+
+declare function custom-field-query:start (
+ $constraint as element(search:constraint),
+ $query as cts:query?,
+ $facet-options as xs:string*,
+ $quality-weight as xs:double?,
+ $forests as xs:unsignedLong*,
+ $path as xs:string) 
+as item()* {
+    for $item in cts:values(cts:path-reference($path, ($COLLATION)),
+                                 (),
+                                 ($facet-options,"concurrent"),
+                                 $query,
+                                 $quality-weight,
+                                 $forests)
+    return <item-type name="{$item}" count="{cts:frequency($item)}"/>
+};
+
+declare function custom-field-query:finish (
+ $start as item()*,
+ $constraint as element(search:constraint), 
+ $query as cts:query?,
+ $facet-options as xs:string*,
+ $quality-weight as xs:double?, 
+ $forests as xs:unsignedLong*)
+as element(search:facet) {
+   element search:facet {
+     attribute name {$constraint/@name},
+     for $range in $start 
+     return 
+        element search:facet-value { 
+            attribute name { $range/@name }, 
+            attribute count { $range/@count },
+            fn:string($range/@name)
+        }
+   }
+};
+
+declare function custom-field-query:category (
+	$qtext as xs:string,
+	$right as schema-element(cts:query)) 
+as schema-element(cts:query)	
+{
+    <root>{
+        let $category := fn:string($right//cts:text/text())
+        return
+            if ($qtext eq "category:") then 
+               cts:element-query(xs:QName("didl:Descriptor"), 
+                   cts:and-query((cts:element-attribute-value-query(xs:QName("didl:Descriptor"),
+                                                                    xs:QName("id"),
+                                                                    "d400"),
+                                  cts:element-value-query ( xs:QName ("subject"), $category )
+                   ))
+               )
+            else ()    
+	}</root>/*
+};
+
+declare function custom-field-query:start-category (
+ $constraint as element(search:constraint),
+ $query as cts:query?,
+ $facet-options as xs:string*,
+ $quality-weight as xs:double?,
+ $forests as xs:unsignedLong*) 
+as item()* {
+    start($constraint,$query, $facet-options, $quality-weight, $forests, $CATEGORY-PATH)
+};
 
 (: 
    Returns a cts-query that searches documents with elements named "Identifier" having values enumerated in the $doi-list.
@@ -197,31 +265,22 @@ as schema-element(cts:query)
 	}</root>/*
 };
 
-
-(: 
-   Returns a cts-query that searches documents with elements named "Identifier" having values enumerated in the $doi-list.
-
-   The $doi-list is a list of doi's of documents having the given subject .
-:)
-
 declare function custom-field-query:authorSurname (
 	$qtext as xs:string,
 	$right as schema-element(cts:query)) 
 as schema-element(cts:query)	
 {
-
     <root>{
-
-        let $authorSurname := fn:string($right//cts:text/text())
+        let $author := fn:string($right//cts:text/text())
         return
-            if($qtext eq "authorSurname:") then (
-                 cts:path-range-query (  "/didl:DIDL/didl:Item/didl:Descriptor[@id='d400']/didl:Statement/article-meta/contrib-group/contrib[@contrib-type='author']/name/surname",
-                                         "=",
-                                         $authorSurname,
-                                         "collation=http://marklogic.com/collation/"
-                                      )            
-            ) else ()
-            
+            if ($qtext eq "authorSurname:") then 
+               cts:element-query(xs:QName("didl:Descriptor"), 
+                   cts:and-query((cts:element-attribute-value-query(xs:QName("didl:Descriptor"),
+                                                                    xs:QName("id"),
+                                                                    "d400"),
+                                  cts:element-value-query ( xs:QName ("surname"), $author )
+                   ))
+               )
+            else ()    
 	}</root>/*
 };
-

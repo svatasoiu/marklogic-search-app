@@ -12,7 +12,7 @@ declare variable $OPTIONS :=
 
  <search:options xmlns="http://marklogic.com/appservices/search">
   <search:search-option>filtered</search:search-option>  <!-- [SUPPORT !11762] -->
-  <search:debug>true</search:debug>
+  <search:debug>false</search:debug>
   <search:term>
    <search:empty apply="all-results"/>
    <search:term-option>wildcarded</search:term-option>
@@ -39,23 +39,28 @@ declare variable $OPTIONS :=
     { cts:directory-query($DIRECTORY, "infinity") }
   </search:additional-query>
   
-  <search:constraint name="century">
-    <search:range type="xs:gYear" facet="true">
-      <search:path-index>
-        /didl:DIDL/didl:Item/didl:Descriptor[@id="d400"]/didl:Statement/article-meta/pub-date/year
-      </search:path-index>
-      <search:bucket name="1800s" lt="1900">1800-1899</search:bucket>
-      <search:bucket name="1900s" ge="1900" lt="2000">1900-1999</search:bucket>
-      <search:bucket name="2000s" ge="2000">2000-</search:bucket>
-    </search:range>
-  </search:constraint>
+  <constraint name="date" xmlns="http://marklogic.com/appservices/search">
+    <range type="xs:date" facet="true">
+      <element ns="http://www.massmed.org/elements/" name="publicationDate"/>
+      <computed-bucket lt="-P1Y" anchor="start-of-year" name="older">Older</computed-bucket>
+      <computed-bucket lt="P1Y" ge="P0Y" anchor="start-of-year" name="year">This Year</computed-bucket>
+      <computed-bucket lt="P0D" ge="-P90D" anchor="start-of-day" name="90days">Past 90 Days</computed-bucket>
+      <computed-bucket lt="P1M" ge="P0M" anchor="start-of-month" name="month">This Month</computed-bucket>
+      <computed-bucket lt="P1D" ge="P0D" anchor="start-of-day" name="today">Today</computed-bucket>
+      <computed-bucket ge="P0D" anchor="now" name="future">Future</computed-bucket>
+      <facet-option>descending</facet-option>
+    </range>
+  </constraint>
   
   <search:constraint name="category">
-    <search:range type="xs:string" facet="true" collation="http://marklogic.com/collation/en/S1">
-      <search:path-index>
-        /didl:DIDL/didl:Item/didl:Descriptor[@id='d400']/didl:Statement/article-meta/article-categories/subj-group[@subj-group-type='heading']/subject
-      </search:path-index>
-    </search:range>
+    <search:custom facet="true">
+	     <search:parse apply="category" ns="http://www.nejm.org/custom-field-query" 
+	       at="/modules/custom-fields.xqy"/>
+	       <search:start-facet apply="start-category" ns="http://www.nejm.org/custom-field-query" 
+	       at="/modules/custom-fields.xqy"/>
+	     <search:finish-facet apply="finish" ns="http://www.nejm.org/custom-field-query" 
+	       at="/modules/custom-fields.xqy"/>
+	  </search:custom>
   </search:constraint>
   
   <search:constraint name="topic">
@@ -81,11 +86,10 @@ declare variable $OPTIONS :=
   </search:constraint>
   
    <search:constraint name="authorSurname">
-	 <search:range type="xs:string" facet="false" collation="http://marklogic.com/collation/en/S1">
-      <search:path-index>
-        /didl:DIDL/didl:Item/didl:Descriptor[@id='d400']/didl:Statement/article-meta/contrib-group/contrib[@contrib-type='author']/name/surname
-      </search:path-index>
-    </search:range>
+	 <search:custom facet="false">
+	     <search:parse apply="authorSurname" ns="http://www.nejm.org/custom-field-query" 
+	       at="/modules/custom-fields.xqy"/>
+	 </search:custom>
   </search:constraint>  
    
   <!-- 
@@ -111,11 +115,6 @@ declare variable $OPTIONS :=
     <search:value>
       <search:element ns="" name="article-title"/>
     </search:value>
-    <!--<search:range type="xs:string" facet="false" collation="http://marklogic.com/collation/en/S1">
-      <search:path-index>
-        /didl:DIDL/didl:Item/didl:Descriptor[@id='d400']/didl:Statement/article-meta/title-group/article-title
-      </search:path-index>
-    </search:range>-->
   </search:constraint>  
   
   <search:constraint name="year">
@@ -124,17 +123,6 @@ declare variable $OPTIONS :=
 	       at="/modules/custom-fields.xqy"/>
 	  </search:custom>
   </search:constraint>
-
-  <!--<search:constraint name="category">
-	  <search:custom facet="true">
-	     <search:parse apply="category" ns="http://www.nejm.org/custom-field-query" 
-	       at="/modules/custom-fields.xqy"/>
-	     <search:start-facet apply="category-start" ns="http://www.nejm.org/custom-field-query" 
-	       at="/modules/custom-fields.xqy"/>
-         <search:finish-facet apply="category-finish" ns="http://www.nejm.org/custom-field-query" 
-	       at="/modules/custom-fields.xqy"/>
-	  </search:custom>
-  </search:constraint>-->
 
   <search:constraint name="manuscriptId">
 	  <search:custom facet="false">
@@ -148,18 +136,6 @@ declare variable $OPTIONS :=
         <search:score/>
       </search:sort-order>
     </search:state>
-    <!--
-    <search:state name="pub-date">
-      <search:sort-order direction="descending" type="xs:date">
-        <search:path-index>
-          /didl:DIDL/didl:Item/didl:Descriptor[@id='d100']/didl:Statement/mms:publicationDate
-        </search:path-index>
-      </search:sort-order>
-      <search:sort-order>
-        <search:score/>
-      </search:sort-order>
-    </search:state>
-    -->
     <search:state name="pub-date">
       <search:sort-order direction="descending" type="xs:string" collation="http://marklogic.com/collation/">
         <search:element ns="http://www.massmed.org/elements/" name="publicationDate"/>
@@ -178,7 +154,7 @@ declare variable $OPTIONS :=
     </search:state>
   </search:operator>
 
-  <search:return-query xmlns="http://marklogic.com/appservices/search">true</search:return-query>
+  <search:return-query xmlns="http://marklogic.com/appservices/search">false</search:return-query>
   <search:return-facets xmlns="http://marklogic.com/appservices/search">true</search:return-facets>
   <search:return-metrics xmlns="http://marklogic.com/appservices/search">true</search:return-metrics>
 </search:options> ;

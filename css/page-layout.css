@@ -1,23 +1,16 @@
 #searchbar{
     margin-left:30%;
-    width:90%;
+    width:100%;
     position:fixed;
 }
 #sbox{
     font-size:30px;
 }
 .demo-section{
-    width:30%;
-}
-.demo-section h2{
-    font-weight:normal;
-}
-.demo-section label{
-    display:inline-block;
-    margin:15px 0 5px 0;
+    width:25%;
 }
 .demo-section select{
-    width:30%;
+    width:25%;
 }
 #sidebar{
     float:left;
