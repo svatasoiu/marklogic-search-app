@@ -12,7 +12,7 @@ declare variable $OPTIONS :=
 
  <search:options xmlns="http://marklogic.com/appservices/search">
   <search:search-option>filtered</search:search-option>  <!-- [SUPPORT !11762] -->
-  <search:debug>false</search:debug>
+  <search:debug>true</search:debug>
   <search:term>
    <search:empty apply="all-results"/>
    <search:term-option>wildcarded</search:term-option>

@@ -3,15 +3,15 @@ $(document).ready(function () {
     targets = $("#tbox").kendoMultiSelect().data("kendoMultiSelect");
 
     $("#sbox").keyup(function () {
-                if (event.keyCode == 13) {
-                getData();
-//        var currQuery = $(this).attr("value");
-//        // only send request if the query actually changed (i.e. don't react to ALT or CTRL presses)
-//        if (lastQuery !== currQuery) {
-//            lastQuery = currQuery;
-//            getData();
-//        }
-                }
+//                if (event.keyCode == 13) {
+//                getData();
+        var currQuery = $(this).attr("value");
+        // only send request if the query actually changed (i.e. don't react to ALT or CTRL presses)
+        if (lastQuery !== currQuery) {
+            lastQuery = currQuery;
+            getData();
+        }
+//                }
     });
 });
 
@@ -75,12 +75,12 @@ function removeConstraint(constraint) {
 function update() {
     if (http.readyState == 4) {
         // check if you need to get another update (i.e. if the user was typing while the search was going on)
-//        if (nextQuery) {
-//            isWorking = false;
-//            getData(false);
-//        } else {
-//            isWorking = false;
-//        }
+        if (nextQuery) {
+            isWorking = false;
+            getData(false);
+        } else {
+            isWorking = false;
+        }
         
         $("#wo").html(http.responseText);
         isWorking = false;
@@ -88,12 +88,12 @@ function update() {
 }
 
 function getData(newStart) {
-//    if (isWorking) {
-//        // if isWorking, store query
-//        nextQuery = true;
-//    } else 
+    if (isWorking) {
+        // if isWorking, store query
+        nextQuery = true;
+    } else 
     if (!isWorking && http) {
-//        nextQuery = false;
+        nextQuery = false;
     
         // default newStart boolean to true
         if (typeof (newStart) === 'undefined') newStart = true;
