@@ -2,6 +2,9 @@
 $(document).ready(function () {
     targets = $("#tbox").kendoMultiSelect().data("kendoMultiSelect");
 
+    var multiselect = $("#tbox").data("kendoMultiSelect");
+    multiselect.bind("change", getData);
+    
     $("#sbox").keyup(function () {
 //                if (event.keyCode == 13) {
 //                getData();
@@ -9,6 +12,8 @@ $(document).ready(function () {
         // only send request if the query actually changed (i.e. don't react to ALT or CTRL presses)
         if (lastQuery !== currQuery) {
             lastQuery = currQuery;
+            getData();
+        } else if (event.keyCode == 13) {
             getData();
         }
 //                }
