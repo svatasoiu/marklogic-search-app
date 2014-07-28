@@ -48,7 +48,8 @@ a.previous,
 span.constraint,
 span.chiclet,
 span.more-button,
-span.less-button{
+span.less-button,
+.export{
     cursor:pointer;
     color:blue;
     text-decoration:underline;
@@ -74,4 +75,7 @@ div.facet-box > h3{
 }
 span.count{
     color:gray;
+}
+.export {
+    margin-left: 10px;
 }

@@ -1,13 +1,13 @@
 // setup key listener on search box
 $(document).ready(function () {
     targets = $("#tbox").kendoMultiSelect().data("kendoMultiSelect");
-
+    
     var multiselect = $("#tbox").data("kendoMultiSelect");
     multiselect.bind("change", getData);
     
     $("#sbox").keyup(function () {
-//                if (event.keyCode == 13) {
-//                getData();
+        //                if (event.keyCode == 13) {
+        //                getData();
         var currQuery = $(this).attr("value");
         // only send request if the query actually changed (i.e. don't react to ALT or CTRL presses)
         if (lastQuery !== currQuery) {
@@ -16,7 +16,7 @@ $(document).ready(function () {
         } else if (event.keyCode == 13) {
             getData();
         }
-//                }
+        //                }
     });
 });
 
@@ -66,6 +66,12 @@ $(document).on("click", "span.less-button", function () {
     $(this).removeClass("less-button");
 });
 
+$(document).on("click", ".export", function () {
+    var format = $(this).attr("type");
+    
+    window.open(createQString("&format=" + format + "&pageLength="));
+});
+
 function addConstraint(constraint) {
     constraints.push(constraint);
 }
@@ -96,25 +102,15 @@ function getData(newStart) {
     if (isWorking) {
         // if isWorking, store query
         nextQuery = true;
-    } else 
-    if (!isWorking && http) {
+    } else
+    if (! isWorking && http) {
         nextQuery = false;
-    
+        
         // default newStart boolean to true
         if (typeof (newStart) === 'undefined') newStart = true;
         if (newStart) start = 1;
-        
-        var q = $("#sbox").attr("value");
-        var qString = q;
-        
-        // add in constraints
-        for (var i = 0; i < constraints.length;++ i) {
-            qString += delim + constraints[i];
-        }
-        
-        // add sorting option
-        var sort = $('input[@name="sort"]:checked').val();
-        qString = "results-testing.xquery?query=" + qString + "&start=" + start + "&sort=" + sort + "&target=" + targets.value();
+
+        qString = createQString();
         
         http.open("GET", qString, true);
         http.onreadystatechange = update;
@@ -122,6 +118,23 @@ function getData(newStart) {
         isWorking = true;
         http.send(null);
     }
+}
+
+function createQString(additional) {
+    var q = $("#sbox").attr("value");
+    var qString = q;
+    
+    // add in constraints
+    for (var i = 0; i < constraints.length;++ i) {
+        qString += delim + constraints[i];
+    }
+    
+    // add sorting option
+    var sort = $('input[@name="sort"]:checked').val();
+    qString = "results-testing.xquery?query=" + qString + "&start=" + start + "&sort=" + sort + "&target=" + targets.value();
+    if (additional) qString += additional;
+    
+    return qString;
 }
 
 function getHTTPObject() {
