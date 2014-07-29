@@ -1,6 +1,12 @@
 xquery version "1.0-ml";
 
-module namespace specialties = "http://www.nejm.org/topics";
+module namespace specialties = "http://www.nejm.org/specialties";
+
+declare variable $SPEC-TABLE  := specialties:get-specialties();
+
+declare function specialties:id-to-str($id as xs:string) as xs:string {
+    fn:string($SPEC-TABLE/specialty[@id eq $id]/@spec)
+};
 
 declare function specialties:get-specialties() as element(specialties)
 { <specialties>

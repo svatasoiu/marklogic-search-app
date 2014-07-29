@@ -129,7 +129,7 @@ as item()* {
                                  $query,
                                  $quality-weight,
                                  $forests)
-    let $spec-name := fn:string($SPEC-TABLE/specialty[@id eq $spec]/@spec)
+    let $spec-name := specialties:id-to-str($spec)
     order by $spec-name
     return <specialty-type spec="{$spec-name}" count="{cts:frequency($spec)}"/>
 };
@@ -188,7 +188,7 @@ as item()* {
                                  $query,
                                  $quality-weight,
                                  $forests)
-    let $top-name := fn:string($TOPIC-TABLE/topic[@id eq $top]/@top)
+    let $top-name := topics:id-to-str($top)
     order by $top-name
     return <topic-type top="{$top-name}" count="{cts:frequency($top)}"/>
 };

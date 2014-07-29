@@ -48,7 +48,7 @@ return
     if ($format and formats:has-format($format))
     then formats:get-format($search-response, $format)
     else 
-                <span>{$search-response}
+                <span>
                 <div id="sidebar">
                   {
                     sidebar:create-chiclets($query)

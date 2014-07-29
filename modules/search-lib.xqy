@@ -184,9 +184,17 @@ as element(search:response) {
                          <additional-query xmlns="http://marklogic.com/appservices/search">
                            { cts:or-query( 
                                 for $target in $targets
-                                return cts:element-word-query(fn:QName("", $target),
+                                return (if ($target eq "images")
+                                       then cts:element-word-query(
+                                                (fn:QName("http://www.massmed.org/elements/","label"),
+                                                  fn:QName("http://www.massmed.org/elements/","title"),
+                                                  fn:QName("http://www.massmed.org/elements/","caption")),
+                                                $query-string,
+                                                ("case-insensitive", "punctuation-insensitive"))
+                                       else cts:element-word-query(fn:QName("",$target),
                                                     $query-string,
-                                                    ("case-insensitive", "punctuation-insensitive"))) }
+                                                    ("case-insensitive", "punctuation-insensitive")))
+                             ) }
                          </additional-query>
          let $options := <options xmlns="http://marklogic.com/appservices/search">
                            {$OPTIONS/*}
