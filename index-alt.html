@@ -10,6 +10,10 @@
         <link type="text/css" rel="stylesheet" href="/css/page-layout.css" media="screen, print" />
     </head>
     <body>
+        <div id="head">
+            <img src="images/Marklogic-logo.jpg" alt="" id="logo"/>
+        </div>
+        <br/>
         <div id="searchbar">
             <input id="sbox" type="text" placeholder="Search" />
             <!--<input id="tbox" type="text" placeholder="Target" />-->
@@ -22,11 +26,14 @@
                     <option>images</option>
                 </select>
             </div>
-            
-            <input type="radio" name="sort" value="relevance">Relevance</input>
-            <input type="radio" name="sort" value="pub-date">Pub Date</input>
-            <input type="radio" name="sort" value="title">Title</input>
+            <div>
+                <b>Sorted By: </b>
+                <input type="radio" name="sort" value="relevance">Relevance</input>
+                <input type="radio" name="sort" value="pub-date">Pub Date</input>
+                <input type="radio" name="sort" value="title">Title</input>
+            </div>
         </div>
+        <br/>
         <div id="wo"></div>
     </body>
 </html>

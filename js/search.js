@@ -94,6 +94,7 @@ function update() {
         }
         
         $("#wo").html(http.responseText);
+        window.scrollTo(0,0);
         isWorking = false;
     }
 }

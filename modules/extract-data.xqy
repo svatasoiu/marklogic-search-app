@@ -71,11 +71,11 @@ declare function extract-data:get-images($article as document-node()) as element
         </a>
 };
 
-declare function extract-data:get-nlm-type($article as document-node()) as xs:string {
+declare function extract-data:get-nlm-type($article as document-node()) as xs:string? {
     $article/didl:DIDL/didl:Item/didl:Descriptor[@id='d200']/didl:Statement/mms:articleType/text()
 };
 
-declare function extract-data:get-journal-meta($article as document-node()) as element(journal-meta) {
+declare function extract-data:get-journal-meta($article as document-node()) as element(journal-meta)? {
     $article/didl:DIDL/didl:Item/didl:Descriptor[@id="d300"]/didl:Statement/journal-meta
 };
 
@@ -83,7 +83,7 @@ declare function extract-data:get-publisher-from-jmeta($meta as element(journal-
     $meta/publisher/publisher-name/text()
 };
 
-declare function extract-data:get-article-meta($article as document-node()) as element(article-meta) {
+declare function extract-data:get-article-meta($article as document-node()) as element(article-meta)? {
     $article/didl:DIDL/didl:Item/didl:Descriptor[@id="d400"]/didl:Statement/article-meta
 };
 
@@ -164,3 +164,51 @@ declare function extract-data:get-author-degree($authors as element(contrib)*) a
 declare function extract-data:get-author-given-name($author as element(name)) as xs:string? {
     $author/given-names/text()
 };
+
+declare function extract-data:get-renditions($article as document-node()) as element(span) {
+    let $renditions := $article/didl:DIDL/didl:Item/didl:Container[@id="Renditions"]
+    let $free := $article/didl:DIDL/didl:Item[1]/didl:Descriptor[@id="d250"]/didl:Statement/mms:freestatus/text()
+    let $cme := $article/didl:DIDL/didl:Item/didl:Descriptor[@id="d410"]/didl:Statement/has-cme/text()
+    let $xml := $renditions/didl:Component[@id="c100"]/didl:Resource/@ref
+    let $pdf := $renditions/didl:Component[@id="c130"]/didl:Resource/@ref
+    let $ppt := $renditions/didl:Component[@id="c160"]/didl:Resource/@ref
+    let $audio := $article/didl:DIDL/didl:Item/didl:Container[@id="Attachments"]/didl:Component/didl:Descriptor/didl:Statement/rdf:RDF/rdf:Description[dcterms:type="audio"]/dcterms:hasFormat/rdf:Description/dcterms:identifier/text()
+    return
+        <span class="title">
+        {if ($free and $free eq "Free") 
+        then <span><img width="60" height="12" border="0" alt="Free Full Text" title="Free Full Text" src="http://images.nejm.org/hila/etoc/flag_freeFullText.gif"/> | </span>
+        else ()}
+        {if ($cme and $cme eq "true") 
+        then <span><img width="34" height="12" src="http://images.nejm.org/hila/etoc/flag_cme.gif" title="CME Exam" alt="CME Exam"/> | </span>
+        else ()}
+        {if ($pdf) 
+        then <span><a href="{$pdf}" target="_blank">
+                <img height="12" title="Article PDF" alt="Article PDF" src="http://www.nejm.org/templates/jsp/_style2/_mms/_nejm/img/pdfIcon.gif"/>
+                PDF
+             </a> | </span>
+        else ()}
+        {if ($ppt) 
+        then <span><a href="{$ppt}" target="_blank">
+                <img height="12" title="slide" alt="slide" src="http://www.nejm.org/templates/jsp/_style2/_mms/_nejm/img/downloadSlidesIcon.gif"/>
+                Power Point
+             </a> | </span>
+        else ()}
+        {if ($audio) 
+        then for $link in $audio
+             return 
+                if (fn:ends-with($link, ".mp3"))
+                then <span><a href="{$link}" target="_blank">
+                        <img height="12" title="full text audio" alt="full text audio" src="http://www.nejm.org/templates/jsp/_style2/_mms/_nejm/img/listenIcon.gif"/>
+                        Full Text Audio
+                     </a> | </span>
+                else ()
+        else ()}
+        {if ($xml) 
+        then <span><a href="{fn:replace($xml,"markl64stby[.]dom1","mark-ed")}" target="_blank">
+                XML
+             </a></span>
+        else ()}
+        </span>
+};
+
+

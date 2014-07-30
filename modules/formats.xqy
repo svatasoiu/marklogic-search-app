@@ -31,7 +31,7 @@ declare private function create-xml($search-response as element(search:response)
             <QTime type="number">9</QTime>
             <params type="object">
                 <q type="string">{$search-response/search:qtext/text()}</q>
-                <bf name="bf" type="string"/>
+                <bf type="string"/>
                 <wt type="string">xml</wt>
                 <fq type="string"></fq>
             </params>
@@ -77,7 +77,7 @@ declare private function create-xml($search-response as element(search:response)
             <arr name="sub_topic_str" type="array">{for $id in $topic-ids return <str type="string">{topics:id-to-str($id)}</str>}</arr>
             <arr name="sub_topic" type="array">{for $id in $topic-ids return <str type="string">{$id}</str>}</arr>
             <arr name="specialty" type="array">{for $id in $spec-ids return<str type="string">{$id}</str>}</arr>
-            <int name="vips_v" type="number">{$vips/mms:volume/data()}</int>
+            <int name="vips_v" type="string">{$vips/mms:volume/data()}</int>
             <str name="vips_fpage" type="string">{$vips/mms:fpage/data()}</str>
             <str name="vips_i" type="string">{$vips/mms:issue/data()}</str>
             <str name="vips_lpage" type="string">{$vips/mms:lpage/data()}</str>
@@ -120,7 +120,7 @@ declare private function create-xml($search-response as element(search:response)
             <date name="pub_date" type="string">{$pub-date}</date>
             <str name="pub_date_rss" type="string">{$pub-date}</str>
             <str name="pub_date_d" type="string">{$pub-date}</str>
-            <int name="article_pages" type="number">{$vips/mms:lpage/data() - $vips/mms:fpage/data() + 1}</int>
+            <int name="article_pages" type="string">{try {$vips/mms:lpage/data() - $vips/mms:fpage/data() + 1} catch ($excep) {0} }</int>
             <bool name="is_pap" type="boolean">false</bool>
             <bool name="is_free" type="boolean">{extract-data:is-free($article)}</bool>
             <str name="nlm_type" type="string">{extract-data:get-nlm-type($article)}</str>

@@ -1,10 +1,29 @@
-#searchbar{
-    margin-left:30%;
-    width:100%;
-    position:fixed;
+#head{
+    margin-left: 10%;
 }
-#sbox{
+#logo {
+    display:block;
+    margin-left: auto;
+    margin-right: auto;
+    height: 150px;
+}
+#searchbar{
+    margin-left: 7%;
+    width:95%;
+    text-align:center;
+    height: 100px;
+}
+#sbox {
+    width:50%;
     font-size:30px;
+    display:block;
+    margin-left: auto;
+    margin-right: auto;
+}
+#searchbar div {
+    display:block;
+    margin-left: auto;
+    margin-right: auto;
 }
 .demo-section{
     width:25%;
@@ -19,12 +38,16 @@
     overflow-y:auto;
     overflow-x:hidden;
     position:fixed;
+    top: 0px;
 }
 #results{
     margin-left:25%;
 }
 .result-metrics{
-    margin-left:15%;
+    background: #eee;
+}
+.result-metrics div{
+    margin-left:20%;
 }
 #chiclet-box{
     outline:thin solid black;
@@ -43,15 +66,17 @@
 .result-title:nth-child(odd){
     background-color:#fff;
 }
-a.next,
-a.previous,
+.result-title div{
+    padding: 5px;
+}
+a,
 span.constraint,
 span.chiclet,
 span.more-button,
 span.less-button,
 .export{
     cursor:pointer;
-    color:blue;
+    color: #43a4b1;
     text-decoration:underline;
 }
 span.more-button,
@@ -78,4 +103,16 @@ span.count{
 }
 .export {
     margin-left: 10px;
+}
+div.facet-box h3 {
+  background: #FEC293;
+  border: 1px solid #ce9d77;
+  padding: 5px;
+}
+span.title {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 10px;
+    line-height: 12px;
+    font-weight: normal;  
+    margin-top:0;margin-right:0;margin-bottom:0;margin-left:0;padding:0;
 }
