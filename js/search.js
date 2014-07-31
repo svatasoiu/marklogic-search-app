@@ -83,6 +83,16 @@ function removeConstraint(constraint) {
     }
 }
 
+function msie() {
+   var ua = window.navigator.userAgent;
+   var msie = ua.indexOf("MSIE ");
+
+   if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./))      // If Internet Explorer, return version number
+      return true;
+   else                 // If another browser, return 0
+      return false;
+}
+
 function update() {
     if (http.readyState == 4) {
         // check if you need to get another update (i.e. if the user was typing while the search was going on)
@@ -94,6 +104,7 @@ function update() {
         }
         
         $("#wo").html(http.responseText);
+        if (msie()) $("audio").remove();
         window.scrollTo(0,0);
         isWorking = false;
     }
