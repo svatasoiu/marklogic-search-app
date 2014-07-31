@@ -1,6 +1,8 @@
 xquery version "1.0-ml";
 module namespace search-lib = "http://www.marklogic.com/tutorial2/search-lib";
 declare namespace didl="urn:mpeg:mpeg21:2002:02-DIDL-NS";
+declare namespace rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#";
+declare namespace dcterms="http://purl.org/dc/terms/";
 declare namespace custom-field-query = "http://www.xplana.com/custom-field-query";
 
 import module namespace search = "http://marklogic.com/appservices/search"
@@ -12,7 +14,7 @@ declare variable $OPTIONS :=
 
  <search:options xmlns="http://marklogic.com/appservices/search">
   <search:search-option>filtered</search:search-option>  <!-- [SUPPORT !11762] -->
-  <search:debug>true</search:debug>
+  <search:debug>false</search:debug>
   <search:term>
    <search:empty apply="all-results"/>
    <search:term-option>wildcarded</search:term-option>
@@ -182,18 +184,33 @@ as element(search:response) {
     then let $targets := fn:tokenize($targets, ",")
          let $additional-query := 
                          <additional-query xmlns="http://marklogic.com/appservices/search">
-                           { cts:or-query( 
+                           { cts:and-query(
+                                (cts:element-query(fn:QName("","article-meta"), cts:and-query(())), 
                                 for $target in $targets
-                                return (if ($target eq "images")
-                                       then cts:element-word-query(
-                                                (fn:QName("http://www.massmed.org/elements/","label"),
-                                                  fn:QName("http://www.massmed.org/elements/","title"),
-                                                  fn:QName("http://www.massmed.org/elements/","caption")),
-                                                $query-string,
-                                                ("case-insensitive", "punctuation-insensitive"))
-                                       else cts:element-word-query(fn:QName("",$target),
+                                return if ($target eq "audio") 
+                                       then cts:element-query(xs:QName("rdf:Description"), 
+                                               cts:and-query((cts:element-value-query(xs:QName("dcterms:type"),"audio"))))
+                                       else if ($target eq "video")
+                                       then cts:element-query(xs:QName("rdf:Description"), 
+                                               cts:and-query((cts:element-value-query(xs:QName("dcterms:type"),"video"))))
+                                       else (),
+                                cts:or-query( 
+                                    for $target in $targets
+                                    return (if ($target eq "images")
+                                           then cts:element-word-query(
+                                                    (fn:QName("http://www.massmed.org/elements/","label"),
+                                                      fn:QName("http://www.massmed.org/elements/","title"),
+                                                      fn:QName("http://www.massmed.org/elements/","caption")),
                                                     $query-string,
-                                                    ("case-insensitive", "punctuation-insensitive")))
+                                                    ("case-insensitive", "punctuation-insensitive"))
+                                           else if ($target eq "audio" or $target eq "video")
+                                           then cts:element-word-query(
+                                                    (fn:QName("http://purl.org/dc/terms/","title"),fn:QName("http://purl.org/dc/terms/","abstract")),
+                                                    $query-string,
+                                                    ("case-insensitive", "punctuation-insensitive"))
+                                           else cts:element-word-query(fn:QName("",$target),
+                                                        $query-string,
+                                                        ("case-insensitive", "punctuation-insensitive")))))
                              ) }
                          </additional-query>
          let $options := <options xmlns="http://marklogic.com/appservices/search">

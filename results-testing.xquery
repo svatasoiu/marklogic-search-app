@@ -111,9 +111,7 @@ return
                                 
                                 <!-- image previews -->
                                 <span>
-                                  {
-                                   extract-data:get-images($article)
-                                  }
+                                  {extract-data:get-images($article)}
                                 </span>
                                 
                                 <br/>
