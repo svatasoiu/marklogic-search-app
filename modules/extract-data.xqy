@@ -180,13 +180,31 @@ declare function extract-data:get-renditions($article as document-node()) as ele
     let $supplements := $article/didl:DIDL/didl:Item/didl:Container[@id="Supplements"]/didl:Component/didl:Descriptor/didl:Statement/rdf:RDF/rdf:Description[dcterms:type="author-supplement"]
     return
         <span class="title">
-        Renditions: 
-        {if ($mp4-video or $flv-video) 
-        then (<a href="{if ($mp4-video) then $mp4-video else $flv-video}" target="_blank">
-               Video<br/>
-               <img height="80" title="video" alt="video" src="{$vid-preview}"/>
-             </a>,<br/>)
-        else ()}
+        <br/>
+        {if ($mp4-video or $flv-video or $audio)
+         then 
+         <span>
+            {if ($mp4-video or $flv-video) 
+            then <div style="float:left;">
+                   {if ($mp4-video) 
+                   then (<a href="{if ($mp4-video) then $mp4-video else $flv-video}" target="_blank">Video (click to open)</a>,<br/>,
+                        <video height="160" controls="" preload="none" poster="{$vid-preview}"><source src="{$mp4-video}" type="video/mp4"/></video>)
+                   else <a href="{if ($mp4-video) then $mp4-video else $flv-video}" target="_blank">Video (click to open)<br/>
+                         <img height="80" title="video" alt="video" src="{$vid-preview}"/></a>}
+                 </div>
+            else ()}
+            {if ($audio) 
+            then for $link in $audio
+                 return <div style="float:left;"><a href="{$link}" target="_blank">Full Text Audio (click to open)</a>
+                            <br/> 
+                            <audio controls="" preload="none">
+                                <source src="{$link}" type="audio/mpeg"/>
+                            </audio>
+                        </div>
+            else ()}
+         </span>
+         else ()}
+         <div style="clear:left;">
         {if ($free and $free eq "Free") 
         then <span><img width="60" height="12" border="0" alt="Free Full Text" title="Free Full Text" src="http://images.nejm.org/hila/etoc/flag_freeFullText.gif"/> | </span>
         else ()}
@@ -203,12 +221,6 @@ declare function extract-data:get-renditions($article as document-node()) as ele
                 <img height="12" title="slide" 
                 alt="slide" src="http://www.nejm.org/templates/jsp/_style2/_mms/_nejm/img/downloadSlidesIcon.gif"/>Power Point</a> | </span>
         else ()}
-        {if ($audio) 
-        then for $link in $audio
-             return <span><a href="{$link}" target="_blank">
-                       <img height="12" title="full text audio" 
-                       alt="full text audio" src="http://www.nejm.org/templates/jsp/_style2/_mms/_nejm/img/listenIcon.gif"/>Full Text Audio</a> | </span>
-        else ()}
         {if ($xml) 
         then <span><a href="{fn:replace($xml,"markl64stby[.]dom1","mark-ed")}" target="_blank">XML</a> | </span>
         else ()}
@@ -217,13 +229,14 @@ declare function extract-data:get-renditions($article as document-node()) as ele
         else ()}
         <!-- supplements -->
         {if ($supplements) 
-        then <span><br/>Supplements: 
+        then <span><br/><hr/>Supplements: 
              {for $supplement in $supplements
              return <span><a href="{$supplement/dcterms:hasFormat/rdf:Description/dcterms:identifier/text()}" target="_blank">
                         <img height="12" title="Article PDF" alt="Article PDF" src="http://www.nejm.org/templates/jsp/_style2/_mms/_nejm/img/pdfIcon.gif"/>
                         {$supplement/dcterms:title/label/text()}
                      </a> | </span>}</span>
         else ()}
+        </div>
         </span>
 };
 

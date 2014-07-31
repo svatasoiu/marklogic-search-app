@@ -186,14 +186,15 @@ as element(search:response) {
                          <additional-query xmlns="http://marklogic.com/appservices/search">
                            { cts:and-query(
                                 (cts:element-query(fn:QName("","article-meta"), cts:and-query(())), 
-                                for $target in $targets
-                                return if ($target eq "audio") 
-                                       then cts:element-query(xs:QName("rdf:Description"), 
-                                               cts:and-query((cts:element-value-query(xs:QName("dcterms:type"),"audio"))))
-                                       else if ($target eq "video")
-                                       then cts:element-query(xs:QName("rdf:Description"), 
-                                               cts:and-query((cts:element-value-query(xs:QName("dcterms:type"),"video"))))
-                                       else (),
+                                cts:or-query((
+                                    for $target in $targets
+                                    return if ($target eq "audio") 
+                                           then cts:element-query(xs:QName("rdf:Description"), 
+                                                   cts:and-query((cts:element-value-query(xs:QName("dcterms:type"),"audio"))))
+                                           else if ($target eq "video")
+                                           then cts:element-query(xs:QName("rdf:Description"), 
+                                                   cts:and-query((cts:element-value-query(xs:QName("dcterms:type"),"video"))))
+                                           else ())),
                                 cts:or-query( 
                                     for $target in $targets
                                     return (if ($target eq "images")
