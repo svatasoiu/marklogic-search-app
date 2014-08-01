@@ -69,7 +69,7 @@ $(document).on("click", "span.less-button", function () {
 $(document).on("click", ".export", function () {
     var format = $(this).attr("type");
     
-    window.open(createQString("&format=" + format + "&pageLength="));
+    window.open(createQString("&format=" + format));
 });
 
 function addConstraint(constraint) {
@@ -135,15 +135,16 @@ function getData(newStart) {
 function createQString(additional) {
     var q = $("#sbox").attr("value");
     var qString = q;
-    
+    var pageLength = $("#page_length").attr("value");
+    if (!pageLength) pageLength = 10;
     // add in constraints
-    for (var i = 0; i < constraints.length;++ i) {
+    for (var i = 0; i < constraints.length; ++i) {
         qString += delim + constraints[i];
     }
     
     // add sorting option
     var sort = $('input[@name="sort"]:checked').val();
-    qString = "results-testing.xquery?query=" + qString + "&start=" + start + "&sort=" + sort + "&target=" + targets.value();
+    qString = "results-testing.xquery?query=" + qString + "&start=" + start + "&sort=" + sort + "&target=" + targets.value() + "&pageLength=" + pageLength;
     if (additional) qString += additional;
     
     return qString;

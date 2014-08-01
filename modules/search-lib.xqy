@@ -93,7 +93,21 @@ declare variable $OPTIONS :=
 	  </search:custom>
   </search:constraint>
   
-   <search:constraint name="authorSurname">
+  <search:constraint name="has_audio">
+	 <search:custom facet="false">
+	     <search:parse apply="has-audio" ns="http://www.nejm.org/custom-field-query" 
+	       at="/modules/custom-fields.xqy"/>
+	 </search:custom>
+  </search:constraint>
+  
+  <search:constraint name="has_video">
+	 <search:custom facet="false">
+	     <search:parse apply="has-video" ns="http://www.nejm.org/custom-field-query" 
+	       at="/modules/custom-fields.xqy"/>
+	 </search:custom>
+  </search:constraint>
+  
+  <search:constraint name="authorSurname">
 	 <search:custom facet="false">
 	     <search:parse apply="authorSurname" ns="http://www.nejm.org/custom-field-query" 
 	       at="/modules/custom-fields.xqy"/>
@@ -173,7 +187,7 @@ as xs:integer {
     then xs:integer($field)
     else $default
 };
-      
+
 declare function search-lib:my-search($search-query as item()*,
    $start as item()*,
    $page-length as item()*,
@@ -185,17 +199,8 @@ as element(search:response) {
          let $additional-query := 
                          <additional-query xmlns="http://marklogic.com/appservices/search">
                            { cts:and-query(
-                                (cts:element-query(fn:QName("","article-meta"), cts:and-query(())), 
-                                cts:or-query((
-                                    for $target in $targets
-                                    return if ($target eq "audio") 
-                                           then cts:element-query(xs:QName("rdf:Description"), 
-                                                   cts:and-query((cts:element-value-query(xs:QName("dcterms:type"),"audio"))))
-                                           else if ($target eq "video")
-                                           then cts:element-query(xs:QName("rdf:Description"), 
-                                                   cts:and-query((cts:element-value-query(xs:QName("dcterms:type"),"video"))))
-                                           else ())),
-                                cts:or-query( 
+                                 (cts:element-query(fn:QName("","article-meta"), cts:and-query(())),
+                                 cts:or-query( 
                                     for $target in $targets
                                     return (if ($target eq "images")
                                            then cts:element-word-query(
@@ -211,13 +216,18 @@ as element(search:response) {
                                                     ("case-insensitive", "punctuation-insensitive"))
                                            else cts:element-word-query(fn:QName("",$target),
                                                         $query-string,
-                                                        ("case-insensitive", "punctuation-insensitive")))))
-                             ) }
+                                                        ("case-insensitive", "punctuation-insensitive")))))) }
                          </additional-query>
          let $options := <options xmlns="http://marklogic.com/appservices/search">
                            {$OPTIONS/*}
                            { $additional-query }
                          </options>
          return search:search($search-query, $options, $start, $page-length)
-    else search:search($search-query, $OPTIONS, $start, $page-length)
+    else let $options := <options xmlns="http://marklogic.com/appservices/search">
+                           {$OPTIONS/*}
+                           <additional-query xmlns="http://marklogic.com/appservices/search"> 
+                           { cts:and-query((cts:element-query(fn:QName("","article-meta"), cts:and-query(())))) }
+                           </additional-query>
+                         </options>
+          return search:search($search-query, $options, $start, $page-length)
 };

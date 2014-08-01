@@ -174,7 +174,7 @@ declare function extract-data:get-renditions($article as document-node()) as ele
     let $pdf := $renditions/didl:Component[@id="c130"]/didl:Resource/@ref
     let $ppt := $renditions/didl:Component[@id="c160"]/didl:Resource/@ref
     let $audio := $article/didl:DIDL/didl:Item/didl:Container[@id="Attachments"]/didl:Component/didl:Descriptor/didl:Statement/rdf:RDF/rdf:Description[dcterms:type="audio"]/dcterms:hasFormat/rdf:Description[dcterms:type="mp3"]/dcterms:identifier/text()
-    let $mp4-video := $article/didl:DIDL/didl:Item/didl:Container[@id="Attachments"]/didl:Component/didl:Descriptor/didl:Statement/rdf:RDF/rdf:Description[dcterms:type="video"]/dcterms:hasFormat/rdf:Description[dcterms:type="m4v"]/dcterms:identifier/text()
+    let $mp4-video := $article/didl:DIDL/didl:Item/didl:Container[@id="Attachments"]/didl:Component/didl:Descriptor/didl:Statement/rdf:RDF/rdf:Description[dcterms:type="video" or "vcm-video"]/dcterms:hasFormat/rdf:Description[dcterms:type="m4v"]/dcterms:identifier/text()
     let $flv-video := $article/didl:DIDL/didl:Item/didl:Container[@id="Attachments"]/didl:Component/didl:Descriptor/didl:Statement/rdf:RDF/rdf:Description[dcterms:type="video"]/dcterms:hasFormat/rdf:Description[dcterms:type="flv"]/dcterms:identifier/text()
     let $vid-preview := $article/didl:DIDL/didl:Item/didl:Container[@id="Attachments"]/didl:Component/didl:Descriptor/didl:Statement/rdf:RDF/rdf:Description[dcterms:type="video"]/dcterms:hasPart/rdf:Description[dcterms:type="preview"]/dcterms:identifier/text()
     let $supplements := $article/didl:DIDL/didl:Item/didl:Container[@id="Supplements"]/didl:Component/didl:Descriptor/didl:Statement/rdf:RDF/rdf:Description[dcterms:type="author-supplement"]

@@ -9,6 +9,8 @@ module namespace custom-field-query = "http://www.nejm.org/custom-field-query";
 
 declare namespace didl="urn:mpeg:mpeg21:2002:02-DIDL-NS";
 declare namespace dii="urn:mpeg:mpeg21:2002:01-DII-NS";
+declare namespace rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#";
+declare namespace dcterms="http://purl.org/dc/terms/";
 
 import module namespace search = "http://marklogic.com/appservices/search" 
   at "/MarkLogic/appservices/search/search.xqy";
@@ -63,6 +65,44 @@ as element(search:facet) {
             fn:string($range/@name)
         }
    }
+};
+
+declare function custom-field-query:has-audio (
+	$qtext as xs:string,
+	$right as schema-element(cts:query)) 
+as schema-element(cts:query)	
+{
+    <root>{
+        let $has := fn:string($right//cts:text/text())
+        return
+            if ($qtext eq "has_audio:") 
+            then if ($has eq "true")
+                 then cts:element-query(xs:QName("rdf:Description"), 
+                                        cts:and-query((cts:element-value-query(xs:QName("dcterms:type"),"audio"))))
+                 else cts:not-query(cts:element-query(xs:QName("rdf:Description"), 
+                                        cts:and-query((cts:element-value-query(xs:QName("dcterms:type"),"audio")))))
+            else ()    
+	}</root>/*
+};
+
+declare function custom-field-query:has-video (
+	$qtext as xs:string,
+	$right as schema-element(cts:query)) 
+as schema-element(cts:query)	
+{
+    <root>{
+        let $has := fn:string($right//cts:text/text())
+        return
+            if ($qtext eq "has_video:") 
+            then if ($has eq "true")
+                 then cts:element-query(xs:QName("rdf:Description"), 
+                                        cts:or-query((cts:element-value-query(xs:QName("dcterms:type"),"video"),
+                                                      cts:element-value-query(xs:QName("dcterms:type"),"vcm-video"))))
+                 else cts:not-query(cts:element-query(xs:QName("rdf:Description"), 
+                                        cts:or-query((cts:element-value-query(xs:QName("dcterms:type"),"video"),
+                                                      cts:element-value-query(xs:QName("dcterms:type"),"vcm-video")))))
+            else ()    
+	}</root>/*
 };
 
 declare function custom-field-query:category (

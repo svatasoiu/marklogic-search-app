@@ -20,10 +20,8 @@ let $page-length         := search-lib:get-with-default-int(xdmp:get-request-fie
 let $target              := xdmp:get-request-field("target")
 let $format              := xdmp:get-request-field("format")
 
-let $highlight-query     := let $temp := fn:tokenize($query,$DELIM)[1] (: get the pure text, without constraints :)
-                            return if (fn:contains($temp, "[:]"))
-                                   then ""
-                                   else $temp
+let $query := fn:replace($query, "[\s]+([^\s]*:[^\s]*)", fn:concat($DELIM,"$1"))
+let $highlight-query := fn:replace($query, fn:concat($DELIM,"[^\s]*:[^\s]*"), "")
 
 let $search-query := fn:concat(fn:replace($query, $DELIM, " "), ' sort:"', $sort, '"')
 let $search-response := search-lib:my-search($search-query, $start, $page-length, $highlight-query, $target)
