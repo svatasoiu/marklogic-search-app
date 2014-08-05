@@ -36,7 +36,7 @@ declare private function create-xml($search-response as element(search:response)
                 <fq type="string"></fq>
             </params>
         </responseHeader>
-        <result name="response" numFound="{$search-response/@total}" start="{$search-response/@start}" pageLength="{$search-response/@page-length}" type="array">
+        <result numFound="{$search-response/@total}" start="{$search-response/@start}" pageLength="{$search-response/@page-length}" type="array">
         {
         for $result in $search-response/search:result
         let $uri := $result/@uri
@@ -50,7 +50,7 @@ declare private function create-xml($search-response as element(search:response)
         let $authors := extract-data:get-authors-from-meta($article-meta)
         let $author-names := extract-data:get-author-names($authors) 
         let $supplements := extract-data:get-article-supplements($article)
-        let $display_objects := extract-data:get-display-objects($article)
+        let $display-objects := extract-data:get-display-objects($article)
         let $inline-graphics := extract-data:get-inline-graphics($article)
         let $spec-ids := extract-data:get-specialty-ids($article)
         let $topic-ids := extract-data:get-topic-ids($article)
@@ -59,81 +59,81 @@ declare private function create-xml($search-response as element(search:response)
         let $doi := extract-data:get-doi($article)
         let $publisher := extract-data:get-publisher-from-jmeta($journal-meta)
         return 
-         <doc type="array">
-            <str name="id" type="string">{$doi}_nejm</str>
-            <str name="pub_id" type="string">{extract-data:get-pub-id($article-meta)}</str>
-            <str name="nlm_ta" type="string">{extract-data:get-id-from-jmeta($journal-meta,"nlm-ta")}</str>
-            <str name="jn_pub_id" type="string">{extract-data:get-id-from-jmeta($journal-meta,"publisher-id")}</str>
-            <str name="collection" type="string">nejm</str>
-            <str name="doi" type="string">{$doi}</str>
-            <str name="ti" type="string">{$title}</str>
-            <str name="ti_prime" type="string">{$title}</str>
-            <str name="ti_serial" type="string">{extract-data:get-series-title($article-meta)}</str>
-            <str name="record_mpeg21" type="string">{$article//text()}</str>
-            <str name="category" type="string">{extract-data:get-category($article)/text()}</str>
-            <str name="article_type" type="string">...</str>
-            <str name="sub_article_type" type="string">{extract-data:get-sub-article-type($article-meta)}</str>
-            <arr name="specialty_str" type="array">{for $id in $spec-ids return <str type="string">{specialties:id-to-str($id)}</str>}</arr>
-            <arr name="sub_topic_str" type="array">{for $id in $topic-ids return <str type="string">{topics:id-to-str($id)}</str>}</arr>
-            <arr name="sub_topic" type="array">{for $id in $topic-ids return <str type="string">{$id}</str>}</arr>
-            <arr name="specialty" type="array">{for $id in $spec-ids return<str type="string">{$id}</str>}</arr>
-            <int name="vips_v" type="string">{$vips/mms:volume/data()}</int>
-            <str name="vips_fpage" type="string">{$vips/mms:fpage/data()}</str>
-            <str name="vips_i" type="string">{$vips/mms:issue/data()}</str>
-            <str name="vips_lpage" type="string">{$vips/mms:lpage/data()}</str>
-            <str name="vips_s" type="string">{$vips/mms:sequence/data()}</str>
-            <int name="pub_year" type="number">{$split-pdate[1]}</int>
-            <int name="pub_month" type="number">{$split-pdate[2]}</int>
-            <int name="pub_day" type="number">{$split-pdate[3]}</int>
-            <str name="abs_d" type="string">{extract-data:get-abstract-from-meta($article-meta,'default')}</str>
-            <str name="abs_t" type="string">{extract-data:get-abstract-from-meta($article-meta,'truncated')}</str>
-            <str name="abs_s" type="string">{extract-data:get-abstract-from-meta($article-meta,'short')}</str>
-            <str name="abs_toc" type="string">{extract-data:get-abstract-from-meta($article-meta,'toc')}</str>
-            <str name="abs_summary" type="string">{extract-data:get-abstract-from-meta($article-meta,'summary')}</str>
-            <arr name="au_aff" type="array"></arr>
-            <str name="au_onbehalfof" type="string"/>
-            <str name="collab" type="string"/>
+         <doc type="object">
+            <id type="string">{$doi}-nejm</id>
+            <pub-id type="string">{extract-data:get-pub-id($article-meta)}</pub-id>
+            <nlm-ta type="string">{extract-data:get-id-from-jmeta($journal-meta,"nlm-ta")}</nlm-ta>
+            <jn-pub-id type="string">{extract-data:get-id-from-jmeta($journal-meta,"publisher-id")}</jn-pub-id>
+            <collection type="string">nejm</collection>
+            <doi type="string">{$doi}</doi>
+            <ti type="string">{$title}</ti>
+            <ti-prime type="string">{$title}</ti-prime>
+            <ti-serial type="string">{extract-data:get-series-title($article-meta)}</ti-serial>
+            <record-mpeg21 type="string">{$article//text()}</record-mpeg21>
+            <category type="string">{extract-data:get-category($article)/text()}</category>
+            <article-type type="string"></article-type>
+            <sub-article-type type="string">{extract-data:get-sub-article-type($article-meta)}</sub-article-type>
+            <specialty-str type="array">{for $id in $spec-ids return <str type="string">{specialties:id-to-str($id)}</str>}</specialty-str>
+            <sub-topic-str type="array">{for $id in $topic-ids return <str type="string">{topics:id-to-str($id)}</str>}</sub-topic-str>
+            <sub-topic type="array">{for $id in $topic-ids return <str type="string">{$id}</str>}</sub-topic>
+            <specialty type="array">{for $id in $spec-ids return<str type="string">{$id}</str>}</specialty>
+            <vips-v type="string">{$vips/mms:volume/data()}</vips-v>
+            <vips-fpage type="string">{$vips/mms:fpage/data()}</vips-fpage>
+            <vips-i type="string">{$vips/mms:issue/data()}</vips-i>
+            <vips-lpage type="string">{$vips/mms:lpage/data()}</vips-lpage>
+            <vips-s type="string">{$vips/mms:sequence/data()}</vips-s>
+            <pub-year type="number">{$split-pdate[1]}</pub-year>
+            <pub-month type="number">{$split-pdate[2]}</pub-month>
+            <pub-day type="number">{$split-pdate[3]}</pub-day>
+            <abs-d type="string">{extract-data:get-abstract-from-meta($article-meta,'default')}</abs-d>
+            <abs-t type="string">{extract-data:get-abstract-from-meta($article-meta,'truncated')}</abs-t>
+            <abs-s type="string">{extract-data:get-abstract-from-meta($article-meta,'short')}</abs-s>
+            <abs-toc type="string">{extract-data:get-abstract-from-meta($article-meta,'toc')}</abs-toc>
+            <abs-summary type="string">{extract-data:get-abstract-from-meta($article-meta,'summary')}</abs-summary>
+            <au-aff type="array"></au-aff>
+            <au-onbehalfof type="string"/>
+            <collab type="string"/>
             
-            <arr name="au_surname" type="array">
+            <au-surname type="array">
             {for $author in $author-names return <str type="string">{extract-data:get-author-surname($author)}</str>}
-            </arr>
-            <arr name="au_givenname" type="array">
+            </au-surname>
+            <au-givenname type="array">
             {for $author in $author-names return <str type="string">{extract-data:get-author-given-name($author)}</str>}
-            </arr>
-            <arr name="au_name" type="array">
+            </au-givenname>
+            <au-name type="array">
                 {for $author in $author-names 
                 return <str type="string">{extract-data:get-author-surname($author)},{extract-data:get-author-given-name($author)}</str>}
-            </arr>
-            <arr name="au_degree" type="array">{for $deg in extract-data:get-author-degree($authors) return <str type="string">{$deg}</str>}</arr>
+            </au-name>
+            <au-degree type="array">{for $deg in extract-data:get-author-degree($authors) return <str type="string">{$deg}</str>}</au-degree>
             
-            <str name="ar_file_name" type="string">{extract-data:get-article-file-name($article)}</str>
-            <str name="z_pdf" type="string">{extract-data:get-article-pdf($article)}</str>
-            <arr name="z_self_supplement" type="array">{for $supple in $supplements return <str type="string">{$supple}</str>}</arr>
-            <bool name="has_supplement" type="boolean">{if ($supplements) then "true" else "false"}</bool>
-            <arr name="z_display_objects" type="array">{for $object in $display_objects return <str type="string">{$object}</str>}</arr>
-            <bool name="has_display_objects" type="boolean">{if ($display_objects) then "true" else "false"}</bool>
-            <str name="ml_article_link" type="string">{extract-data:get-ml-link($article)}</str>
-            <str name="z_ppt_link" type="string">{$ppt}</str>
-            <bool name="has_ppt" type="boolean">{if ($ppt) then "true" else "false"}</bool>
-            <str name="ml_cpf_state" type="string">{$cpf-prop/cpf:state/text()}</str>
-            <str name="ml_cpf_process_status" type="string">{$cpf-prop/cpf:processing-status/text()}</str>
-            <date name="pub_date" type="string">{$pub-date}</date>
-            <str name="pub_date_rss" type="string">{$pub-date}</str>
-            <str name="pub_date_d" type="string">{$pub-date}</str>
-            <int name="article_pages" type="string">{try {$vips/mms:lpage/data() - $vips/mms:fpage/data() + 1} catch ($excep) {0} }</int>
-            <bool name="is_pap" type="boolean">false</bool>
-            <bool name="is_free" type="boolean">{extract-data:is-free($article)}</bool>
-            <str name="nlm_type" type="string">{extract-data:get-nlm-type($article)}</str>
-            <str name="record_text" type="string">...</str>
-            <bool name="has_cme" type="boolean">false</bool>
-            <str name="doi_cme" type="string">...</str>
-            <arr name="fn_financial_disclosure" type="array"></arr>
-            <arr name="image_caption" type="array"></arr>
-            <str name="record_full" type="string">...</str>
-            <date name="timestamp" type="string"/>
-            <long name="_version_" type="string"/>
-            <bool name="has_inline_graphics" type="boolean">{if ($inline-graphics) then "true" else "false"}</bool>
-            <bool name="has_attachment" type="boolean">{extract-data:has-attachment($article)}</bool>
+            <ar-file-name type="string">{extract-data:get-article-file-name($article)}</ar-file-name>
+            <z-pdf type="string">{extract-data:get-article-pdf($article)}</z-pdf>
+            <z-self-supplement type="array">{for $supple in $supplements return <str type="string">{$supple}</str>}</z-self-supplement>
+            <has-supplement type="boolean">{if ($supplements) then "true" else "false"}</has-supplement>
+            <z-display-objects type="array">{for $object in $display-objects return <str type="string">{$object}</str>}</z-display-objects>
+            <has-display-objects type="boolean">{if ($display-objects) then "true" else "false"}</has-display-objects>
+            <ml-article-link type="string">{extract-data:get-ml-link($article)}</ml-article-link>
+            <z-ppt-link type="string">{$ppt}</z-ppt-link>
+            <has-ppt type="boolean">{if ($ppt) then "true" else "false"}</has-ppt>
+            <ml-cpf-state type="string">{$cpf-prop/cpf:state/text()}</ml-cpf-state>
+            <ml-cpf-process-status type="string">{$cpf-prop/cpf:processing-status/text()}</ml-cpf-process-status>
+            <pub-date type="string">{$pub-date}</pub-date>
+            <pub-date-rss type="string">{$pub-date}</pub-date-rss>
+            <pub-date-d type="string">{$pub-date}</pub-date-d>
+            <article-pages type="string">{try {$vips/mms:lpage/data() - $vips/mms:fpage/data() + 1} catch ($excep) {0} }</article-pages>
+            <is-pap type="boolean">false</is-pap>
+            <is-free type="boolean">{extract-data:is-free($article)}</is-free>
+            <nlm-type type="string">{extract-data:get-nlm-type($article)}</nlm-type>
+            <record-text type="string"></record-text>
+            <has-cme type="boolean">false</has-cme>
+            <doi-cme type="string"></doi-cme>
+            <fn-financial-disclosure type="array"></fn-financial-disclosure>
+            <image-caption type="array"></image-caption>
+            <record-full type="string"></record-full>
+            <timestamp type="string"/>
+            <version type="string"/>
+            <has-inline-graphics type="boolean">{if ($inline-graphics) then "true" else "false"}</has-inline-graphics>
+            <has-attachment type="boolean">{extract-data:has-attachment($article)}</has-attachment>
          </doc>
         }
         </result>
