@@ -134,7 +134,7 @@ function getData(newStart) {
 
 function createQString(additional) {
     var q = $("#sbox").attr("value");
-    var qString = q;
+    var qString = q.replace(/[\s]+([^\s"]+):([^\s"]+)/g, delim+'$1:"$2"');
     var pageLength = $("#page_length").attr("value");
     if (!pageLength) pageLength = 10;
     // add in constraints

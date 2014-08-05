@@ -21,7 +21,7 @@ let $target              := xdmp:get-request-field("target")
 let $format              := xdmp:get-request-field("format")
 
 let $query := fn:replace($query, "([^\s]*:\s|:$)", "")
-let $query := fn:replace($query, "[\s]+([^\s]*:[^\s]*)", fn:concat($DELIM,"$1"))
+let $query := fn:replace($query, '[\s]+([^(__)\s]*:"[^\s]+")', fn:concat($DELIM,"$1"))
 let $highlight-query := fn:replace($query, fn:concat($DELIM,"[^\s]*:[^\s]*"), "")
 
 let $search-query := fn:concat(fn:replace($query, $DELIM, " "), ' sort:"', $sort, '"')
