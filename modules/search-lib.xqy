@@ -11,35 +11,34 @@ import module namespace search = "http://marklogic.com/appservices/search"
 declare option xdmp:mapping "false";
 declare variable $DIRECTORY := "/nejm_nlm_mpeg21/";
 declare variable $OPTIONS :=   
-
- <search:options xmlns="http://marklogic.com/appservices/search">
-  <search:search-option>filtered</search:search-option>  <!-- [SUPPORT !11762] -->
-  <search:debug>false</search:debug>
-  <search:term>
-   <search:empty apply="all-results"/>
-   <search:term-option>wildcarded</search:term-option>
-   <search:term-option>case-insensitive</search:term-option>
-   <search:term-option>punctuation-insensitive</search:term-option>
-   <search:term-option>diacritic-insensitive</search:term-option>
-  </search:term>
-  <search:grammar>
-    <search:starter strength="30" apply="grouping" delimiter=")">(</search:starter>
-    <search:starter strength="40" apply="prefix" element="cts:not-query">-</search:starter>
-    <search:joiner strength="10" apply="infix" element="cts:or-query" tokenize="word">OR</search:joiner>
-    <search:joiner strength="20" apply="infix" element="cts:and-query" tokenize="word">AND</search:joiner>
-    <search:joiner strength="20" apply="element-joiner" ns="http://www.nejm.org/custom-field-query" at="/modules/custom-fields.xqy" element="cts:element-query" tokenize="word">CHILD</search:joiner>
-    <search:joiner strength="50" apply="constraint" compare="LT" tokenize="word">LT</search:joiner>
-    <search:joiner strength="50" apply="constraint" compare="LE" tokenize="word">LE</search:joiner>
-    <search:joiner strength="50" apply="constraint" compare="GT" tokenize="word">GT</search:joiner>
-    <search:joiner strength="50" apply="constraint" compare="GE" tokenize="word">GE</search:joiner>
-    <search:joiner strength="50" apply="constraint" compare="NE" tokenize="word">NE</search:joiner>
-    <search:quotation>"</search:quotation>
-    <search:joiner strength="50" apply="constraint">:</search:joiner>
-  </search:grammar>
+ <options xmlns="http://marklogic.com/appservices/search">
+  <search-option>unfiltered</search-option>
+  <debug>false</debug>
+  <term>
+   <empty apply="all-results"/>
+   <term-option>wildcarded</term-option>
+   <term-option>case-insensitive</term-option>
+   <term-option>punctuation-insensitive</term-option>
+   <term-option>diacritic-insensitive</term-option>
+  </term>
+  <grammar>
+    <starter strength="30" apply="grouping" delimiter=")">(</starter>
+    <starter strength="40" apply="prefix" element="cts:not-query">-</starter>
+    <joiner strength="10" apply="infix" element="cts:or-query" tokenize="word">OR</joiner>
+    <joiner strength="20" apply="infix" element="cts:and-query" tokenize="word">AND</joiner>
+    <joiner strength="20" apply="element-joiner" ns="http://www.nejm.org/custom-field-query" at="/modules/custom-fields.xqy" element="cts:element-query" tokenize="word">CHILD</joiner>
+    <joiner strength="50" apply="constraint" compare="LT" tokenize="word">LT</joiner>
+    <joiner strength="50" apply="constraint" compare="LE" tokenize="word">LE</joiner>
+    <joiner strength="50" apply="constraint" compare="GT" tokenize="word">GT</joiner>
+    <joiner strength="50" apply="constraint" compare="GE" tokenize="word">GE</joiner>
+    <joiner strength="50" apply="constraint" compare="NE" tokenize="word">NE</joiner>
+    <quotation>"</quotation>
+    <joiner strength="50" apply="constraint">:</joiner>
+  </grammar>
   
-  <search:additional-query xmlns="http://marklogic.com/appservices/search">
+  <additional-query xmlns="http://marklogic.com/appservices/search">
     { cts:directory-query($DIRECTORY, "infinity") }
-  </search:additional-query>
+  </additional-query>
   
   <constraint name="has-cme" xmlns="http://marklogic.com/appservices/search">
     <range type="xs:string" facet="true" collation="http://marklogic.com/collation/">
@@ -60,38 +59,38 @@ declare variable $OPTIONS :=
     </range>
   </constraint>
   
-  <search:constraint name="category">
-    <search:custom facet="true">
-	     <search:parse apply="category" ns="http://www.nejm.org/custom-field-query" 
+  <constraint name="category">
+    <custom facet="true">
+	     <parse apply="category" ns="http://www.nejm.org/custom-field-query" 
 	       at="/modules/custom-fields.xqy"/>
-	       <search:start-facet apply="start-category" ns="http://www.nejm.org/custom-field-query" 
+	       <start-facet apply="start-category" ns="http://www.nejm.org/custom-field-query" 
 	       at="/modules/custom-fields.xqy"/>
-	     <search:finish-facet apply="finish" ns="http://www.nejm.org/custom-field-query" 
+	     <finish-facet apply="finish" ns="http://www.nejm.org/custom-field-query" 
 	       at="/modules/custom-fields.xqy"/>
-	  </search:custom>
-  </search:constraint>
+	  </custom>
+  </constraint>
   
-  <search:constraint name="topic">
-	  <search:custom facet="true">
-	     <search:parse apply="topic" ns="http://www.nejm.org/custom-field-query" 
+  <constraint name="topic">
+	  <custom facet="true">
+	     <parse apply="topic" ns="http://www.nejm.org/custom-field-query" 
 	       at="/modules/custom-fields.xqy"/>
-	     <search:start-facet apply="start-topic" ns="http://www.nejm.org/custom-field-query" 
+	     <start-facet apply="start-topic" ns="http://www.nejm.org/custom-field-query" 
 	       at="/modules/custom-fields.xqy"/>
-	     <search:finish-facet apply="finish-topic" ns="http://www.nejm.org/custom-field-query" 
+	     <finish-facet apply="finish-topic" ns="http://www.nejm.org/custom-field-query" 
 	       at="/modules/custom-fields.xqy"/>
-	  </search:custom>
-  </search:constraint>
+	  </custom>
+  </constraint>
   
-  <search:constraint name="specialty">
-	  <search:custom facet="true">
-	     <search:parse apply="specialty" ns="http://www.nejm.org/custom-field-query" 
+  <constraint name="specialty">
+	  <custom facet="true">
+	     <parse apply="specialty" ns="http://www.nejm.org/custom-field-query" 
 	       at="/modules/custom-fields.xqy"/>
-	     <search:start-facet apply="start-specialty" ns="http://www.nejm.org/custom-field-query" 
+	     <start-facet apply="start-specialty" ns="http://www.nejm.org/custom-field-query" 
 	       at="/modules/custom-fields.xqy"/>
-	     <search:finish-facet apply="finish-specialty" ns="http://www.nejm.org/custom-field-query" 
+	     <finish-facet apply="finish-specialty" ns="http://www.nejm.org/custom-field-query" 
 	       at="/modules/custom-fields.xqy"/>
-	  </search:custom>
-  </search:constraint>
+	  </custom>
+  </constraint>
   
   <constraint name="persp-topic-str" xmlns="http://marklogic.com/appservices/search">
 	  <custom facet="true">
@@ -110,80 +109,80 @@ declare variable $OPTIONS :=
     </range>
   </constraint>
   
-  <search:constraint name="has_audio">
-	 <search:custom facet="false">
-	     <search:parse apply="has-audio" ns="http://www.nejm.org/custom-field-query" 
+  <constraint name="has_audio">
+	 <custom facet="false">
+	     <parse apply="has-audio" ns="http://www.nejm.org/custom-field-query" 
 	       at="/modules/custom-fields.xqy"/>
-	 </search:custom>
-  </search:constraint>
+	 </custom>
+  </constraint>
   
-  <search:constraint name="has_video">
-	 <search:custom facet="false">
-	     <search:parse apply="has-video" ns="http://www.nejm.org/custom-field-query" 
+  <constraint name="has_video">
+	 <custom facet="false">
+	     <parse apply="has-video" ns="http://www.nejm.org/custom-field-query" 
 	       at="/modules/custom-fields.xqy"/>
-	 </search:custom>
-  </search:constraint>
+	 </custom>
+  </constraint>
   
-  <search:constraint name="authorSurname">
-	 <search:custom facet="false">
-	     <search:parse apply="authorSurname" ns="http://www.nejm.org/custom-field-query" 
+  <constraint name="authorSurname">
+	 <custom facet="false">
+	     <parse apply="authorSurname" ns="http://www.nejm.org/custom-field-query" 
 	       at="/modules/custom-fields.xqy"/>
-	 </search:custom>
-  </search:constraint>  
+	 </custom>
+  </constraint>  
    
-  <search:constraint name="doi">
-    <search:value>
-      <search:element ns="urn:mpeg:mpeg21:2002:01-DII-NS" name="Identifier"/>
-    </search:value>
-  </search:constraint>  
+  <constraint name="doi">
+    <value>
+      <element ns="urn:mpeg:mpeg21:2002:01-DII-NS" name="Identifier"/>
+    </value>
+  </constraint>  
 
-  <search:constraint name="title">
-    <search:value>
-      <search:element ns="" name="article-title"/>
-    </search:value>
-  </search:constraint>  
+  <constraint name="title">
+    <value>
+      <element ns="" name="article-title"/>
+    </value>
+  </constraint>  
   
-  <search:constraint name="year">
-	  <search:custom facet="false">
-	     <search:parse apply="year" ns="http://www.nejm.org/custom-field-query" 
+  <constraint name="year">
+	  <custom facet="false">
+	     <parse apply="year" ns="http://www.nejm.org/custom-field-query" 
 	       at="/modules/custom-fields.xqy"/>
-	  </search:custom>
-  </search:constraint>
+	  </custom>
+  </constraint>
 
-  <search:constraint name="manuscriptId">
-	  <search:custom facet="false">
-	     <search:parse apply="manuscriptId" ns="http://www.nejm.org/custom-field-query" at="/modules/custom-fields.xqy"/>
-	  </search:custom>
-  </search:constraint>
+  <constraint name="manuscriptId">
+	  <custom facet="false">
+	     <parse apply="manuscriptId" ns="http://www.nejm.org/custom-field-query" at="/modules/custom-fields.xqy"/>
+	  </custom>
+  </constraint>
   
-  <search:operator name="sort">
-    <search:state name="relevance">
-      <search:sort-order>
-        <search:score/>
-      </search:sort-order>
-    </search:state>
-    <search:state name="pub-date">
-      <search:sort-order direction="descending" type="xs:date" collation="http://marklogic.com/collation/">
-        <search:element ns="http://www.massmed.org/elements/" name="publicationDate"/>
-      </search:sort-order>
-      <search:sort-order>
-        <search:score/>
-      </search:sort-order>
-    </search:state>
-    <search:state name="title">
-      <search:sort-order direction="ascending" type="xs:string" collation="http://marklogic.com/collation/">
-        <search:element ns="" name="article-title"/>
-      </search:sort-order>
-      <search:sort-order>
-        <search:score/>
-      </search:sort-order>
-    </search:state>
-  </search:operator>
+  <operator name="sort">
+    <state name="relevance">
+      <sort-order>
+        <score/>
+      </sort-order>
+    </state>
+    <state name="pub-date">
+      <sort-order direction="descending" type="xs:date" collation="http://marklogic.com/collation/">
+        <element ns="http://www.massmed.org/elements/" name="publicationDate"/>
+      </sort-order>
+      <sort-order>
+        <score/>
+      </sort-order>
+    </state>
+    <state name="title">
+      <sort-order direction="ascending" type="xs:string" collation="http://marklogic.com/collation/">
+        <element ns="" name="article-title"/>
+      </sort-order>
+      <sort-order>
+        <score/>
+      </sort-order>
+    </state>
+  </operator>
 
-  <search:return-query xmlns="http://marklogic.com/appservices/search">false</search:return-query>
-  <search:return-facets xmlns="http://marklogic.com/appservices/search">true</search:return-facets>
-  <search:return-metrics xmlns="http://marklogic.com/appservices/search">true</search:return-metrics>
-</search:options> ;
+  <return-query xmlns="http://marklogic.com/appservices/search">false</return-query>
+  <return-facets xmlns="http://marklogic.com/appservices/search">true</return-facets>
+  <return-metrics xmlns="http://marklogic.com/appservices/search">true</return-metrics>
+</options> ;
       
 declare function search-lib:get-with-default-int($field as item()*, $default as xs:integer)
 as xs:integer {

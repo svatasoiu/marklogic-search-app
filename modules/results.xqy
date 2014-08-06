@@ -51,6 +51,7 @@ return
     else 
                 <span>
                 <div id="sidebar">
+                {$search-response/search:metrics}
                   {
                     sidebar:create-chiclets($query)
                   }
