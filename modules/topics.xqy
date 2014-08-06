@@ -8,6 +8,10 @@ declare function topics:id-to-str($id as xs:string) as xs:string {
     fn:string($TOPIC-TABLE/topic[@id eq $id]/@top)
 };
 
+declare function topics:str-to-id($str as xs:string) as xs:string {
+    fn:string(($TOPIC-TABLE/topic[@top eq $str]/@id)[1])
+};
+
 declare function topics:get-topics() as element(topics)
 { <topics>
     <topic id="1" top="Neurology/Neurosurgery"/>

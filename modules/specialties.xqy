@@ -8,6 +8,10 @@ declare function specialties:id-to-str($id as xs:string) as xs:string {
     fn:string($SPEC-TABLE/specialty[@id eq $id]/@spec)
 };
 
+declare function specialties:str-to-id($str as xs:string) as xs:string {
+    fn:string(($SPEC-TABLE/specialty[@spec eq $str]/@id)[1])
+};
+
 declare function specialties:get-specialties() as element(specialties)
 { <specialties>
     <specialty id="1_1" spec="Neurology/Neurosurgery General"/>

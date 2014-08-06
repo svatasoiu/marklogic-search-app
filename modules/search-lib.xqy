@@ -93,6 +93,23 @@ declare variable $OPTIONS :=
 	  </search:custom>
   </search:constraint>
   
+  <constraint name="persp-topic-str" xmlns="http://marklogic.com/appservices/search">
+	  <custom facet="true">
+	     <parse apply="persp-topic-str" ns="http://www.nejm.org/custom-field-query" 
+	       at="/modules/custom-fields.xqy"/>
+	     <start-facet apply="start-persp-topic-str" ns="http://www.nejm.org/custom-field-query" 
+	       at="/modules/custom-fields.xqy"/>
+	     <finish-facet apply="finish-persp-topic-str" ns="http://www.nejm.org/custom-field-query" 
+	       at="/modules/custom-fields.xqy"/>
+	  </custom>
+  </constraint>
+  
+  <constraint name="nlm-type" xmlns="http://marklogic.com/appservices/search">
+    <range type="xs:string" facet="true" collation="http://marklogic.com/collation/">
+      <element ns="http://www.massmed.org/elements/" name="articleType"/>
+    </range>
+  </constraint>
+  
   <search:constraint name="has_audio">
 	 <search:custom facet="false">
 	     <search:parse apply="has-audio" ns="http://www.nejm.org/custom-field-query" 
@@ -114,19 +131,6 @@ declare variable $OPTIONS :=
 	 </search:custom>
   </search:constraint>  
    
-  <!-- 
-  <search:constraint name="pubDate">
-    <search:value>
-      <search:element ns="mms" name="publicationDate"/>
-    </search:value>
-  </search:constraint>
--->
-<!--  <search:constraint name="pubDate">
-    <search:range type="xs:date" facet="false">
-      <search:element ns="http://www.massmed.org/elements/" name="publicationDate"/>
-    </search:range>
-  </search:constraint> -->
-  
   <search:constraint name="doi">
     <search:value>
       <search:element ns="urn:mpeg:mpeg21:2002:01-DII-NS" name="Identifier"/>

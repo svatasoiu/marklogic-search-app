@@ -18,14 +18,15 @@ import module namespace topics = "http://www.nejm.org/topics"
   at "topics.xqy";
 import module namespace specialties  = "http://www.nejm.org/specialties"
   at "specialties.xqy";
+  import module namespace perspectives  = "http://www.nejm.org/perspectives"
+  at "perspectives.xqy";
 
 declare namespace cts = "http://marklogic.com/cts";
 
 declare variable $CATEGORY-PATH := "/didl:DIDL/didl:Item/didl:Descriptor[@id='d400']/didl:Statement/article-meta/article-categories/subj-group[@subj-group-type='heading']/subject";
-declare variable $TOPIC-TABLE := topics:get-topics();
-declare variable $SPEC-TABLE  := specialties:get-specialties();
 declare variable $SPECIALTY-PATH := "/didl:DIDL/didl:Item/didl:Descriptor[@id='d310']/didl:Statement/subj-group/subj-group/subject";
 declare variable $TOPIC-PATH := "/didl:DIDL/didl:Item/didl:Descriptor[@id='d310']/didl:Statement/subj-group/subject";
+declare variable $PERSP-TOPIC-PATH := "/didl:DIDL/didl:Item/didl:Descriptor[@id='d320']/didl:Statement/subj-group[@subj-group-type='nejm-perspective-topics']/subject";
 declare variable $COLLATION := "collation=http://marklogic.com/collation/en/S1";
 
 declare variable $OPTIONS := ("case-insensitive","punctuation-insensitive","diacritic-insensitive");
@@ -148,10 +149,10 @@ as schema-element(cts:query)
     <root>{
 
         let $specialty := fn:string($right//cts:text/text()) (: convert from str to id :)
-        let $spec-id  := fn:string(($SPEC-TABLE/specialty[@spec eq $specialty]/@id)[1])
+        let $spec-id  := specialties:str-to-id($specialty)
         return
             if($qtext eq "specialty:") then (
-                 cts:path-range-query ($SPECIALTY-PATH, "=", $spec-id, $COLLATION)
+                 cts:path-range-query ($SPECIALTY-PATH, "=", $spec-id, "collation=http://marklogic.com/collation/")
             ) else ()         
 	}</root>/*
 };
@@ -163,15 +164,15 @@ declare function custom-field-query:start-specialty (
  $quality-weight as xs:double?,
  $forests as xs:unsignedLong*) 
 as item()* {
-    for $spec in cts:values(cts:path-reference($SPECIALTY-PATH, ($COLLATION)),
+    for $id in cts:values(cts:path-reference($SPECIALTY-PATH, ("collation=http://marklogic.com/collation/")),
                                  (),
                                  ($facet-options,"concurrent"),
                                  $query,
                                  $quality-weight,
                                  $forests)
-    let $spec-name := specialties:id-to-str($spec)
+    let $spec-name := specialties:id-to-str($id)
     order by $spec-name
-    return <specialty-type spec="{$spec-name}" count="{cts:frequency($spec)}"/>
+    return if ($spec-name) then <specialty-type name="{$spec-name}" count="{cts:frequency($id)}"/> else ()
 };
 
 declare function custom-field-query:finish-specialty (
@@ -187,9 +188,9 @@ as element(search:facet) {
      for $range in $start 
      return 
         element search:facet-value { 
-            attribute name { $range/@spec }, 
+            attribute name { $range/@name }, 
             attribute count { $range/@count }, 
-            fn:string($range/@spec) (: look up proper name :)
+            fn:string($range/@name) (: look up proper name :)
         }
    }
 };
@@ -207,7 +208,7 @@ as schema-element(cts:query)
     <root>{
 
         let $topic := fn:string($right//cts:text/text()) (: convert from str to id :)
-        let $top-id  := fn:string(($TOPIC-TABLE/topic[@top eq $topic]/@id)[1])
+        let $top-id  := topics:str-to-id($topic)
         return
             if($qtext eq "topic:") then (
                  cts:path-range-query ($TOPIC-PATH, "=", $top-id, $COLLATION)
@@ -222,15 +223,15 @@ declare function custom-field-query:start-topic (
  $quality-weight as xs:double?,
  $forests as xs:unsignedLong*) 
 as item()* {
-    for $top in cts:values(cts:path-reference($TOPIC-PATH, ($COLLATION)),
+    for $id in cts:values(cts:path-reference($TOPIC-PATH, ($COLLATION)),
                                  (),
                                  ($facet-options,"concurrent"),
                                  $query,
                                  $quality-weight,
                                  $forests)
-    let $top-name := topics:id-to-str($top)
+    let $top-name := topics:id-to-str($id)
     order by $top-name
-    return <topic-type top="{$top-name}" count="{cts:frequency($top)}"/>
+    return if ($top-name) then <topic-type name="{$top-name}" count="{cts:frequency($id)}"/> else ()
 };
 
 declare function custom-field-query:finish-topic (
@@ -246,9 +247,9 @@ as element(search:facet) {
      for $range in $start 
      return 
         element search:facet-value{ 
-            attribute name { $range/@top }, 
+            attribute name { $range/@name }, 
             attribute count { $range/@count }, 
-            fn:string($range/@top) (: look up proper name :)
+            fn:string($range/@name) (: look up proper name :)
         }
      }
 };
@@ -323,4 +324,58 @@ as schema-element(cts:query)
                )
             else ()    
 	}</root>/*
+};
+
+declare function custom-field-query:persp-topic-str (
+	$qtext as xs:string,
+	$right as schema-element(cts:query)) 
+as schema-element(cts:query)	
+{
+    <root>{
+
+        let $top := fn:string($right//cts:text/text()) (: convert from str to id :)
+        let $top-id  := perspectives:str-to-id($top)
+        return
+            if($qtext eq "persp-topic-str:") then (
+                 cts:path-range-query ($PERSP-TOPIC-PATH, "=", $top-id, "collation=http://marklogic.com/collation/")
+            ) else ()         
+	}</root>/*
+};
+
+declare function custom-field-query:start-persp-topic-str (
+ $constraint as element(search:constraint),
+ $query as cts:query?,
+ $facet-options as xs:string*,
+ $quality-weight as xs:double?,
+ $forests as xs:unsignedLong*) 
+as item()* {
+    for $id in cts:values(cts:path-reference($PERSP-TOPIC-PATH, ("collation=http://marklogic.com/collation/")),
+                                 (),
+                                 ($facet-options,"concurrent"),
+                                 $query,
+                                 $quality-weight,
+                                 $forests)
+    let $top-name :=  perspectives:id-to-str($id)
+    order by $top-name
+    return if ($top-name) then <perspective-type topic="{$top-name}" count="{cts:frequency($id)}"/> else ()
+};
+
+declare function custom-field-query:finish-persp-topic-str (
+ $start as item()*,
+ $constraint as element(search:constraint), 
+ $query as cts:query?,
+ $facet-options as xs:string*,
+ $quality-weight as xs:double?, 
+ $forests as xs:unsignedLong*)
+as element(search:facet) {
+   element search:facet {
+     attribute name {$constraint/@name},
+     for $range in $start 
+     return 
+        element search:facet-value { 
+            attribute name { $range/@topic }, 
+            attribute count { $range/@count }, 
+            fn:string($range/@topic) (: look up proper name :)
+        }
+   }
 };
