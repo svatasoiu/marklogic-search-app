@@ -42,7 +42,7 @@ let $result-metrics :=
                               try { xs:decimal(fn:substring-before(fn:substring($search-response/search:metrics/search:total-time/text(),3),"S"))*1000 } 
                               catch ($exception) { () }
                               }ms
-                              <a class="next">next</a>
+                              { if ($response-start/data() + $response-page-length/data() - 1 < $response-total) then <a class="next">next</a> else ()}
                         </div>
                     </div>
 return 
