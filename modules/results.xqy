@@ -1,13 +1,13 @@
 xquery version "1.0-ml";
 
 import module namespace search-lib = "http://www.marklogic.com/tutorial2/search-lib" 
-    at "modules/search-lib.xqy";
+    at "search-lib.xqy";
 import module namespace extract-data = "http://www.marklogic.com/tutorial2/extract-data" 
-    at "modules/extract-data.xqy";
+    at "extract-data.xqy";
 import module namespace sidebar = "http://www.marklogic.com/tutorial2/sidebar"
-    at "modules/sidebar.xqy";
+    at "sidebar.xqy";
 import module namespace formats = "http://www.marklogic.com/tutorial2/formats"
-    at "modules/formats.xqy";
+    at "formats.xqy";
 import module namespace search = "http://marklogic.com/appservices/search" 
     at "/MarkLogic/appservices/search/search.xqy";
 declare namespace html = "http://www.w3.org/1999/xhtml";
@@ -96,6 +96,7 @@ return
                                       { $pub-date }
                                 |     { extract-data:get-journal-title($article) } 
                                 |     { extract-data:get-volume-page($article) }
+                                |     {extract-data:get-doi($article) }
                                 </span><br/>
                                 <span style="font-family: Arial, Helvetica, sans-serif;font-size: 13px;line-height: 15px;font-weight: normal;color: #000000;margin-top: 0;margin-right: 0;margin-bottom: 15px;margin-left: 0;padding: 0;">
                                       { 

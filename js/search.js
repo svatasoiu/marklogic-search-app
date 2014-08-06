@@ -144,7 +144,7 @@ function createQString(additional) {
     
     // add sorting option
     var sort = $('input[@name="sort"]:checked').val();
-    qString = "results-testing.xquery?query=" + qString + "&start=" + start + "&sort=" + sort + "&target=" + targets.value() + "&pageLength=" + pageLength;
+    qString = "modules/results.xqy?query=" + qString + "&start=" + start + "&sort=" + sort + "&target=" + targets.value() + "&pageLength=" + pageLength;
     if (additional) qString += additional;
     
     return qString;

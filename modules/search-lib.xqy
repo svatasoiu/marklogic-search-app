@@ -159,7 +159,7 @@ declare variable $OPTIONS :=
       </search:sort-order>
     </search:state>
     <search:state name="pub-date">
-      <search:sort-order direction="descending" type="xs:string" collation="http://marklogic.com/collation/">
+      <search:sort-order direction="descending" type="xs:date" collation="http://marklogic.com/collation/">
         <search:element ns="http://www.massmed.org/elements/" name="publicationDate"/>
       </search:sort-order>
       <search:sort-order>

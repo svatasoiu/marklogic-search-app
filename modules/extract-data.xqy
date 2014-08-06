@@ -138,7 +138,7 @@ declare function extract-data:get-id-from-jmeta($meta as element(journal-meta), 
 };
 
 declare function extract-data:get-pub-id($meta as element(article-meta)) as xs:string? {
-    $meta/article-id[@pub-id-type="publisher-id"]/data()
+    $meta/article-id[@pub-id-type="publisher-id"]/text()
 };
 
 declare function extract-data:get-series-title($meta as element(article-meta)) as xs:string? {
