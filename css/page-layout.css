@@ -20,6 +20,9 @@
     margin-left: auto;
     margin-right: auto;
 }
+#options {
+    width: 50%;
+}
 #searchbar div {
     display:block;
     margin-left: auto;
