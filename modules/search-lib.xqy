@@ -39,6 +39,14 @@ declare variable $OPTIONS :=
   <additional-query xmlns="http://marklogic.com/appservices/search">
     { cts:directory-query($DIRECTORY, "infinity") }
   </additional-query>
+    
+  <constraint name="issue-date" xmlns="http://marklogic.com/appservices/search">
+    <range type="xs:date" facet="true">
+      <element ns="http://www.massmed.org/elements/" name="publicationDate"/>
+      <facet-option>descending</facet-option>
+      <facet-option>limit=6</facet-option>
+    </range>
+  </constraint>
   
   <constraint name="has-cme" xmlns="http://marklogic.com/appservices/search">
     <range type="xs:string" facet="true" collation="http://marklogic.com/collation/">
