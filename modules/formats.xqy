@@ -1,6 +1,8 @@
 xquery version "1.0-ml";
 module namespace formats = "http://www.marklogic.com/tutorial2/formats";
 
+import module namespace create-html = "http://www.marklogic.com/tutorial2/create-html"
+    at "create-html.xqy";
 import module namespace extract-data = "http://www.marklogic.com/tutorial2/extract-data" 
     at "extract-data.xqy";
 import module namespace search = "http://marklogic.com/appservices/search" 
@@ -21,7 +23,7 @@ declare variable $TOPIC-TABLE := topics:get-topics();
 declare variable $SPEC-TABLE  := specialties:get-specialties();
 
 declare function formats:has-format($format as xs:string) {
-    $format = ("xml","json","rss","csv")
+    $format = ("xml","json","rss","csv","html")
 };
 
 declare private function create-xml($search-response as element(search:response)) {
@@ -195,12 +197,12 @@ declare private function create-csv($search-response as element(search:response)
     return ($header, $articleCSV)
 };
 
-declare function formats:get-format($search-response as element(search:response), $format as xs:string) {
+declare function formats:get-format($search-response as element(search:response), $query as xs:string, $format as xs:string) {
     switch ($format)
         case "xml" return create-xml($search-response)
         case "json" return create-json($search-response)
         case "rss" return create-rss($search-response)
         case "csv" return create-csv($search-response)
+        case "html" return create-html:export($search-response, $query)
         default return "oops"
 };
-

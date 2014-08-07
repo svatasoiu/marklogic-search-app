@@ -143,10 +143,23 @@ declare variable $OPTIONS :=
   </constraint>  
   
   <constraint name="year">
-	  <custom facet="false">
+    <value>
+      <element ns="" name="year"/>
+    </value>
+	  <!--<custom facet="false">
 	     <parse apply="year" ns="http://www.nejm.org/custom-field-query" 
 	       at="/modules/custom-fields.xqy"/>
-	  </custom>
+	  </custom>-->
+  </constraint>
+  <constraint name="month">
+	<value>
+      <element ns="" name="month"/>
+    </value>
+  </constraint>
+  <constraint name="day">
+	<value>
+      <element ns="" name="day"/>
+    </value>
   </constraint>
 
   <constraint name="manuscriptId">

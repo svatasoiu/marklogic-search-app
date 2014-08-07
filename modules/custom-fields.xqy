@@ -279,6 +279,24 @@ as schema-element(cts:query)
             ) else ()         
 	}</root>/*
 };
+declare function custom-field-query:month (
+	$qtext as xs:string,
+	$right as schema-element(cts:query)) 
+as schema-element(cts:query)	
+{
+    <root>{
+
+        let $month := fn:string($right//cts:text/text())
+        return
+            if($qtext eq "month:") then (
+                cts:and-query(
+                    (cts:path-range-query("/didl:DIDL/didl:Item/didl:Descriptor[@id='d400']/didl:Statement/article-meta/pub-date/month",
+                                         "=",
+                                        $month))
+                )
+            ) else ()         
+	}</root>/*
+};
 
 (: 
    Returns a cts-query that searches documents with elements named "Identifier" having values enumerated in the $doi-list.
