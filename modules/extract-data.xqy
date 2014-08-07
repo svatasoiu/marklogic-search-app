@@ -7,6 +7,26 @@ declare namespace dcterms="http://purl.org/dc/terms/";
 declare namespace prop="http://marklogic.com/xdmp/property";
 declare namespace cpf="http://marklogic.com/cpf";
 
+declare function extract-data:get-data-by-name($article as document-node(), $name as xs:string) as xs:string {
+    let $res :=
+        switch ($name)
+            case "doi" return extract-data:get-doi($article)
+            case "category" return extract-data:get-category($article)
+            case "pub-date" return extract-data:get-pub-date($article)
+            case "title" return extract-data:get-article-title($article)
+            case "collab" return extract-data:get-collab($article)
+            case "au_name" return extract-data:authors-to-string(extract-data:get-authors($article))
+            case "au_onbehalfof" return extract-data:get-on-behalf-of($article)
+            default return fn:concat($name, " not supported")
+    return 
+    if ($res) 
+    then 
+        if (fn:contains($res, ","))
+        then fn:concat('"',$res,'"')
+        else $res
+    else ""
+};
+
 declare function extract-data:get-category($article as document-node()) as element(subject)? {
     $article/didl:DIDL/didl:Item/didl:Descriptor[@id='d400']/didl:Statement/article-meta/article-categories/subj-group[@subj-group-type='heading']/subject[1]
 };
@@ -17,6 +37,13 @@ declare function extract-data:get-authors($article as document-node()) as elemen
 
 declare function extract-data:get-authors-from-meta($meta as element(article-meta)) as element(contrib)* {
     $meta/contrib-group/contrib[@contrib-type="author"]
+};
+
+declare function extract-data:authors-to-string($authors as element(contrib)*) as xs:string? {
+    let $res := 
+        for $author in $authors
+        return fn:concat($author/name/given-names/text(), " ", $author/name/surname/text())
+    return fn:string-join($res,", ")
 };
 
 declare function extract-data:get-pub-date($article as document-node()) as element(mms:publicationDate)? {
@@ -69,6 +96,18 @@ declare function extract-data:get-images($article as document-node()) as element
             <img alt="Can't display image" title="{$title}" src="{$jpg}"
                 onError="this.onerror=null; this.parentNode.href='{$tif}'; this.title='Cannot display image. Click to view'; this.src='{$tif}'" height="80"/>
         </a>
+};
+
+declare function extract-data:get-on-behalf-of($article as document-node()) as xs:string? {
+    $article/didl:DIDL/didl:Item/didl:Descriptor/didl:Statement/article-meta/contrib-group/on-behalf-of/text()
+};
+
+declare function extract-data:get-collab($article as document-node()) as xs:string? {
+    $article/didl:DIDL/didl:Item/didl:Descriptor[@id='d400']/didl:Statement/article-meta/contrib-group/contrib[@contrib-type='author']/collab/text()
+};
+
+declare function extract-data:get-aff($article as document-node()) as xs:string? {
+    $article/didl:DIDL/didl:Item/didl:Descriptor[@id='d400']/didl:Statement/article-meta/contrib-group/aff/text()
 };
 
 declare function extract-data:get-nlm-type($article as document-node()) as xs:string? {

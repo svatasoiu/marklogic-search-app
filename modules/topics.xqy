@@ -2,8 +2,6 @@ xquery version "1.0-ml";
 
 module namespace topics = "http://www.nejm.org/topics";
 
-declare variable $TOPIC-TABLE := topics:get-topics();
-
 declare function topics:id-to-str($id as xs:string) as xs:string {
     fn:string($TOPIC-TABLE/topic[@id eq $id]/@top)
 };
@@ -12,8 +10,8 @@ declare function topics:str-to-id($str as xs:string) as xs:string {
     fn:string(($TOPIC-TABLE/topic[@top eq $str]/@id)[1])
 };
 
-declare function topics:get-topics() as element(topics)
-{ <topics>
+declare private variable $TOPIC-TABLE := 
+  <topics>
     <topic id="1" top="Neurology/Neurosurgery"/>
     <topic id="2" top="Hematology/Oncology"/>
     <topic id="3" top="Surgery"/>
@@ -42,4 +40,4 @@ declare function topics:get-topics() as element(topics)
     <topic id="26" top="Medical Practice, Training, and Education"/>
     <topic id="27" top="Medical Ethics"/>
     <topic id="28" top="Primary Care/Hospitalist"/>
-</topics> };
+  </topics>;

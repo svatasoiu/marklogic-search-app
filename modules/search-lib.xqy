@@ -150,7 +150,7 @@ declare variable $OPTIONS :=
     </value>
   </constraint>  
   
-  <constraint name="year">
+  <constraint name="pub_year">
     <value>
       <element ns="" name="year"/>
     </value>
@@ -159,12 +159,12 @@ declare variable $OPTIONS :=
 	       at="/modules/custom-fields.xqy"/>
 	  </custom>-->
   </constraint>
-  <constraint name="month">
+  <constraint name="pub_month">
 	<value>
       <element ns="" name="month"/>
     </value>
   </constraint>
-  <constraint name="day">
+  <constraint name="pub_day">
 	<value>
       <element ns="" name="day"/>
     </value>

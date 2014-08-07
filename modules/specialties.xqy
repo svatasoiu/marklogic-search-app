@@ -2,8 +2,6 @@ xquery version "1.0-ml";
 
 module namespace specialties = "http://www.nejm.org/specialties";
 
-declare variable $SPEC-TABLE  := specialties:get-specialties();
-
 declare function specialties:id-to-str($id as xs:string) as xs:string {
     fn:string($SPEC-TABLE/specialty[@id eq $id]/@spec)
 };
@@ -12,8 +10,8 @@ declare function specialties:str-to-id($str as xs:string) as xs:string {
     fn:string(($SPEC-TABLE/specialty[@spec eq $str]/@id)[1])
 };
 
-declare function specialties:get-specialties() as element(specialties)
-{ <specialties>
+declare private variable $SPEC-TABLE  := 
+  <specialties>
     <specialty id="1_1" spec="Neurology/Neurosurgery General"/>
     <specialty id="1_2" spec="Stroke"/>
     <specialty id="1_3" spec="Multiple Sclerosis"/>
@@ -167,4 +165,4 @@ declare function specialties:get-specialties() as element(specialties)
     <specialty id="26_1" spec="Training"/>
     <specialty id="27_1" spec="Medical Ethics"/>
     <specialty id="28_1" spec="Primary Care/Hospitalist;"/>
-</specialties> };
+  </specialties> ;

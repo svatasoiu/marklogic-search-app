@@ -19,9 +19,6 @@ declare namespace dii="urn:mpeg:mpeg21:2002:01-DII-NS";
 declare namespace mms="http://www.massmed.org/elements/";
 declare namespace cpf="http://marklogic.com/cpf";
 
-declare variable $TOPIC-TABLE := topics:get-topics();
-declare variable $SPEC-TABLE  := specialties:get-specialties();
-
 declare function formats:has-format($format as xs:string) {
     $format = ("xml","json","rss","csv","html")
 };
@@ -92,9 +89,9 @@ declare private function create-xml($search-response as element(search:response)
             <abs-s type="string">{extract-data:get-abstract-from-meta($article-meta,'short')}</abs-s>
             <abs-toc type="string">{extract-data:get-abstract-from-meta($article-meta,'toc')}</abs-toc>
             <abs-summary type="string">{extract-data:get-abstract-from-meta($article-meta,'summary')}</abs-summary>
-            <au-aff type="array"></au-aff>
-            <au-onbehalfof type="string"/>
-            <collab type="string"/>
+            <au-aff type="string">{extract-data:get-aff($article)}</au-aff>
+            <au-onbehalfof type="string">{extract-data:get-on-behalf-of($article)}</au-onbehalfof>
+            <collab type="string">{extract-data:get-collab($article)}</collab>
             
             <au-surname type="array">
             {for $author in $author-names return <str type="string">{extract-data:get-author-surname($author)}</str>}
@@ -183,26 +180,27 @@ declare private function create-rss($search-response as element(search:response)
     </rss>
 };
 
-declare private function create-csv($search-response as element(search:response)) {
-    let $header := fn:string-join(("doi","pub_date_d","ti","category"), ",")
+declare private function create-csv($search-response as element(search:response), $fields as xs:string) {
+    let $split-fields := fn:tokenize($fields, ",")
     let $articleCSV :=
         for $result in $search-response/search:result
         let $uri := $result/@uri
         let $article := fn:doc($uri)
-        let $doi := extract-data:get-doi($article)
-        let $pub-date := extract-data:get-pub-date($article)/text()
-        let $title := extract-data:get-article-title($article)/text()
-        let $category := extract-data:get-category($article)/text()
-        return fn:string-join(($doi,$pub-date,$title,$category), ",")
-    return ($header, $articleCSV)
+        return fn:string-join(extract-data:get-data-by-name($article, $split-fields), ",")
+    return ($fields, $articleCSV)
 };
 
-declare function formats:get-format($search-response as element(search:response), $query as xs:string, $format as xs:string) {
+declare function formats:get-format(
+    $search-response as element(search:response), 
+    $query as xs:string, 
+    $format as xs:string,
+    $fields as xs:string) 
+{
     switch ($format)
         case "xml" return create-xml($search-response)
         case "json" return create-json($search-response)
         case "rss" return create-rss($search-response)
-        case "csv" return create-csv($search-response)
+        case "csv" return create-csv($search-response, $fields)
         case "html" return create-html:export($search-response, $query)
         default return "oops"
 };
