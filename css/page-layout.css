@@ -121,3 +121,22 @@ span.title {
 span.remove-constraint img {
     height:12px;
 }
+
+@media (orientation: landscape) and (max-width: 1024px) {
+    .result-metrics div {
+          margin-left:0%;
+     }
+}
+
+@media (orientation: portrait) {
+     #sidebar {
+          display:none;
+     }
+     #head, #searchbar, #results {
+          margin-left:0%;
+     }
+     .result-metrics div {
+          margin-left:3%;
+          font-size: 1vw;
+     }
+}
