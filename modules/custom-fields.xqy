@@ -380,7 +380,7 @@ as schema-element(cts:query)
     <root>{
         let $word := fn:string($right//cts:text/text()) (: convert from str to id :)
         return
-            if($qtext eq "audio-visual:") then (
+            if($qtext eq "audio:" or "video:") then (
                 cts:element-word-query((fn:QName("http://purl.org/dc/terms/","title"),fn:QName("http://purl.org/dc/terms/","abstract")),
                                        $word,
                                        ("case-insensitive", "punctuation-insensitive"))

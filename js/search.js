@@ -80,8 +80,8 @@ $(document).on("mouseout", "span.remove-constraint img", function () {
 });
 
 function addNewCustomConstraint() {
-    name = dropDownList.value();
-    if (name === "fake") return;
+    name = dropDownList.text();
+    if (dropDownList.value() === "fake") return;
     
     html = "<div class='add-const'>";
     html += "<label value='" + name + "'>" + name + ": </label>";

@@ -200,7 +200,13 @@ declare variable $OPTIONS :=
 	</custom>
   </constraint>
   
-  <constraint name="audio-visual">
+  <constraint name="audio">
+    <custom facet="false">
+	   <parse apply="audio-visual" ns="http://www.nejm.org/custom-field-query" at="/modules/custom-fields.xqy"/>
+	</custom>
+  </constraint>
+  
+  <constraint name="video">
     <custom facet="false">
 	   <parse apply="audio-visual" ns="http://www.nejm.org/custom-field-query" at="/modules/custom-fields.xqy"/>
 	</custom>
