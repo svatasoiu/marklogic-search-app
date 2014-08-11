@@ -89,6 +89,7 @@ function addNewCustomConstraint() {
     html += "<span class='remove-constraint'><img src='https://www.google.com/tools/feedback/intl/en/images/icon-remove.png'/></span>";
     html += "</div>";
     $("#additionalConstraints").append(html);
+    dropDownList.select(0);
 }
 
 function addConstraint(constraint) {
@@ -162,7 +163,7 @@ function createQString(additional) {
     
     // add additional constraints
     $("#additionalConstraints div.add-const").each(function () {
-        qString += " " + $(this).find("label").attr("value") + ':"' + $(this).find("input").attr("value") + '"';
+        qString += delim + $(this).find("label").attr("value") + ':"' + $(this).find("input").attr("value") + '"';
     });
     
     // add sorting option

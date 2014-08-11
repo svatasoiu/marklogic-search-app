@@ -99,7 +99,7 @@ declare function create-html:body($search-response as element(search:response), 
                                   else $abstract/string()
                              else () }
                 </span>
-                                
+                <br/>      
                 <span>
                     { extract-data:get-images($article) }
                 </span>
