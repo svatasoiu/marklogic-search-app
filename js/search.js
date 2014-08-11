@@ -1,23 +1,17 @@
 // setup key listener on search box
 $(document).ready(function () {
-    targets = $("#tbox").kendoMultiSelect().data("kendoMultiSelect");
-    
-    var multiselect = $("#tbox").data("kendoMultiSelect");
-    multiselect.bind("change", getData);
-    
-    $("#sbox").keyup(function () {
-        //                if (event.keyCode == 13) {
-        //                getData();
-        var currQuery = $(this).attr("value");
-        // only send request if the query actually changed (i.e. don't react to ALT or CTRL presses)
-        if (lastQuery !== currQuery) {
-            lastQuery = currQuery;
-            getData();
-        } else if (event.keyCode == 13) {
-            getData();
-        }
-        //                }
+    $("#constraintOptions").kendoDropDownList({
+        change: addNewCustomConstraint
     });
+    
+    dropDownList = $("#constraintOptions").data("kendoDropDownList");
+});
+
+$(document).on("keyup", "#sbox, #additionalConstraints > div > input", function () {
+    var currQuery = $(this).attr("value");
+    if (event.keyCode == 13) {
+        getData();
+    }
 });
 
 $(document).on("change", "input[@name='sort']:radio", function () {
@@ -72,6 +66,28 @@ $(document).on("click", ".export", function () {
     window.open(createQString("&format=" + format));
 });
 
+$(document).on("click", ".remove-constraint", function () {
+    $(this).parent().remove();
+});
+
+// review altering image on hover
+$(document).on("mouseover", "span.remove-constraint img", function () {
+    $(this).attr("src", "images/x-mark-3-64.png");
+});
+$(document).on("mouseout", "span.remove-constraint img", function () {
+    $(this).attr("src", "https://www.google.com/tools/feedback/intl/en/images/icon-remove.png");
+});
+
+function addNewCustomConstraint() {
+    name = dropDownList.text();
+    html = "<div class='add-const'>";
+    html += "<label value='" + name + "'>" + name + ": </label>";
+    html += "<input type='text' placeholder='Constraint' />";
+    html += "<span class='remove-constraint'><img src='https://www.google.com/tools/feedback/intl/en/images/icon-remove.png'/></span>";
+    html += "</div>";
+    $("#additionalConstraints").append(html);
+}
+
 function addConstraint(constraint) {
     constraints.push(constraint);
 }
@@ -84,13 +100,12 @@ function removeConstraint(constraint) {
 }
 
 function msie() {
-   var ua = window.navigator.userAgent;
-   var msie = ua.indexOf("MSIE ");
-
-   if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./))      // If Internet Explorer, return version number
-      return true;
-   else                 // If another browser, return 0
-      return false;
+    var ua = window.navigator.userAgent;
+    var msie = ua.indexOf("MSIE ");
+    
+    if (msie > 0 || ! ! navigator.userAgent.match(/Trident.*rv\:11\./)) // If Internet Explorer, return version number
+    return true; else // If another browser, return 0
+    return false;
 }
 
 function update() {
@@ -105,7 +120,7 @@ function update() {
         
         $("#wo").html(http.responseText);
         if (msie()) $("audio").remove();
-        window.scrollTo(0,0);
+        window.scrollTo(0, 0);
         isWorking = false;
     }
 }
@@ -121,7 +136,7 @@ function getData(newStart) {
         // default newStart boolean to true
         if (typeof (newStart) === 'undefined') newStart = true;
         if (newStart) start = 1;
-
+        
         qString = createQString();
         
         http.open("GET", qString, true);
@@ -134,17 +149,22 @@ function getData(newStart) {
 
 function createQString(additional) {
     var q = $("#sbox").attr("value");
-    var qString = q.replace(/[\s]+([^\s"]+):([^\s"]+)/g, delim+'$1:"$2"');
+    var qString = q.replace(/[\s]+([^\s"]+):([^\s"]+)/g, delim + '$1:"$2"');
     var pageLength = $("#page_length").attr("value");
-    if (!pageLength) pageLength = 10;
+    if (! pageLength) pageLength = 10;
     // add in constraints
-    for (var i = 0; i < constraints.length; ++i) {
+    for (var i = 0; i < constraints.length;++ i) {
         qString += delim + constraints[i];
     }
     
+    // add additional constraints
+    $("#additionalConstraints div.add-const").each(function () {
+        qString += " " + $(this).find("label").attr("value") + ':"' + $(this).find("input").attr("value") + '"';
+    });
+    
     // add sorting option
     var sort = $('input[@name="sort"]:checked').val();
-    qString = "modules/results.xqy?query=" + qString + "&start=" + start + "&sort=" + sort + "&target=" + targets.value() + "&pageLength=" + pageLength;
+    qString = "modules/results.xqy?query=" + qString + "&start=" + start + "&sort=" + sort + "&pageLength=" + pageLength;
     if (additional) qString += additional;
     
     return qString;
@@ -173,4 +193,4 @@ var delim = "__";
 var start = 1;
 var pageLength = 10;
 var nextQuery = false;
-var targets = null;
+var dropDownList;

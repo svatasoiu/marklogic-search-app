@@ -22,10 +22,9 @@ let $fields              := xdmp:get-request-field("fields", "doi,pub-date,title
 
 let $query := fn:replace($query, "([^\s]*:\s|:$)", "")
 let $query := fn:replace($query, '[\s]+([^(__)\s]*:"[^\s]+")', fn:concat($DELIM,"$1"))
-let $highlight-query := fn:replace($query, fn:concat($DELIM,"[^\s]*:[^\s]*"), "")
 
 let $search-query := fn:concat(fn:replace($query, $DELIM, " "), ' sort:"', $sort, '"')
-let $search-response := search-lib:my-search($search-query, $start, $page-length, $highlight-query, $target)
+let $search-response := search-lib:my-search($search-query, $start, $page-length)
 
 return 
     if ($format and formats:has-format($format))

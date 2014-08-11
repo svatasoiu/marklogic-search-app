@@ -145,9 +145,27 @@ declare variable $OPTIONS :=
   </constraint>  
 
   <constraint name="title">
-    <value>
+    <word>
       <element ns="" name="article-title"/>
-    </value>
+    </word>
+  </constraint>  
+  
+  <constraint name="abstract">
+    <word>
+      <element ns="" name="abstract"/>
+    </word>
+  </constraint>  
+  
+  <constraint name="aff">
+    <word>
+      <element ns="" name="aff"/>
+    </word>
+  </constraint>  
+  
+  <constraint name="publisher-name">
+    <word>
+      <element ns="" name="publisher-name"/>
+    </word>
   </constraint>  
   
   <constraint name="pub_year">
@@ -174,6 +192,12 @@ declare variable $OPTIONS :=
 	  <custom facet="false">
 	     <parse apply="manuscriptId" ns="http://www.nejm.org/custom-field-query" at="/modules/custom-fields.xqy"/>
 	  </custom>
+  </constraint>
+  
+  <constraint name="images">
+    <custom facet="false">
+	   <parse apply="images" ns="http://www.nejm.org/custom-field-query" at="/modules/custom-fields.xqy"/>
+	</custom>
   </constraint>
   
   <operator name="sort">
@@ -214,40 +238,9 @@ as xs:integer {
 
 declare function search-lib:my-search($search-query as item()*,
    $start as item()*,
-   $page-length as item()*,
-   $query-string as xs:string,
-   $targets as xs:string?) 
+   $page-length as item()*) 
 as element(search:response) {
-    if ($targets)
-    then let $targets := fn:tokenize($targets, ",")
-         let $additional-query := 
-                         <additional-query xmlns="http://marklogic.com/appservices/search">
-                           { cts:and-query(
-                                 (cts:element-query(fn:QName("","article-meta"), cts:and-query(())),
-                                 cts:or-query( 
-                                    for $target in $targets
-                                    return (if ($target eq "images")
-                                           then cts:element-word-query(
-                                                    (fn:QName("http://www.massmed.org/elements/","label"),
-                                                      fn:QName("http://www.massmed.org/elements/","title"),
-                                                      fn:QName("http://www.massmed.org/elements/","caption")),
-                                                    $query-string,
-                                                    ("case-insensitive", "punctuation-insensitive"))
-                                           else if ($target eq "audio" or $target eq "video")
-                                           then cts:element-word-query(
-                                                    (fn:QName("http://purl.org/dc/terms/","title"),fn:QName("http://purl.org/dc/terms/","abstract")),
-                                                    $query-string,
-                                                    ("case-insensitive", "punctuation-insensitive"))
-                                           else cts:element-word-query(fn:QName("",$target),
-                                                        $query-string,
-                                                        ("case-insensitive", "punctuation-insensitive")))))) }
-                         </additional-query>
-         let $options := <options xmlns="http://marklogic.com/appservices/search">
-                           {$OPTIONS/*}
-                           { $additional-query }
-                         </options>
-         return search:search($search-query, $options, $start, $page-length)
-    else let $options := <options xmlns="http://marklogic.com/appservices/search">
+    let $options := <options xmlns="http://marklogic.com/appservices/search">
                            {$OPTIONS/*}
                            <additional-query xmlns="http://marklogic.com/appservices/search"> 
                            { cts:and-query((cts:element-query(fn:QName("","article-meta"), cts:and-query(())))) }

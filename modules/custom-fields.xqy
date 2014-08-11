@@ -353,3 +353,39 @@ as element(search:facet) {
         }
    }
 };
+
+declare function custom-field-query:images (
+	$qtext as xs:string,
+	$right as schema-element(cts:query)) 
+as schema-element(cts:query)	
+{
+    <root>{
+        let $word := fn:string($right//cts:text/text()) (: convert from str to id :)
+        return
+            if($qtext eq "images:") then (
+                 cts:element-word-query(
+                                                    (fn:QName("http://www.massmed.org/elements/","label"),
+                                                      fn:QName("http://www.massmed.org/elements/","title"),
+                                                      fn:QName("http://www.massmed.org/elements/","caption")),
+                                                    $word,
+                                                    ("case-insensitive", "punctuation-insensitive"))
+            ) else ()         
+	}</root>/*
+};
+
+declare function custom-field-query:audio-visual (
+	$qtext as xs:string,
+	$right as schema-element(cts:query)) 
+as schema-element(cts:query)	
+{
+    <root>{
+        let $word := fn:string($right//cts:text/text()) (: convert from str to id :)
+        return
+            if($qtext eq "audio-visual:") then (
+                cts:element-word-query(
+                                                    (fn:QName("http://purl.org/dc/terms/","title"),fn:QName("http://purl.org/dc/terms/","abstract")),
+                                                    $word,
+                                                    ("case-insensitive", "punctuation-insensitive"))
+            ) else ()         
+	}</root>/*
+};
