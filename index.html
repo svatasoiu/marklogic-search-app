@@ -20,18 +20,17 @@
             <input id="sbox" type="text" placeholder="Search" />
             <div class="demo-section k-header"> Constraint Names: 
                 <select id="constraintOptions" data-placeholder="Constraint Options">
+                    <option value="fake">Select One</option>
                     <option>has-cme</option>
                     <option>category</option>
                     <option>topic</option>
                     <option>specialty</option>
-                    <option>audio</option>
                     <option>persp-topic-str</option>
                     <option>nlm-type</option>
                     <option>has_audio</option>
                     <option>has_video</option>
                     <option>authorSurname</option>
                     <option>doi</option>
-                    <option>title</option>
                     <option>year</option>
                     <option>month</option>
                     <option>day</option>
@@ -42,13 +41,11 @@
                     <option>publisher-name</option>
                     <option>images</option>
                     <option>aff</option>
-                    <option>audio</option>
-                    <option>video</option>
+                    <option value="audio-visual">audio</option>
+                    <option value="audio-visual">video</option>
                 </select>
-                <div>
                     <div id="additionalConstraints"></div>
                     <!--<button id="newConstraintBtn">Add New Constraint</button>-->
-                </div>
             </div>
             <div>
                 <b>Sorted By: </b>

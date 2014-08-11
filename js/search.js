@@ -68,6 +68,7 @@ $(document).on("click", ".export", function () {
 
 $(document).on("click", ".remove-constraint", function () {
     $(this).parent().remove();
+    getData();
 });
 
 // review altering image on hover
@@ -79,7 +80,9 @@ $(document).on("mouseout", "span.remove-constraint img", function () {
 });
 
 function addNewCustomConstraint() {
-    name = dropDownList.text();
+    name = dropDownList.value();
+    if (name === "fake") return;
+    
     html = "<div class='add-const'>";
     html += "<label value='" + name + "'>" + name + ": </label>";
     html += "<input type='text' placeholder='Constraint' />";

@@ -11,7 +11,6 @@
     margin-left: 7%;
     width:95%;
     text-align:center;
-    height: 100px;
 }
 #sbox {
     width:50%;
@@ -29,7 +28,7 @@
     margin-right: auto;
 }
 .demo-section{
-    width:25%;
+    width:40%;
 }
 .demo-section select{
     width:25%;
