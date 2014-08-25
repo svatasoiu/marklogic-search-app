@@ -10,7 +10,7 @@ declare function perspectives:str-to-id($str as xs:string) as xs:string {
     fn:string(($PERSP-TOPIC-TABLE/perspective[@name eq $str]/@id)[1])
 };
 
-declare private variable $PERSP-TOPIC-TABLE := <perspectives>
+declare variable $PERSP-TOPIC-TABLE := <perspectives>
     <perspective id="1" name="Drug and Device Safety"/>
     <perspective id="2" name="Essays"/>
     <perspective id="3" name="Focus on Research"/>

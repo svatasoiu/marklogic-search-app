@@ -23,7 +23,7 @@ declare function formats:has-format($format as xs:string) {
     $format = ("xml","json","rss","csv","html")
 };
 
-declare private function create-xml($search-response as element(search:response)) {
+declare function create-xml($search-response as element(search:response)) {
     <response type="object" xmlns="http://marklogic.com/xdmp/json/basic">
         <responseHeader type="object">
             <status type="number">0</status>
@@ -139,11 +139,11 @@ declare private function create-xml($search-response as element(search:response)
     </response>
 };
 
-declare private function create-json($search-response as element(search:response)) {
+declare function create-json($search-response as element(search:response)) {
     json:transform-to-json(<json type="object" xmlns="http://marklogic.com/xdmp/json/basic"> {create-xml($search-response) } </json>)
 };
 
-declare private function create-rss($search-response as element(search:response)) {
+declare function create-rss($search-response as element(search:response)) {
     <rss xmlns:dc="http://purl.org/dc/elements/1.1/" version="2.0">
         <channel>
             <title>The New England Journal of Medicine</title>
@@ -180,7 +180,7 @@ declare private function create-rss($search-response as element(search:response)
     </rss>
 };
 
-declare private function create-csv($search-response as element(search:response), $fields as xs:string) {
+declare function create-csv($search-response as element(search:response), $fields as xs:string) {
     let $split-fields := fn:tokenize($fields, ",")
     let $articleCSV :=
         for $result in $search-response/search:result
@@ -202,5 +202,5 @@ declare function formats:get-format(
         case "rss" return create-rss($search-response)
         case "csv" return create-csv($search-response, $fields)
         case "html" return create-html:export($search-response, $query)
-        default return "oops"
+        default return "oops" 
 };

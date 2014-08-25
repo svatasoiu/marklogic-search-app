@@ -10,7 +10,7 @@ declare function topics:str-to-id($str as xs:string) as xs:string {
     fn:string(($TOPIC-TABLE/topic[@top eq $str]/@id)[1])
 };
 
-declare private variable $TOPIC-TABLE := 
+declare variable $TOPIC-TABLE := 
   <topics>
     <topic id="1" top="Neurology/Neurosurgery"/>
     <topic id="2" top="Hematology/Oncology"/>

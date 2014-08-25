@@ -89,6 +89,7 @@ function addNewCustomConstraint() {
     html += "<span class='remove-constraint'><img src='https://www.google.com/tools/feedback/intl/en/images/icon-remove.png'/></span>";
     html += "</div>";
     $("#additionalConstraints").append(html);
+    $("#additionalConstraints div.add-const input").last().focus();
     dropDownList.select(0);
 }
 

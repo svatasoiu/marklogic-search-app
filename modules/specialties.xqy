@@ -10,7 +10,7 @@ declare function specialties:str-to-id($str as xs:string) as xs:string {
     fn:string(($SPEC-TABLE/specialty[@spec eq $str]/@id)[1])
 };
 
-declare private variable $SPEC-TABLE  := 
+declare variable $SPEC-TABLE  := 
   <specialties>
     <specialty id="1_1" spec="Neurology/Neurosurgery General"/>
     <specialty id="1_2" spec="Stroke"/>
