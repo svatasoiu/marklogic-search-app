@@ -1,0 +1,257 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xml:space="preserve"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>xqDoc -- Module</title><script language="JavaScript"><!--
+        function popUp(URL) {
+                 day = new Date();
+                 id = day.getTime();
+                 eval("page = window.open(URL, 'xqdoccode', 'toolbar=0,scrollbars=1,location=0,statusbar=0,menubar=0,resizable=1,width=600,height=400,left = 412,top = 334');")
+                 page.focus();
+        }
+      --></script><script language="JavaScript"><!--
+	    function litePopUp(str) {    
+  		  OpenWindow=window.open('', 'xqdoccode', 'toolbar=0,scrollbars=1,location=0,statusbar=0,menubar=0,resizable=1,width=600,height=400,left = 412,top = 334');
+  		  OpenWindow.document.write('<html xmlspace="preserve">');
+  		  OpenWindow.document.write('<head>');
+  		  OpenWindow.document.write('<title>xqDoc - Code Sample</title>');
+  		  OpenWindow.document.write('</head>');  		    		    		  
+  		  OpenWindow.document.write('<body xml:space="preserve">');
+  		  OpenWindow.document.write('<pre>');
+ 		  OpenWindow.document.write(str);
+ 		  OpenWindow.document.write('</pre>');
+  		  OpenWindow.document.write('</body>');
+  		  OpenWindow.document.write('</html>');
+  		  OpenWindow.document.close();
+  		  page.focus();
+        }
+      --></script><style><!--
+body		{
+		font: 80% Verdana;
+		}
+table		{
+		font-size: 100%;
+		}
+h1, h2, h3, h4, h5, h6
+		{
+		clear: both;
+		float: none;
+		}
+h1		{
+		font-size: 100%;
+		margin: 0em;
+		}
+h2		{
+		font-size: 180%;
+		margin-bottom: -1em;
+		margin-top: .3em;
+		}
+h3		{
+		font-size: 150%;
+		}	
+h4		{
+		font-size: 140%;
+		background-color: #ccf;
+		border-bottom: 1px solid #99f;
+		width: 100%;
+		}
+h5		{
+		margin: 1em 0em 0em 0em;
+		font-size: 120%;
+		}
+h6		{
+		margin: 0em 0em 0em 3em;
+		font-style: italic;
+		font: bold italic;
+		font-size: 100%;
+		}
+#variables, #methods, #methoddetail
+		{
+		padding-left: 3em;
+		margin-bottom: 1.4em;
+		clear: both;
+		float: none;
+		}
+#methods ul.method, #variables ul.method
+		{
+		margin: 1em 0em 0em;
+		}
+#methoddetail ul.method
+		{
+		margin: 0em;
+		}
+div.inexternal
+		{
+		padding-left: 2em;
+		margin-bottom: 1em;
+		}
+div.methoddetail p
+		{
+		float: none;
+		clear: both;
+		padding-left: 2em;
+		margin-bottom: 1em;
+		}
+div.methoddetail{
+		padding-bottom: 1em;
+		}
+div.methoddetail li
+		{
+		list-style-type: none;
+		font-weight: bold;
+		}
+div.methoddetail li li
+		{
+		list-style-type: circle;
+		font-weight: normal;
+		}
+div.methoddetail li ul
+		{
+		padding-bottom: 0.5em;
+		font-weight: normal;
+		}
+table.inexternal{
+		clear: both;
+		float: none;
+		width: 80%;
+		margin-left: 3em;
+		padding: 0em;
+		
+		}
+table.inexternal th
+		{
+		background-color:#dedede;
+		width: 50%;
+		}			
+td		{
+		vertical-align: top;
+		}
+div.description {
+		margin-top: .5em;
+		font-weight: normal;
+		padding-left: 1em;
+		}
+ul.method	{
+		clear: both;
+		float: none;
+		width: 90%;
+		list-style-type: none;
+		border-top: 1px solid #ccc;
+		}
+ul.method li.left
+		{
+		float: left;
+		clear: none;
+		width: 40%;
+		font-weight: bold;
+		margin-bottom: 2em;
+		}
+ul.method li.right
+		{
+		position: relative;
+            top: 0em;
+		float: left;
+            width: 55%;
+		margin-bottom: 2em;
+		padding-left: 2em;
+		}
+div.home 	{
+		width: 60%;
+		float: left;
+		margin-right: 1%;
+		border: 1px
+		}
+div.home h4	{
+		font-size: 120%;
+		background-color: #fff;
+		border-bottom: 1px solid #99f;
+		width: 100%;
+		margin-bottom: -1em;
+		}
+div.overview p {
+               width: 60%;
+               }
+     
+ --></style></head><body><h4>Module URI</h4><h1>http://www.marklogic.com/tutorial2/extract-data</h1>&nbsp; &nbsp;<h4>Function Summary</h4><div id="methods"><a name="methods"></a><ul class="method"><li class="left"><a href="#authors-to-string">authors-to-string</a><div class="description"></div></li><li class="right">( $authors as element(contrib)*) as xs:string?<br><br></li></ul><ul class="method"><li class="left"><a href="#get-abstract">get-abstract</a><div class="description"></div></li><li class="right">( $article as document-node()) as element(abstract)?<br><br></li></ul><ul class="method"><li class="left"><a href="#get-abstract-from-meta">get-abstract-from-meta</a><div class="description"></div></li><li class="right">( $meta as element(article-meta) ,<br>&nbsp; $type as xs:string) as xs:string?<br><br></li></ul><ul class="method"><li class="left"><a href="#get-aff">get-aff</a><div class="description"></div></li><li class="right">( $article as document-node()) as xs:string?<br><br></li></ul><ul class="method"><li class="left"><a href="#get-article-file-name">get-article-file-name</a><div class="description"></div></li><li class="right">( $article as document-node()) as xs:string?<br><br></li></ul><ul class="method"><li class="left"><a href="#get-article-meta">get-article-meta</a><div class="description"></div></li><li class="right">( $article as document-node()) as element(article-meta)?<br><br></li></ul><ul class="method"><li class="left"><a href="#get-article-pdf">get-article-pdf</a><div class="description"></div></li><li class="right">( $article as document-node()) as xs:string?<br><br></li></ul><ul class="method"><li class="left"><a href="#get-article-supplements">get-article-supplements</a><div class="description"></div></li><li class="right">( $article as document-node()) as xs:string*<br><br></li></ul><ul class="method"><li class="left"><a href="#get-article-title">get-article-title</a><div class="description"></div></li><li class="right">( $article as document-node()) as element(article-title)?<br><br></li></ul><ul class="method"><li class="left"><a href="#get-author-degree">get-author-degree</a><div class="description"></div></li><li class="right">( $authors as element(contrib)*) as xs:string*<br><br></li></ul><ul class="method"><li class="left"><a href="#get-author-given-name">get-author-given-name</a><div class="description"></div></li><li class="right">( $author as element(name)) as xs:string?<br><br></li></ul><ul class="method"><li class="left"><a href="#get-author-names">get-author-names</a><div class="description"></div></li><li class="right">( $authors as element(contrib)*) as element(name)*<br><br></li></ul><ul class="method"><li class="left"><a href="#get-author-surname">get-author-surname</a><div class="description"></div></li><li class="right">( $author as element(name)) as xs:string?<br><br></li></ul><ul class="method"><li class="left"><a href="#get-authors">get-authors</a><div class="description"></div></li><li class="right">( $article as document-node()) as element(contrib)*<br><br></li></ul><ul class="method"><li class="left"><a href="#get-authors-from-meta">get-authors-from-meta</a><div class="description"></div></li><li class="right">( $meta as element(article-meta)) as element(contrib)*<br><br></li></ul><ul class="method"><li class="left"><a href="#get-category">get-category</a><div class="description"></div></li><li class="right">( $article as document-node()) as element(subject)?<br><br></li></ul><ul class="method"><li class="left"><a href="#get-collab">get-collab</a><div class="description"></div></li><li class="right">( $article as document-node()) as xs:string?<br><br></li></ul><ul class="method"><li class="left"><a href="#get-cpf-properties">get-cpf-properties</a><div class="description"></div></li><li class="right">( $article as document-node()) as element(prop:properties)?<br><br></li></ul><ul class="method"><li class="left"><a href="#get-data-by-name">get-data-by-name</a><div class="description"></div></li><li class="right">( $article as document-node() ,<br>&nbsp; $name as xs:string) as xs:string<br><br></li></ul><ul class="method"><li class="left"><a href="#get-display-objects">get-display-objects</a><div class="description"></div></li><li class="right">( $article as document-node()) as xs:string*<br><br></li></ul><ul class="method"><li class="left"><a href="#get-doi">get-doi</a><div class="description"></div></li><li class="right">( $article as document-node()) as xs:string?<br><br></li></ul><ul class="method"><li class="left"><a href="#get-id-from-jmeta">get-id-from-jmeta</a><div class="description"></div></li><li class="right">( $meta as element(journal-meta) ,<br>&nbsp; $type as xs:string) as xs:string?<br><br></li></ul><ul class="method"><li class="left"><a href="#get-images">get-images</a><div class="description"></div></li><li class="right">( $article as document-node()) as element(a)*<br><br></li></ul><ul class="method"><li class="left"><a href="#get-inline-graphics">get-inline-graphics</a><div class="description"></div></li><li class="right">( $article as document-node()) as xs:string*<br><br></li></ul><ul class="method"><li class="left"><a href="#get-journal-meta">get-journal-meta</a><div class="description"></div></li><li class="right">( $article as document-node()) as element(journal-meta)?<br><br></li></ul><ul class="method"><li class="left"><a href="#get-journal-title">get-journal-title</a><div class="description"></div></li><li class="right">( $article as document-node()) as element(journal-title)?<br><br></li></ul><ul class="method"><li class="left"><a href="#get-ml-link">get-ml-link</a><div class="description"></div></li><li class="right">( $article as document-node()) as xs:string?<br><br></li></ul><ul class="method"><li class="left"><a href="#get-nlm-type">get-nlm-type</a><div class="description"></div></li><li class="right">( $article as document-node()) as xs:string?<br><br></li></ul><ul class="method"><li class="left"><a href="#get-on-behalf-of">get-on-behalf-of</a><div class="description"></div></li><li class="right">( $article as document-node()) as xs:string?<br><br></li></ul><ul class="method"><li class="left"><a href="#get-ppt">get-ppt</a><div class="description"></div></li><li class="right">( $article as document-node()) as xs:string?<br><br></li></ul><ul class="method"><li class="left"><a href="#get-pub-date">get-pub-date</a><div class="description"></div></li><li class="right">( $article as document-node()) as element(mms:publicationDate)?<br><br></li></ul><ul class="method"><li class="left"><a href="#get-pub-id">get-pub-id</a><div class="description"></div></li><li class="right">( $meta as element(article-meta)) as xs:string?<br><br></li></ul><ul class="method"><li class="left"><a href="#get-publisher-from-jmeta">get-publisher-from-jmeta</a><div class="description"></div></li><li class="right">( $meta as element(journal-meta)) as xs:string?<br><br></li></ul><ul class="method"><li class="left"><a href="#get-renditions">get-renditions</a><div class="description"></div></li><li class="right">( $article as document-node()) as element(span)<br><br></li></ul><ul class="method"><li class="left"><a href="#get-series-title">get-series-title</a><div class="description"></div></li><li class="right">( $meta as element(article-meta)) as xs:string?<br><br></li></ul><ul class="method"><li class="left"><a href="#get-specialty-ids">get-specialty-ids</a><div class="description"></div></li><li class="right">( $article as document-node()) as xs:string*<br><br></li></ul><ul class="method"><li class="left"><a href="#get-sub-article-type">get-sub-article-type</a><div class="description"></div></li><li class="right">( $meta as element(article-meta)) as xs:string?<br><br></li></ul><ul class="method"><li class="left"><a href="#get-topic-ids">get-topic-ids</a><div class="description"></div></li><li class="right">( $article as document-node()) as xs:string*<br><br></li></ul><ul class="method"><li class="left"><a href="#get-vips">get-vips</a><div class="description"></div></li><li class="right">( $article as document-node()) as element(mms:vips)?<br><br></li></ul><ul class="method"><li class="left"><a href="#get-volume-page">get-volume-page</a><div class="description"></div></li><li class="right">( $article as document-node()) as xs:string?<br><br></li></ul><ul class="method"><li class="left"><a href="#has-attachment">has-attachment</a><div class="description"></div></li><li class="right">( $article as document-node()) as xs:string<br><br></li></ul><ul class="method"><li class="left"><a href="#is-free">is-free</a><div class="description"></div></li><li class="right">( $article as document-node()) as xs:string<br><br></li></ul></div>&nbsp;<h4>Function Detail</h4><div id="methoddetail"><div id="authors-to-string" class="methoddetail"><h5><a name="authors-to-string"></a>authors-to-string</h5><ul class="method"><li class="left"><a href="javascript:litePopUp('declare function extract-data:authors-to-string($authors as element(contrib)*) as xs:string?{<br/&gt;    let $res := <br/&gt;        for $author in $authors<br/&gt;        return fn:concat($author/name/given-names/text(), &#34; &#34;, $author/name/surname/text())<br/&gt;    return fn:string-join($res,&#34;, &#34;)<br/&gt;};<br/&gt;')">
+         view code
+      </a></li><li class="right">( $authors as element(contrib)*) as xs:string?<br><br></li></ul><ul></ul><div class="methoddetail"><h6>External Functions that are used by this Function</h6><table class="inexternal"><tr><th align="left">Module URI</th><th align="left">Function Name</th></tr><tr><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td rowspan="2">http://www.w3.org/2005/xpath-functions</td><td>concat</td></tr><tr><td>string-join</td></tr></table></div></div>&nbsp;<div id="get-abstract" class="methoddetail"><h5><a name="get-abstract"></a>get-abstract</h5><ul class="method"><li class="left"><a href="javascript:litePopUp('declare function extract-data:get-abstract($article as document-node()) as element(abstract)?{<br/&gt;    let $trunc-abs := $article/didl:DIDL/didl:Item/didl:Descriptor[@id=&amp;apos;d400&amp;apos;]/didl:Statement/article-meta/abstract[@abstract-type=&#34;truncated&#34;]<br/&gt;    return if ($trunc-abs instance of node())<br/&gt;           then $trunc-abs<br/&gt;           else $article/didl:DIDL/didl:Item/didl:Descriptor[@id=&amp;apos;d400&amp;apos;]/didl:Statement/article-meta/abstract[1]<br/&gt;};<br/&gt;')">
+         view code
+      </a></li><li class="right">( $article as document-node()) as element(abstract)?<br><br></li></ul><ul></ul></div>&nbsp;<div id="get-abstract-from-meta" class="methoddetail"><h5><a name="get-abstract-from-meta"></a>get-abstract-from-meta</h5><ul class="method"><li class="left"><a href="javascript:litePopUp('declare function extract-data:get-abstract-from-meta($meta as element(article-meta), $type as xs:string) as xs:string?{<br/&gt;    fn:string-join($meta/abstract[@abstract-type=$type]//text(),&#34;&#34;)<br/&gt;};<br/&gt;')">
+         view code
+      </a></li><li class="right">( $meta as element(article-meta) ,<br>&nbsp; $type as xs:string) as xs:string?<br><br></li></ul><ul></ul><div class="methoddetail"><h6>External Functions that are used by this Function</h6><table class="inexternal"><tr><th align="left">Module URI</th><th align="left">Function Name</th></tr><tr><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td rowspan="1">http://www.w3.org/2005/xpath-functions</td><td>string-join</td></tr></table></div></div>&nbsp;<div id="get-aff" class="methoddetail"><h5><a name="get-aff"></a>get-aff</h5><ul class="method"><li class="left"><a href="javascript:litePopUp('declare function extract-data:get-aff($article as document-node()) as xs:string?{<br/&gt;    $article/didl:DIDL/didl:Item/didl:Descriptor[@id=&amp;apos;d400&amp;apos;]/didl:Statement/article-meta/contrib-group/aff/text()<br/&gt;};<br/&gt;')">
+         view code
+      </a></li><li class="right">( $article as document-node()) as xs:string?<br><br></li></ul><ul></ul></div>&nbsp;<div id="get-article-file-name" class="methoddetail"><h5><a name="get-article-file-name"></a>get-article-file-name</h5><ul class="method"><li class="left"><a href="javascript:litePopUp('declare function extract-data:get-article-file-name($article as document-node()) as xs:string?{<br/&gt;    $article/didl:DIDL/didl:Item/didl:Descriptor[@id=&#34;d220&#34;]/didl:Statement/mms:fileid/text()<br/&gt;};<br/&gt;')">
+         view code
+      </a></li><li class="right">( $article as document-node()) as xs:string?<br><br></li></ul><ul></ul></div>&nbsp;<div id="get-article-meta" class="methoddetail"><h5><a name="get-article-meta"></a>get-article-meta</h5><ul class="method"><li class="left"><a href="javascript:litePopUp('declare function extract-data:get-article-meta($article as document-node()) as element(article-meta)?{<br/&gt;    $article/didl:DIDL/didl:Item/didl:Descriptor[@id=&#34;d400&#34;]/didl:Statement/article-meta<br/&gt;};<br/&gt;')">
+         view code
+      </a></li><li class="right">( $article as document-node()) as element(article-meta)?<br><br></li></ul><ul></ul></div>&nbsp;<div id="get-article-pdf" class="methoddetail"><h5><a name="get-article-pdf"></a>get-article-pdf</h5><ul class="method"><li class="left"><a href="javascript:litePopUp('declare function extract-data:get-article-pdf($article as document-node()) as xs:string?{<br/&gt;    $article/didl:DIDL/didl:Item/didl:Container[@id=&amp;apos;Renditions&amp;apos;]/didl:Component[@id=&amp;apos;c130&amp;apos;]/didl:Descriptor/didl:Statement/rdf:RDF/rdf:Description/dcterms:identifier/text()<br/&gt;};<br/&gt;')">
+         view code
+      </a></li><li class="right">( $article as document-node()) as xs:string?<br><br></li></ul><ul></ul></div>&nbsp;<div id="get-article-supplements" class="methoddetail"><h5><a name="get-article-supplements"></a>get-article-supplements</h5><ul class="method"><li class="left"><a href="javascript:litePopUp('declare function extract-data:get-article-supplements($article as document-node()) as xs:string*{<br/&gt;    $article/didl:DIDL/didl:Item/didl:Container[@id=&amp;apos;Supplements&amp;apos;]/didl:Component/didl:Descriptor/didl:Statement/rdf:RDF/rdf:Description/dcterms:hasFormat/rdf:Description/dcterms:identifier/text()<br/&gt;};<br/&gt;')">
+         view code
+      </a></li><li class="right">( $article as document-node()) as xs:string*<br><br></li></ul><ul></ul></div>&nbsp;<div id="get-article-title" class="methoddetail"><h5><a name="get-article-title"></a>get-article-title</h5><ul class="method"><li class="left"><a href="javascript:litePopUp('declare function extract-data:get-article-title($article as document-node()) as element(article-title)?{<br/&gt;    $article/didl:DIDL/didl:Item/didl:Descriptor[@id=&amp;apos;d400&amp;apos;]/didl:Statement/article-meta/title-group/article-title[1]<br/&gt;};<br/&gt;')">
+         view code
+      </a></li><li class="right">( $article as document-node()) as element(article-title)?<br><br></li></ul><ul></ul></div>&nbsp;<div id="get-author-degree" class="methoddetail"><h5><a name="get-author-degree"></a>get-author-degree</h5><ul class="method"><li class="left"><a href="javascript:litePopUp('declare function extract-data:get-author-degree($authors as element(contrib)*) as xs:string*{<br/&gt;    $authors/degrees/text()<br/&gt;};<br/&gt;')">
+         view code
+      </a></li><li class="right">( $authors as element(contrib)*) as xs:string*<br><br></li></ul><ul></ul></div>&nbsp;<div id="get-author-given-name" class="methoddetail"><h5><a name="get-author-given-name"></a>get-author-given-name</h5><ul class="method"><li class="left"><a href="javascript:litePopUp('declare function extract-data:get-author-given-name($author as element(name)) as xs:string?{<br/&gt;    $author/given-names/text()<br/&gt;};<br/&gt;')">
+         view code
+      </a></li><li class="right">( $author as element(name)) as xs:string?<br><br></li></ul><ul></ul></div>&nbsp;<div id="get-author-names" class="methoddetail"><h5><a name="get-author-names"></a>get-author-names</h5><ul class="method"><li class="left"><a href="javascript:litePopUp('declare function extract-data:get-author-names($authors as element(contrib)*) as element(name)*{<br/&gt;    $authors/name<br/&gt;};<br/&gt;')">
+         view code
+      </a></li><li class="right">( $authors as element(contrib)*) as element(name)*<br><br></li></ul><ul></ul></div>&nbsp;<div id="get-author-surname" class="methoddetail"><h5><a name="get-author-surname"></a>get-author-surname</h5><ul class="method"><li class="left"><a href="javascript:litePopUp('declare function extract-data:get-author-surname($author as element(name)) as xs:string?{<br/&gt;    $author/surname/text()<br/&gt;};<br/&gt;')">
+         view code
+      </a></li><li class="right">( $author as element(name)) as xs:string?<br><br></li></ul><ul></ul></div>&nbsp;<div id="get-authors" class="methoddetail"><h5><a name="get-authors"></a>get-authors</h5><ul class="method"><li class="left"><a href="javascript:litePopUp('declare function extract-data:get-authors($article as document-node()) as element(contrib)*{<br/&gt;    $article/didl:DIDL/didl:Item/didl:Descriptor[@id=&amp;apos;d400&amp;apos;]/didl:Statement/article-meta/contrib-group/contrib[@contrib-type=&#34;author&#34;]<br/&gt;};<br/&gt;')">
+         view code
+      </a></li><li class="right">( $article as document-node()) as element(contrib)*<br><br></li></ul><ul></ul></div>&nbsp;<div id="get-authors-from-meta" class="methoddetail"><h5><a name="get-authors-from-meta"></a>get-authors-from-meta</h5><ul class="method"><li class="left"><a href="javascript:litePopUp('declare function extract-data:get-authors-from-meta($meta as element(article-meta)) as element(contrib)*{<br/&gt;    $meta/contrib-group/contrib[@contrib-type=&#34;author&#34;]<br/&gt;};<br/&gt;')">
+         view code
+      </a></li><li class="right">( $meta as element(article-meta)) as element(contrib)*<br><br></li></ul><ul></ul></div>&nbsp;<div id="get-category" class="methoddetail"><h5><a name="get-category"></a>get-category</h5><ul class="method"><li class="left"><a href="javascript:litePopUp('declare function extract-data:get-category($article as document-node()) as element(subject)?{<br/&gt;    $article/didl:DIDL/didl:Item/didl:Descriptor[@id=&amp;apos;d400&amp;apos;]/didl:Statement/article-meta/article-categories/subj-group[@subj-group-type=&amp;apos;heading&amp;apos;]/subject[1]<br/&gt;};<br/&gt;')">
+         view code
+      </a></li><li class="right">( $article as document-node()) as element(subject)?<br><br></li></ul><ul></ul></div>&nbsp;<div id="get-collab" class="methoddetail"><h5><a name="get-collab"></a>get-collab</h5><ul class="method"><li class="left"><a href="javascript:litePopUp('declare function extract-data:get-collab($article as document-node()) as xs:string?{<br/&gt;    $article/didl:DIDL/didl:Item/didl:Descriptor[@id=&amp;apos;d400&amp;apos;]/didl:Statement/article-meta/contrib-group/contrib[@contrib-type=&amp;apos;author&amp;apos;]/collab/text()<br/&gt;};<br/&gt;')">
+         view code
+      </a></li><li class="right">( $article as document-node()) as xs:string?<br><br></li></ul><ul></ul></div>&nbsp;<div id="get-cpf-properties" class="methoddetail"><h5><a name="get-cpf-properties"></a>get-cpf-properties</h5><ul class="method"><li class="left"><a href="javascript:litePopUp('declare function extract-data:get-cpf-properties($article as document-node()) as element(prop:properties)?{<br/&gt;    $article/didl:DIDL/didl:Item/didl:Descriptor[@id=&amp;apos;d500&amp;apos;]/didl:Statement/prop:properties<br/&gt;};<br/&gt;')">
+         view code
+      </a></li><li class="right">( $article as document-node()) as element(prop:properties)?<br><br></li></ul><ul></ul></div>&nbsp;<div id="get-data-by-name" class="methoddetail"><h5><a name="get-data-by-name"></a>get-data-by-name</h5><ul class="method"><li class="left"><a href="javascript:litePopUp('declare function extract-data:get-data-by-name($article as document-node(), $name as xs:string) as xs:string{<br/&gt;    let $res := &#34;&#34;<br/&gt;    <br/&gt;    return <br/&gt;    if ($res) <br/&gt;    then <br/&gt;        if (fn:contains($res, &#34;,&#34;))<br/&gt;        then fn:concat(&amp;apos;&#34;&amp;apos;,$res,&amp;apos;&#34;&amp;apos;)<br/&gt;        else $res<br/&gt;    else &#34;&#34;<br/&gt;};<br/&gt;')">
+         view code
+      </a></li><li class="right">( $article as document-node() ,<br>&nbsp; $name as xs:string) as xs:string<br><br></li></ul><ul></ul><div class="methoddetail"><h6>External Functions that are used by this Function</h6><table class="inexternal"><tr><th align="left">Module URI</th><th align="left">Function Name</th></tr><tr><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td rowspan="2">http://www.w3.org/2005/xpath-functions</td><td>concat</td></tr><tr><td>contains</td></tr></table></div></div>&nbsp;<div id="get-display-objects" class="methoddetail"><h5><a name="get-display-objects"></a>get-display-objects</h5><ul class="method"><li class="left"><a href="javascript:litePopUp('declare function extract-data:get-display-objects($article as document-node()) as xs:string*{<br/&gt;    $article/didl:DIDL/didl:Item/didl:Container[@id=&amp;apos;DisplayObjects&amp;apos;]/didl:Component/didl:Descriptor/didl:Statement/rdf:RDF/rdf:Description/dcterms:hasFormat/rdf:Description/dcterms:identifier/text()<br/&gt;};<br/&gt;')">
+         view code
+      </a></li><li class="right">( $article as document-node()) as xs:string*<br><br></li></ul><ul></ul></div>&nbsp;<div id="get-doi" class="methoddetail"><h5><a name="get-doi"></a>get-doi</h5><ul class="method"><li class="left"><a href="javascript:litePopUp('declare function extract-data:get-doi($article as document-node()) as xs:string?{<br/&gt;    $article/didl:DIDL/didl:Item/didl:Descriptor[@id=&amp;apos;d400&amp;apos;]/didl:Statement/article-meta/article-id[@pub-id-type=&amp;apos;doi&amp;apos;]/data()<br/&gt;};<br/&gt;')">
+         view code
+      </a></li><li class="right">( $article as document-node()) as xs:string?<br><br></li></ul><ul></ul><div class="methoddetail"><h6>External Functions that are used by this Function</h6><table class="inexternal"><tr><th align="left">Module URI</th><th align="left">Function Name</th></tr><tr><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td rowspan="1">http://www.w3.org/2005/xpath-functions</td><td>data</td></tr></table></div></div>&nbsp;<div id="get-id-from-jmeta" class="methoddetail"><h5><a name="get-id-from-jmeta"></a>get-id-from-jmeta</h5><ul class="method"><li class="left"><a href="javascript:litePopUp('declare function extract-data:get-id-from-jmeta($meta as element(journal-meta), $type as xs:string) as xs:string?{<br/&gt;    fn:string-join($meta/journal-id[@journal-id-type=$type]/text(),&#34;&#34;)<br/&gt;};<br/&gt;')">
+         view code
+      </a></li><li class="right">( $meta as element(journal-meta) ,<br>&nbsp; $type as xs:string) as xs:string?<br><br></li></ul><ul></ul><div class="methoddetail"><h6>External Functions that are used by this Function</h6><table class="inexternal"><tr><th align="left">Module URI</th><th align="left">Function Name</th></tr><tr><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td rowspan="1">http://www.w3.org/2005/xpath-functions</td><td>string-join</td></tr></table></div></div>&nbsp;<div id="get-images" class="methoddetail"><h5><a name="get-images"></a>get-images</h5><ul class="method"><li class="left"><a href="javascript:litePopUp('declare function extract-data:get-images($article as document-node()) as element(a)*{<br/&gt;    for $image in $article/didl:DIDL/didl:Item/didl:Container[@id=&amp;apos;DisplayObjects&amp;apos;]/didl:Component/didl:Descriptor/didl:Statement/rdf:RDF/rdf:Description<br/&gt;    let $tif   := $image/dcterms:hasFormat/rdf:Description/dcterms:identifier/text()<br/&gt;    let $jpg   := fn:replace($tif, &#34;[.]tif&#34;, &#34;.jpg&#34;)<br/&gt;    let $title := $image/mms:title/text()<br/&gt;    return <br/&gt;        &amp;lt;a style=&#34;margin-left:10px;&#34; href=&#34;{$jpg}&#34; target=&#34;_blank&#34;&amp;gt;<br/&gt;            &amp;lt;img alt=&#34;Can&amp;apos;t display image&#34; title=&#34;{$title}&#34; src=&#34;{$jpg}&#34;<br/&gt;                onError=&#34;this.onerror=null; this.parentNode.href=&amp;apos;{$tif}&amp;apos;; this.title=&amp;apos;Cannot display image. Click to view&amp;apos;; this.src=&amp;apos;{$tif}&amp;apos;&#34; height=&#34;80&#34;/&amp;gt;<br/&gt;        &amp;lt;/a&amp;gt;<br/&gt;};<br/&gt;')">
+         view code
+      </a></li><li class="right">( $article as document-node()) as element(a)*<br><br></li></ul><ul></ul><div class="methoddetail"><h6>External Functions that are used by this Function</h6><table class="inexternal"><tr><th align="left">Module URI</th><th align="left">Function Name</th></tr><tr><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td rowspan="1">http://www.w3.org/2005/xpath-functions</td><td>replace</td></tr></table></div></div>&nbsp;<div id="get-inline-graphics" class="methoddetail"><h5><a name="get-inline-graphics"></a>get-inline-graphics</h5><ul class="method"><li class="left"><a href="javascript:litePopUp('declare function extract-data:get-inline-graphics($article as document-node()) as xs:string*{<br/&gt;    $article/didl:DIDL/didl:Item/didl:Container[@id=&amp;apos;InlineGraphics&amp;apos;]/didl:Component/didl:Descriptor/didl:Statement/rdf:RDF/rdf:Description/dcterms:hasFormat/rdf:Description/dcterms:identifier/text()<br/&gt;};<br/&gt;')">
+         view code
+      </a></li><li class="right">( $article as document-node()) as xs:string*<br><br></li></ul><ul></ul></div>&nbsp;<div id="get-journal-meta" class="methoddetail"><h5><a name="get-journal-meta"></a>get-journal-meta</h5><ul class="method"><li class="left"><a href="javascript:litePopUp('declare function extract-data:get-journal-meta($article as document-node()) as element(journal-meta)?{<br/&gt;    $article/didl:DIDL/didl:Item/didl:Descriptor[@id=&#34;d300&#34;]/didl:Statement/journal-meta<br/&gt;};<br/&gt;')">
+         view code
+      </a></li><li class="right">( $article as document-node()) as element(journal-meta)?<br><br></li></ul><ul></ul></div>&nbsp;<div id="get-journal-title" class="methoddetail"><h5><a name="get-journal-title"></a>get-journal-title</h5><ul class="method"><li class="left"><a href="javascript:litePopUp('declare function extract-data:get-journal-title($article as document-node()) as element(journal-title)?{<br/&gt;    $article/didl:DIDL/didl:Item/didl:Descriptor[@id=&amp;apos;d300&amp;apos;]/didl:Statement/journal-meta/journal-title[1]<br/&gt;};<br/&gt;')">
+         view code
+      </a></li><li class="right">( $article as document-node()) as element(journal-title)?<br><br></li></ul><ul></ul></div>&nbsp;<div id="get-ml-link" class="methoddetail"><h5><a name="get-ml-link"></a>get-ml-link</h5><ul class="method"><li class="left"><a href="javascript:litePopUp('declare function extract-data:get-ml-link($article as document-node()) as xs:string?{<br/&gt;    $article/didl:DIDL/didl:Item/didl:Container[@id=&amp;apos;Renditions&amp;apos;]/didl:Component[@id=&amp;apos;c100&amp;apos;]/didl:Resource/@ref<br/&gt;};<br/&gt;')">
+         view code
+      </a></li><li class="right">( $article as document-node()) as xs:string?<br><br></li></ul><ul></ul></div>&nbsp;<div id="get-nlm-type" class="methoddetail"><h5><a name="get-nlm-type"></a>get-nlm-type</h5><ul class="method"><li class="left"><a href="javascript:litePopUp('declare function extract-data:get-nlm-type($article as document-node()) as xs:string?{<br/&gt;    $article/didl:DIDL/didl:Item/didl:Descriptor[@id=&amp;apos;d200&amp;apos;]/didl:Statement/mms:articleType/text()<br/&gt;};<br/&gt;')">
+         view code
+      </a></li><li class="right">( $article as document-node()) as xs:string?<br><br></li></ul><ul></ul></div>&nbsp;<div id="get-on-behalf-of" class="methoddetail"><h5><a name="get-on-behalf-of"></a>get-on-behalf-of</h5><ul class="method"><li class="left"><a href="javascript:litePopUp('declare function extract-data:get-on-behalf-of($article as document-node()) as xs:string?{<br/&gt;    $article/didl:DIDL/didl:Item/didl:Descriptor/didl:Statement/article-meta/contrib-group/on-behalf-of/text()<br/&gt;};<br/&gt;')">
+         view code
+      </a></li><li class="right">( $article as document-node()) as xs:string?<br><br></li></ul><ul></ul></div>&nbsp;<div id="get-ppt" class="methoddetail"><h5><a name="get-ppt"></a>get-ppt</h5><ul class="method"><li class="left"><a href="javascript:litePopUp('declare function extract-data:get-ppt($article as document-node()) as xs:string?{<br/&gt;    $article/didl:DIDL/didl:Item/didl:Container[@id=&amp;apos;Renditions&amp;apos;]/didl:Component[@id=&amp;apos;c160&amp;apos;]/didl:Descriptor/didl:Statement/rdf:RDF/rdf:Description/dcterms:identifier/text()<br/&gt;};<br/&gt;')">
+         view code
+      </a></li><li class="right">( $article as document-node()) as xs:string?<br><br></li></ul><ul></ul></div>&nbsp;<div id="get-pub-date" class="methoddetail"><h5><a name="get-pub-date"></a>get-pub-date</h5><ul class="method"><li class="left"><a href="javascript:litePopUp('declare function extract-data:get-pub-date($article as document-node()) as element(mms:publicationDate)?{<br/&gt;    $article/didl:DIDL/didl:Item/didl:Descriptor[@id=&amp;apos;d100&amp;apos;]/didl:Statement/mms:publicationDate[1]<br/&gt;};<br/&gt;')">
+         view code
+      </a></li><li class="right">( $article as document-node()) as element(mms:publicationDate)?<br><br></li></ul><ul></ul></div>&nbsp;<div id="get-pub-id" class="methoddetail"><h5><a name="get-pub-id"></a>get-pub-id</h5><ul class="method"><li class="left"><a href="javascript:litePopUp('declare function extract-data:get-pub-id($meta as element(article-meta)) as xs:string?{<br/&gt;    $meta/article-id[@pub-id-type=&#34;publisher-id&#34;]/text()<br/&gt;};<br/&gt;')">
+         view code
+      </a></li><li class="right">( $meta as element(article-meta)) as xs:string?<br><br></li></ul><ul></ul></div>&nbsp;<div id="get-publisher-from-jmeta" class="methoddetail"><h5><a name="get-publisher-from-jmeta"></a>get-publisher-from-jmeta</h5><ul class="method"><li class="left"><a href="javascript:litePopUp('declare function extract-data:get-publisher-from-jmeta($meta as element(journal-meta)) as xs:string?{<br/&gt;    $meta/publisher/publisher-name/text()<br/&gt;};<br/&gt;')">
+         view code
+      </a></li><li class="right">( $meta as element(journal-meta)) as xs:string?<br><br></li></ul><ul></ul></div>&nbsp;<div id="get-renditions" class="methoddetail"><h5><a name="get-renditions"></a>get-renditions</h5><ul class="method"><li class="left"><a href="javascript:litePopUp('declare function extract-data:get-renditions($article as document-node()) as element(span){<br/&gt;    let $renditions := $article/didl:DIDL/didl:Item/didl:Container[@id=&#34;Renditions&#34;]<br/&gt;    let $free := $article/didl:DIDL/didl:Item[1]/didl:Descriptor[@id=&#34;d250&#34;]/didl:Statement/mms:freestatus/text()<br/&gt;    let $cme := $article/didl:DIDL/didl:Item/didl:Descriptor[@id=&#34;d410&#34;]/didl:Statement/has-cme/text()<br/&gt;    let $xml := $renditions/didl:Component[@id=&#34;c100&#34;]/didl:Resource/@ref<br/&gt;    let $mpeg21 := if ($xml) then fn:replace($xml, &#34;nejm_nlm_articles&#34;, &#34;nejm_nlm_mpeg21&#34;) else ()<br/&gt;    let $pdf := $renditions/didl:Component[@id=&#34;c130&#34;]/didl:Resource/@ref<br/&gt;    let $ppt := $renditions/didl:Component[@id=&#34;c160&#34;]/didl:Resource/@ref<br/&gt;    let $audio := $article/didl:DIDL/didl:Item/didl:Container[@id=&#34;Attachments&#34;]/didl:Component/didl:Descriptor/didl:Statement/rdf:RDF/rdf:Description[dcterms:type=&#34;audio&#34;]/dcterms:hasFormat/rdf:Description[dcterms:type=&#34;mp3&#34;]/dcterms:identifier/text()<br/&gt;    let $mp4-video := $article/didl:DIDL/didl:Item/didl:Container[@id=&#34;Attachments&#34;]/didl:Component/didl:Descriptor/didl:Statement/rdf:RDF/rdf:Description[dcterms:type=&#34;video&#34; or &#34;vcm-video&#34;]/dcterms:hasFormat/rdf:Description[dcterms:type=&#34;m4v&#34;]/dcterms:identifier/text()<br/&gt;    let $flv-video := $article/didl:DIDL/didl:Item/didl:Container[@id=&#34;Attachments&#34;]/didl:Component/didl:Descriptor/didl:Statement/rdf:RDF/rdf:Description[dcterms:type=&#34;video&#34;]/dcterms:hasFormat/rdf:Description[dcterms:type=&#34;flv&#34;]/dcterms:identifier/text()<br/&gt;    let $vid-preview := $article/didl:DIDL/didl:Item/didl:Container[@id=&#34;Attachments&#34;]/didl:Component/didl:Descriptor/didl:Statement/rdf:RDF/rdf:Description[dcterms:type=&#34;video&#34;]/dcterms:hasPart/rdf:Description[dcterms:type=&#34;preview&#34;]/dcterms:identifier/text()<br/&gt;    let $supplements := $article/didl:DIDL/didl:Item/didl:Container[@id=&#34;Supplements&#34;]/didl:Component/didl:Descriptor/didl:Statement/rdf:RDF/rdf:Description[dcterms:type=&#34;author-supplement&#34;]<br/&gt;    return<br/&gt;        &amp;lt;span class=&#34;title&#34;&amp;gt;<br/&gt;        &amp;lt;br/&amp;gt;<br/&gt;        {if ($mp4-video or $flv-video or $audio)<br/&gt;         then <br/&gt;         &amp;lt;span&amp;gt;<br/&gt;            {if ($mp4-video or $flv-video) <br/&gt;            then &amp;lt;div style=&#34;float:left;&#34;&amp;gt;<br/&gt;                   {if ($mp4-video) <br/&gt;                   then (&amp;lt;a href=&#34;{if ($mp4-video) then $mp4-video else $flv-video}&#34; target=&#34;_blank&#34;&amp;gt;Video (click to open)&amp;lt;/a&amp;gt;,&amp;lt;br/&amp;gt;,<br/&gt;                        &amp;lt;video height=&#34;160&#34; controls=&#34;&#34; preload=&#34;none&#34; poster=&#34;{$vid-preview}&#34;&amp;gt;&amp;lt;source src=&#34;{$mp4-video}&#34; type=&#34;video/mp4&#34;/&amp;gt;&amp;lt;/video&amp;gt;)<br/&gt;                   else &amp;lt;a href=&#34;{if ($mp4-video) then $mp4-video else $flv-video}&#34; target=&#34;_blank&#34;&amp;gt;Video (click to open)&amp;lt;br/&amp;gt;<br/&gt;                         &amp;lt;img height=&#34;80&#34; title=&#34;video&#34; alt=&#34;video&#34; src=&#34;{$vid-preview}&#34;/&amp;gt;&amp;lt;/a&amp;gt;}<br/&gt;                 &amp;lt;/div&amp;gt;<br/&gt;            else ()}<br/&gt;            {if ($audio) <br/&gt;            then for $link in $audio<br/&gt;                 return &amp;lt;div style=&#34;float:left;&#34;&amp;gt;&amp;lt;a href=&#34;{$link}&#34; target=&#34;_blank&#34;&amp;gt;Full Text Audio (click to open)&amp;lt;/a&amp;gt;<br/&gt;                            &amp;lt;br/&amp;gt; <br/&gt;                            &amp;lt;audio controls=&#34;&#34; preload=&#34;none&#34;&amp;gt;<br/&gt;                                &amp;lt;source src=&#34;{$link}&#34; type=&#34;audio/mpeg&#34;/&amp;gt;<br/&gt;                            &amp;lt;/audio&amp;gt;<br/&gt;                        &amp;lt;/div&amp;gt;<br/&gt;            else ()}<br/&gt;         &amp;lt;/span&amp;gt;<br/&gt;         else ()}<br/&gt;         &amp;lt;div style=&#34;clear:left;&#34;&amp;gt;<br/&gt;        {if ($free and $free eq &#34;Free&#34;) <br/&gt;        then &amp;lt;span&amp;gt;&amp;lt;img width=&#34;60&#34; height=&#34;12&#34; border=&#34;0&#34; alt=&#34;Free Full Text&#34; title=&#34;Free Full Text&#34; src=&#34;http://images.nejm.org/hila/etoc/flag_freeFullText.gif&#34;/&amp;gt; | &amp;lt;/span&amp;gt;<br/&gt;        else ()}<br/&gt;        {if ($cme and $cme eq &#34;true&#34;) <br/&gt;        then &amp;lt;span&amp;gt;&amp;lt;img width=&#34;34&#34; height=&#34;12&#34; src=&#34;http://images.nejm.org/hila/etoc/flag_cme.gif&#34; title=&#34;CME Exam&#34; alt=&#34;CME Exam&#34;/&amp;gt; | &amp;lt;/span&amp;gt;<br/&gt;        else ()}<br/&gt;        {if ($pdf) <br/&gt;        then &amp;lt;span&amp;gt;&amp;lt;a href=&#34;{$pdf}&#34; target=&#34;_blank&#34;&amp;gt;<br/&gt;                &amp;lt;img height=&#34;12&#34; title=&#34;Article PDF&#34; <br/&gt;                alt=&#34;Article PDF&#34; src=&#34;http://www.nejm.org/templates/jsp/_style2/_mms/_nejm/img/pdfIcon.gif&#34;/&amp;gt;PDF&amp;lt;/a&amp;gt; | &amp;lt;/span&amp;gt;<br/&gt;        else ()}<br/&gt;        {if ($ppt) <br/&gt;        then &amp;lt;span&amp;gt;&amp;lt;a href=&#34;{$ppt}&#34; target=&#34;_blank&#34;&amp;gt;<br/&gt;                &amp;lt;img height=&#34;12&#34; title=&#34;slide&#34; <br/&gt;                alt=&#34;slide&#34; src=&#34;http://www.nejm.org/templates/jsp/_style2/_mms/_nejm/img/downloadSlidesIcon.gif&#34;/&amp;gt;Power Point&amp;lt;/a&amp;gt; | &amp;lt;/span&amp;gt;<br/&gt;        else ()}<br/&gt;        {if ($xml) <br/&gt;        then &amp;lt;span&amp;gt;&amp;lt;a href=&#34;{fn:replace($xml,&#34;markl64stby[.]dom1&#34;,&#34;mark-ed&#34;)}&#34; target=&#34;_blank&#34;&amp;gt;XML&amp;lt;/a&amp;gt; | &amp;lt;/span&amp;gt;<br/&gt;        else ()}<br/&gt;        {if ($mpeg21) <br/&gt;        then &amp;lt;span&amp;gt;&amp;lt;a href=&#34;{fn:replace($mpeg21,&#34;markl64stby[.]dom1&#34;,&#34;mark-ed&#34;)}&#34; target=&#34;_blank&#34;&amp;gt;Mpeg21&amp;lt;/a&amp;gt;&amp;lt;/span&amp;gt;<br/&gt;        else ()}<br/&gt;        &amp;lt;!-- supplements --&amp;gt;<br/&gt;        {if ($supplements) <br/&gt;        then &amp;lt;span&amp;gt;&amp;lt;br/&amp;gt;&amp;lt;hr/&amp;gt;Supplements: <br/&gt;             {for $supplement in $supplements<br/&gt;             return &amp;lt;span&amp;gt;&amp;lt;a href=&#34;{$supplement/dcterms:hasFormat/rdf:Description/dcterms:identifier/text()}&#34; target=&#34;_blank&#34;&amp;gt;<br/&gt;                        &amp;lt;img height=&#34;12&#34; title=&#34;Article PDF&#34; alt=&#34;Article PDF&#34; src=&#34;http://www.nejm.org/templates/jsp/_style2/_mms/_nejm/img/pdfIcon.gif&#34;/&amp;gt;<br/&gt;                        {$supplement/dcterms:title/label/text()}<br/&gt;                     &amp;lt;/a&amp;gt; | &amp;lt;/span&amp;gt;}&amp;lt;/span&amp;gt;<br/&gt;        else ()}<br/&gt;        &amp;lt;/div&amp;gt;<br/&gt;        &amp;lt;/span&amp;gt;<br/&gt;};<br/&gt;')">
+         view code
+      </a></li><li class="right">( $article as document-node()) as element(span)<br><br></li></ul><ul></ul><div class="methoddetail"><h6>External Functions that are used by this Function</h6><table class="inexternal"><tr><th align="left">Module URI</th><th align="left">Function Name</th></tr><tr><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td rowspan="1">http://www.w3.org/2005/xpath-functions</td><td>replace</td></tr></table></div></div>&nbsp;<div id="get-series-title" class="methoddetail"><h5><a name="get-series-title"></a>get-series-title</h5><ul class="method"><li class="left"><a href="javascript:litePopUp('declare function extract-data:get-series-title($meta as element(article-meta)) as xs:string?{<br/&gt;    $meta/article-categories/series-title/text()<br/&gt;};<br/&gt;')">
+         view code
+      </a></li><li class="right">( $meta as element(article-meta)) as xs:string?<br><br></li></ul><ul></ul></div>&nbsp;<div id="get-specialty-ids" class="methoddetail"><h5><a name="get-specialty-ids"></a>get-specialty-ids</h5><ul class="method"><li class="left"><a href="javascript:litePopUp('declare function extract-data:get-specialty-ids($article as document-node()) as xs:string*{<br/&gt;    $article/didl:DIDL/didl:Item/didl:Descriptor[@id=&amp;apos;d310&amp;apos;]/didl:Statement/subj-group/subj-group/subject/text()<br/&gt;};<br/&gt;')">
+         view code
+      </a></li><li class="right">( $article as document-node()) as xs:string*<br><br></li></ul><ul></ul></div>&nbsp;<div id="get-sub-article-type" class="methoddetail"><h5><a name="get-sub-article-type"></a>get-sub-article-type</h5><ul class="method"><li class="left"><a href="javascript:litePopUp('declare function extract-data:get-sub-article-type($meta as element(article-meta)) as xs:string?{<br/&gt;    $meta/article-categories/subj-group[@subj-group-type=&amp;apos;subheading&amp;apos;]/subject/text()<br/&gt;};<br/&gt;')">
+         view code
+      </a></li><li class="right">( $meta as element(article-meta)) as xs:string?<br><br></li></ul><ul></ul></div>&nbsp;<div id="get-topic-ids" class="methoddetail"><h5><a name="get-topic-ids"></a>get-topic-ids</h5><ul class="method"><li class="left"><a href="javascript:litePopUp('declare function extract-data:get-topic-ids($article as document-node()) as xs:string*{<br/&gt;    $article/didl:DIDL/didl:Item/didl:Descriptor[@id=&amp;apos;d310&amp;apos;]/didl:Statement/subj-group/subject/text()<br/&gt;};<br/&gt;')">
+         view code
+      </a></li><li class="right">( $article as document-node()) as xs:string*<br><br></li></ul><ul></ul></div>&nbsp;<div id="get-vips" class="methoddetail"><h5><a name="get-vips"></a>get-vips</h5><ul class="method"><li class="left"><a href="javascript:litePopUp('declare function extract-data:get-vips($article as document-node()) as element(mms:vips)?{<br/&gt;    $article/didl:DIDL/didl:Item/didl:Descriptor[@id=&amp;apos;d240&amp;apos;]/didl:Statement/mms:vips<br/&gt;};<br/&gt;')">
+         view code
+      </a></li><li class="right">( $article as document-node()) as element(mms:vips)?<br><br></li></ul><ul></ul><div class="methoddetail"><h6>Internal Functions that invoke this Function</h6><table class="inexternal"><tr><th align="left">Module URI</th><th align="left">Function Name</th></tr><tr><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td rowspan="1">http://www.marklogic.com/tutorial2/extract-data</td><td><a href="#get-volume-page">get-volume-page</a></td></tr></table></div></div>&nbsp;<div id="get-volume-page" class="methoddetail"><h5><a name="get-volume-page"></a>get-volume-page</h5><ul class="method"><li class="left"><a href="javascript:litePopUp('declare function extract-data:get-volume-page($article as document-node()) as xs:string?{<br/&gt;    let $vips := extract-data:get-vips($article)<br/&gt;    return fn:concat(string($vips/mms:volume),&amp;apos;:&amp;apos;,string($vips/mms:fpage),&amp;apos;-&amp;apos;,string($vips/mms:lpage))<br/&gt;};<br/&gt;')">
+         view code
+      </a></li><li class="right">( $article as document-node()) as xs:string?<br><br></li></ul><ul></ul><div class="methoddetail"><h6>External Functions that are used by this Function</h6><table class="inexternal"><tr><th align="left">Module URI</th><th align="left">Function Name</th></tr><tr><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td rowspan="2">http://www.w3.org/2005/xpath-functions</td><td>concat</td></tr><tr><td>string</td></tr></table></div><div class="methoddetail"><h6>Internal Functions used by this Function</h6><table class="inexternal"><tr><th align="left">Module URI</th><th align="left">Function Name</th></tr><tr><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td rowspan="1">http://www.marklogic.com/tutorial2/extract-data</td><td><a href="#get-vips">get-vips</a></td></tr></table></div></div>&nbsp;<div id="has-attachment" class="methoddetail"><h5><a name="has-attachment"></a>has-attachment</h5><ul class="method"><li class="left"><a href="javascript:litePopUp('declare function extract-data:has-attachment($article as document-node()) as xs:string{<br/&gt;    let $att := $article/didl:DIDL/didl:Item/didl:Container[@id=&amp;apos;Attachments&amp;apos;]/didl:Component/didl:Descriptor/didl:Statement/rdf:RDF/rdf:Description/*/rdf:Description/dcterms:identifier<br/&gt;    return if ($att) then &#34;true&#34; else &#34;false&#34;<br/&gt;};<br/&gt;')">
+         view code
+      </a></li><li class="right">( $article as document-node()) as xs:string<br><br></li></ul><ul></ul></div>&nbsp;<div id="is-free" class="methoddetail"><h5><a name="is-free"></a>is-free</h5><ul class="method"><li class="left"><a href="javascript:litePopUp('declare function extract-data:is-free($article as document-node()) as xs:string{<br/&gt;    let $free := $article/didl:DIDL/didl:Item/didl:Descriptor[@id=&amp;apos;d250&amp;apos;]/didl:Statement/mms:freestatus/text()<br/&gt;    return if ($free and $free eq &#34;Free&#34;) then &#34;true&#34; else &#34;false&#34;<br/&gt;};<br/&gt;')">
+         view code
+      </a></li><li class="right">( $article as document-node()) as xs:string<br><br></li></ul><ul></ul></div>&nbsp;</div>&nbsp;<div align="left"><i>Created by xqDoc-Lite version 1.0 on Mon Aug 25 10:58:12 EDT 2014</i></div></body></html>

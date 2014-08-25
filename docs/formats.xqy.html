@@ -1,0 +1,185 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xml:space="preserve"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>xqDoc -- Module</title><script language="JavaScript"><!--
+        function popUp(URL) {
+                 day = new Date();
+                 id = day.getTime();
+                 eval("page = window.open(URL, 'xqdoccode', 'toolbar=0,scrollbars=1,location=0,statusbar=0,menubar=0,resizable=1,width=600,height=400,left = 412,top = 334');")
+                 page.focus();
+        }
+      --></script><script language="JavaScript"><!--
+	    function litePopUp(str) {    
+  		  OpenWindow=window.open('', 'xqdoccode', 'toolbar=0,scrollbars=1,location=0,statusbar=0,menubar=0,resizable=1,width=600,height=400,left = 412,top = 334');
+  		  OpenWindow.document.write('<html xmlspace="preserve">');
+  		  OpenWindow.document.write('<head>');
+  		  OpenWindow.document.write('<title>xqDoc - Code Sample</title>');
+  		  OpenWindow.document.write('</head>');  		    		    		  
+  		  OpenWindow.document.write('<body xml:space="preserve">');
+  		  OpenWindow.document.write('<pre>');
+ 		  OpenWindow.document.write(str);
+ 		  OpenWindow.document.write('</pre>');
+  		  OpenWindow.document.write('</body>');
+  		  OpenWindow.document.write('</html>');
+  		  OpenWindow.document.close();
+  		  page.focus();
+        }
+      --></script><style><!--
+body		{
+		font: 80% Verdana;
+		}
+table		{
+		font-size: 100%;
+		}
+h1, h2, h3, h4, h5, h6
+		{
+		clear: both;
+		float: none;
+		}
+h1		{
+		font-size: 100%;
+		margin: 0em;
+		}
+h2		{
+		font-size: 180%;
+		margin-bottom: -1em;
+		margin-top: .3em;
+		}
+h3		{
+		font-size: 150%;
+		}	
+h4		{
+		font-size: 140%;
+		background-color: #ccf;
+		border-bottom: 1px solid #99f;
+		width: 100%;
+		}
+h5		{
+		margin: 1em 0em 0em 0em;
+		font-size: 120%;
+		}
+h6		{
+		margin: 0em 0em 0em 3em;
+		font-style: italic;
+		font: bold italic;
+		font-size: 100%;
+		}
+#variables, #methods, #methoddetail
+		{
+		padding-left: 3em;
+		margin-bottom: 1.4em;
+		clear: both;
+		float: none;
+		}
+#methods ul.method, #variables ul.method
+		{
+		margin: 1em 0em 0em;
+		}
+#methoddetail ul.method
+		{
+		margin: 0em;
+		}
+div.inexternal
+		{
+		padding-left: 2em;
+		margin-bottom: 1em;
+		}
+div.methoddetail p
+		{
+		float: none;
+		clear: both;
+		padding-left: 2em;
+		margin-bottom: 1em;
+		}
+div.methoddetail{
+		padding-bottom: 1em;
+		}
+div.methoddetail li
+		{
+		list-style-type: none;
+		font-weight: bold;
+		}
+div.methoddetail li li
+		{
+		list-style-type: circle;
+		font-weight: normal;
+		}
+div.methoddetail li ul
+		{
+		padding-bottom: 0.5em;
+		font-weight: normal;
+		}
+table.inexternal{
+		clear: both;
+		float: none;
+		width: 80%;
+		margin-left: 3em;
+		padding: 0em;
+		
+		}
+table.inexternal th
+		{
+		background-color:#dedede;
+		width: 50%;
+		}			
+td		{
+		vertical-align: top;
+		}
+div.description {
+		margin-top: .5em;
+		font-weight: normal;
+		padding-left: 1em;
+		}
+ul.method	{
+		clear: both;
+		float: none;
+		width: 90%;
+		list-style-type: none;
+		border-top: 1px solid #ccc;
+		}
+ul.method li.left
+		{
+		float: left;
+		clear: none;
+		width: 40%;
+		font-weight: bold;
+		margin-bottom: 2em;
+		}
+ul.method li.right
+		{
+		position: relative;
+            top: 0em;
+		float: left;
+            width: 55%;
+		margin-bottom: 2em;
+		padding-left: 2em;
+		}
+div.home 	{
+		width: 60%;
+		float: left;
+		margin-right: 1%;
+		border: 1px
+		}
+div.home h4	{
+		font-size: 120%;
+		background-color: #fff;
+		border-bottom: 1px solid #99f;
+		width: 100%;
+		margin-bottom: -1em;
+		}
+div.overview p {
+               width: 60%;
+               }
+     
+ --></style></head><body><h4>Module URI</h4><h1>http://www.marklogic.com/tutorial2/formats</h1>&nbsp;<h4>Imported Modules</h4><div id="imports"><div><ul class="method"><li class="left">http://www.marklogic.com/tutorial2/create-html</li><li class="right"></li></ul><ul></ul></div><div><ul class="method"><li class="left">http://www.marklogic.com/tutorial2/extract-data</li><li class="right"></li></ul><ul></ul></div><div><ul class="method"><li class="left">http://marklogic.com/appservices/search</li><li class="right"></li></ul><ul></ul></div><div><ul class="method"><li class="left">http://marklogic.com/xdmp/json</li><li class="right"></li></ul><ul></ul></div><div><ul class="method"><li class="left">http://www.nejm.org/topics</li><li class="right"></li></ul><ul></ul></div><div><ul class="method"><li class="left">http://www.nejm.org/specialties</li><li class="right"></li></ul><ul></ul></div></div>&nbsp;<h4>Function Summary</h4><div id="methods"><a name="methods"></a><ul class="method"><li class="left"><a href="#create-csv">create-csv</a><div class="description"></div></li><li class="right">( $search-response as element(search:response) ,<br>&nbsp; $fields as xs:string)<br><br></li></ul><ul class="method"><li class="left"><a href="#create-json">create-json</a><div class="description"></div></li><li class="right">( $search-response as element(search:response))<br><br></li></ul><ul class="method"><li class="left"><a href="#create-rss">create-rss</a><div class="description"></div></li><li class="right">( $search-response as element(search:response))<br><br></li></ul><ul class="method"><li class="left"><a href="#create-xml">create-xml</a><div class="description"></div></li><li class="right">( $search-response as element(search:response))<br><br></li></ul><ul class="method"><li class="left"><a href="#get-format">get-format</a><div class="description"></div></li><li class="right">( $search-response as element(search:response) ,<br>&nbsp; $query as xs:string ,<br>&nbsp; $format as xs:string ,<br>&nbsp; $fields as xs:string)<br><br></li></ul><ul class="method"><li class="left"><a href="#has-format">has-format</a><div class="description"></div></li><li class="right">( $format as xs:string)<br><br></li></ul></div>&nbsp;<h4>Function Detail</h4><div id="methoddetail"><div id="create-csv" class="methoddetail"><h5><a name="create-csv"></a>create-csv</h5><ul class="method"><li class="left"><a href="javascript:litePopUp('declare function create-csv($search-response as element(search:response), $fields as xs:string){<br/&gt;    let $split-fields := fn:tokenize($fields, &#34;,&#34;)<br/&gt;    let $articleCSV :=<br/&gt;        for $result in $search-response/search:result<br/&gt;        let $uri := $result/@uri<br/&gt;        let $article := fn:doc($uri)<br/&gt;        return fn:string-join(extract-data:get-data-by-name($article, $split-fields), &#34;,&#34;)<br/&gt;    return ($fields, $articleCSV)<br/&gt;};<br/&gt;')">
+         view code
+      </a></li><li class="right">( $search-response as element(search:response) ,<br>&nbsp; $fields as xs:string)<br><br></li></ul><ul></ul><div class="methoddetail"><h6>External Functions that are used by this Function</h6><table class="inexternal"><tr><th align="left">Module URI</th><th align="left">Function Name</th></tr><tr><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td rowspan="1">http://www.marklogic.com/tutorial2/extract-data</td><td>get-data-by-name</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td rowspan="3">http://www.w3.org/2005/xpath-functions</td><td>doc</td></tr><tr><td>string-join</td></tr><tr><td>tokenize</td></tr></table></div></div>&nbsp;<div id="create-json" class="methoddetail"><h5><a name="create-json"></a>create-json</h5><ul class="method"><li class="left"><a href="javascript:litePopUp('declare function create-json($search-response as element(search:response)){<br/&gt;    json:transform-to-json(&amp;lt;json type=&#34;object&#34; xmlns=&#34;http://marklogic.com/xdmp/json/basic&#34;&amp;gt; {create-xml($search-response) } &amp;lt;/json&amp;gt;)<br/&gt;};<br/&gt;')">
+         view code
+      </a></li><li class="right">( $search-response as element(search:response))<br><br></li></ul><ul></ul><div class="methoddetail"><h6>External Functions that are used by this Function</h6><table class="inexternal"><tr><th align="left">Module URI</th><th align="left">Function Name</th></tr><tr><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td rowspan="1">http://marklogic.com/xdmp/json</td><td>transform-to-json</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td rowspan="1">http://www.w3.org/2005/xpath-functions</td><td>create-xml</td></tr></table></div></div>&nbsp;<div id="create-rss" class="methoddetail"><h5><a name="create-rss"></a>create-rss</h5><ul class="method"><li class="left"><a href="javascript:litePopUp('declare function create-rss($search-response as element(search:response)){<br/&gt;    &amp;lt;rss xmlns:dc=&#34;http://purl.org/dc/elements/1.1/&#34; version=&#34;2.0&#34;&amp;gt;<br/&gt;        &amp;lt;channel&amp;gt;<br/&gt;            &amp;lt;title&amp;gt;The New England Journal of Medicine&amp;lt;/title&amp;gt;<br/&gt;            &amp;lt;link&amp;gt;http://www.nejm.org&amp;lt;/link&amp;gt;<br/&gt;            &amp;lt;description&amp;gt;<br/&gt;                The New England Journal of Medicine (NEJM) RSS feed. NEJM (http://www.nejm.org) is a weekly general medical journal that publishes new medical research findings, review articles, and editorial opinion on a wide variety of topics of importance to biomedical science and clinical practice.<br/&gt;            &amp;lt;/description&amp;gt;<br/&gt;            {<br/&gt;            for $result in $search-response/search:result<br/&gt;            let $uri := $result/@uri<br/&gt;            let $article := fn:doc($uri)<br/&gt;            let $pub-date := extract-data:get-pub-date($article)/text()<br/&gt;            let $title := extract-data:get-article-title($article)/text()<br/&gt;            let $journal-meta := extract-data:get-journal-meta($article)<br/&gt;            let $article-meta := extract-data:get-article-meta($article)<br/&gt;            let $doi := $article-meta/article-id[@pub-id-type=&amp;apos;doi&amp;apos;]/data()<br/&gt;            let $publisher := $journal-meta/publisher/publisher-name/text()<br/&gt;            return <br/&gt;                &amp;lt;item&amp;gt;<br/&gt;                    &amp;lt;title&amp;gt;{$title}&amp;lt;/title&amp;gt;<br/&gt;                    &amp;lt;link&amp;gt;http://www.nejm.org/doi/full/{$doi}&amp;lt;/link&amp;gt;<br/&gt;                    &amp;lt;description&amp;gt;<br/&gt;                    {for $author in extract-data:get-authors($article)<br/&gt;                     return fn:concat($author/name/surname/text(), &#34;, &#34;, $author/name/given-names//text())}<br/&gt;                    {extract-data:get-abstract($article)//text()}<br/&gt;                    &amp;lt;/description&amp;gt;<br/&gt;                    &amp;lt;guid isPermaLink=&#34;false&#34;&amp;gt;{$doi}&amp;lt;/guid&amp;gt;<br/&gt;                    &amp;lt;dc:creator/&amp;gt;<br/&gt;                    &amp;lt;dc:publisher&amp;gt;{$publisher}&amp;lt;/dc:publisher&amp;gt;<br/&gt;                    &amp;lt;dc:date&amp;gt;{$pub-date}&amp;lt;/dc:date&amp;gt;<br/&gt;                &amp;lt;/item&amp;gt;<br/&gt;            }<br/&gt;        &amp;lt;/channel&amp;gt;<br/&gt;    &amp;lt;/rss&amp;gt;<br/&gt;};<br/&gt;')">
+         view code
+      </a></li><li class="right">( $search-response as element(search:response))<br><br></li></ul><ul></ul><div class="methoddetail"><h6>External Functions that are used by this Function</h6><table class="inexternal"><tr><th align="left">Module URI</th><th align="left">Function Name</th></tr><tr><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td rowspan="6">http://www.marklogic.com/tutorial2/extract-data</td><td>get-abstract</td></tr><tr><td>get-article-meta</td></tr><tr><td>get-article-title</td></tr><tr><td>get-authors</td></tr><tr><td>get-journal-meta</td></tr><tr><td>get-pub-date</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td rowspan="3">http://www.w3.org/2005/xpath-functions</td><td>concat</td></tr><tr><td>data</td></tr><tr><td>doc</td></tr></table></div></div>&nbsp;<div id="create-xml" class="methoddetail"><h5><a name="create-xml"></a>create-xml</h5><ul class="method"><li class="left"><a href="javascript:litePopUp('declare function create-xml($search-response as element(search:response)){<br/&gt;    &amp;lt;response type=&#34;object&#34; xmlns=&#34;http://marklogic.com/xdmp/json/basic&#34;&amp;gt;<br/&gt;        &amp;lt;responseHeader type=&#34;object&#34;&amp;gt;<br/&gt;            &amp;lt;status type=&#34;number&#34;&amp;gt;0&amp;lt;/status&amp;gt;<br/&gt;            &amp;lt;QTime type=&#34;number&#34;&amp;gt;9&amp;lt;/QTime&amp;gt;<br/&gt;            &amp;lt;params type=&#34;object&#34;&amp;gt;<br/&gt;                &amp;lt;q type=&#34;string&#34;&amp;gt;{$search-response/search:qtext/text()}&amp;lt;/q&amp;gt;<br/&gt;                &amp;lt;bf type=&#34;string&#34;/&amp;gt;<br/&gt;                &amp;lt;wt type=&#34;string&#34;&amp;gt;xml&amp;lt;/wt&amp;gt;<br/&gt;                &amp;lt;fq type=&#34;string&#34;&amp;gt;&amp;lt;/fq&amp;gt;<br/&gt;            &amp;lt;/params&amp;gt;<br/&gt;        &amp;lt;/responseHeader&amp;gt;<br/&gt;        &amp;lt;result numFound=&#34;{$search-response/@total}&#34; start=&#34;{$search-response/@start}&#34; pageLength=&#34;{$search-response/@page-length}&#34; type=&#34;array&#34;&amp;gt;<br/&gt;        {<br/&gt;        for $result in $search-response/search:result<br/&gt;        let $uri := $result/@uri<br/&gt;        let $article := fn:doc($uri)<br/&gt;        let $pub-date := extract-data:get-pub-date($article)/text()<br/&gt;        let $split-pdate := fn:tokenize($pub-date, &#34;-&#34;)<br/&gt;        let $title := extract-data:get-article-title($article)/text()<br/&gt;        let $vips := extract-data:get-vips($article)<br/&gt;        let $journal-meta := extract-data:get-journal-meta($article)<br/&gt;        let $article-meta := extract-data:get-article-meta($article)<br/&gt;        let $authors := extract-data:get-authors-from-meta($article-meta)<br/&gt;        let $author-names := extract-data:get-author-names($authors) <br/&gt;        let $supplements := extract-data:get-article-supplements($article)<br/&gt;        let $display-objects := extract-data:get-display-objects($article)<br/&gt;        let $inline-graphics := extract-data:get-inline-graphics($article)<br/&gt;        let $spec-ids := extract-data:get-specialty-ids($article)<br/&gt;        let $topic-ids := extract-data:get-topic-ids($article)<br/&gt;        let $ppt := extract-data:get-ppt($article)<br/&gt;        let $cpf-prop := extract-data:get-cpf-properties($article)<br/&gt;        let $doi := extract-data:get-doi($article)<br/&gt;        let $publisher := extract-data:get-publisher-from-jmeta($journal-meta)<br/&gt;        return <br/&gt;         &amp;lt;doc type=&#34;object&#34;&amp;gt;<br/&gt;            &amp;lt;id type=&#34;string&#34;&amp;gt;{$doi}-nejm&amp;lt;/id&amp;gt;<br/&gt;            &amp;lt;pub-id type=&#34;string&#34;&amp;gt;{extract-data:get-pub-id($article-meta)}&amp;lt;/pub-id&amp;gt;<br/&gt;            &amp;lt;nlm-ta type=&#34;string&#34;&amp;gt;{extract-data:get-id-from-jmeta($journal-meta,&#34;nlm-ta&#34;)}&amp;lt;/nlm-ta&amp;gt;<br/&gt;            &amp;lt;jn-pub-id type=&#34;string&#34;&amp;gt;{extract-data:get-id-from-jmeta($journal-meta,&#34;publisher-id&#34;)}&amp;lt;/jn-pub-id&amp;gt;<br/&gt;            &amp;lt;collection type=&#34;string&#34;&amp;gt;nejm&amp;lt;/collection&amp;gt;<br/&gt;            &amp;lt;doi type=&#34;string&#34;&amp;gt;{$doi}&amp;lt;/doi&amp;gt;<br/&gt;            &amp;lt;ti type=&#34;string&#34;&amp;gt;{$title}&amp;lt;/ti&amp;gt;<br/&gt;            &amp;lt;ti-prime type=&#34;string&#34;&amp;gt;{$title}&amp;lt;/ti-prime&amp;gt;<br/&gt;            &amp;lt;ti-serial type=&#34;string&#34;&amp;gt;{extract-data:get-series-title($article-meta)}&amp;lt;/ti-serial&amp;gt;<br/&gt;            &amp;lt;record-mpeg21 type=&#34;string&#34;&amp;gt;{$article//text()}&amp;lt;/record-mpeg21&amp;gt;<br/&gt;            &amp;lt;category type=&#34;string&#34;&amp;gt;{extract-data:get-category($article)/text()}&amp;lt;/category&amp;gt;<br/&gt;            &amp;lt;article-type type=&#34;string&#34;&amp;gt;&amp;lt;/article-type&amp;gt;<br/&gt;            &amp;lt;sub-article-type type=&#34;string&#34;&amp;gt;{extract-data:get-sub-article-type($article-meta)}&amp;lt;/sub-article-type&amp;gt;<br/&gt;            &amp;lt;specialty-str type=&#34;array&#34;&amp;gt;{for $id in $spec-ids return &amp;lt;str type=&#34;string&#34;&amp;gt;{specialties:id-to-str($id)}&amp;lt;/str&amp;gt;}&amp;lt;/specialty-str&amp;gt;<br/&gt;            &amp;lt;sub-topic-str type=&#34;array&#34;&amp;gt;{for $id in $topic-ids return &amp;lt;str type=&#34;string&#34;&amp;gt;{topics:id-to-str($id)}&amp;lt;/str&amp;gt;}&amp;lt;/sub-topic-str&amp;gt;<br/&gt;            &amp;lt;sub-topic type=&#34;array&#34;&amp;gt;{for $id in $topic-ids return &amp;lt;str type=&#34;string&#34;&amp;gt;{$id}&amp;lt;/str&amp;gt;}&amp;lt;/sub-topic&amp;gt;<br/&gt;            &amp;lt;specialty type=&#34;array&#34;&amp;gt;{for $id in $spec-ids return&amp;lt;str type=&#34;string&#34;&amp;gt;{$id}&amp;lt;/str&amp;gt;}&amp;lt;/specialty&amp;gt;<br/&gt;            &amp;lt;vips-v type=&#34;string&#34;&amp;gt;{$vips/mms:volume/data()}&amp;lt;/vips-v&amp;gt;<br/&gt;            &amp;lt;vips-fpage type=&#34;string&#34;&amp;gt;{$vips/mms:fpage/data()}&amp;lt;/vips-fpage&amp;gt;<br/&gt;            &amp;lt;vips-i type=&#34;string&#34;&amp;gt;{$vips/mms:issue/data()}&amp;lt;/vips-i&amp;gt;<br/&gt;            &amp;lt;vips-lpage type=&#34;string&#34;&amp;gt;{$vips/mms:lpage/data()}&amp;lt;/vips-lpage&amp;gt;<br/&gt;            &amp;lt;vips-s type=&#34;string&#34;&amp;gt;{$vips/mms:sequence/data()}&amp;lt;/vips-s&amp;gt;<br/&gt;            &amp;lt;pub-year type=&#34;number&#34;&amp;gt;{$split-pdate[1]}&amp;lt;/pub-year&amp;gt;<br/&gt;            &amp;lt;pub-month type=&#34;number&#34;&amp;gt;{$split-pdate[2]}&amp;lt;/pub-month&amp;gt;<br/&gt;            &amp;lt;pub-day type=&#34;number&#34;&amp;gt;{$split-pdate[3]}&amp;lt;/pub-day&amp;gt;<br/&gt;            &amp;lt;abs-d type=&#34;string&#34;&amp;gt;{extract-data:get-abstract-from-meta($article-meta,&amp;apos;default&amp;apos;)}&amp;lt;/abs-d&amp;gt;<br/&gt;            &amp;lt;abs-t type=&#34;string&#34;&amp;gt;{extract-data:get-abstract-from-meta($article-meta,&amp;apos;truncated&amp;apos;)}&amp;lt;/abs-t&amp;gt;<br/&gt;            &amp;lt;abs-s type=&#34;string&#34;&amp;gt;{extract-data:get-abstract-from-meta($article-meta,&amp;apos;short&amp;apos;)}&amp;lt;/abs-s&amp;gt;<br/&gt;            &amp;lt;abs-toc type=&#34;string&#34;&amp;gt;{extract-data:get-abstract-from-meta($article-meta,&amp;apos;toc&amp;apos;)}&amp;lt;/abs-toc&amp;gt;<br/&gt;            &amp;lt;abs-summary type=&#34;string&#34;&amp;gt;{extract-data:get-abstract-from-meta($article-meta,&amp;apos;summary&amp;apos;)}&amp;lt;/abs-summary&amp;gt;<br/&gt;            &amp;lt;au-aff type=&#34;string&#34;&amp;gt;{extract-data:get-aff($article)}&amp;lt;/au-aff&amp;gt;<br/&gt;            &amp;lt;au-onbehalfof type=&#34;string&#34;&amp;gt;{extract-data:get-on-behalf-of($article)}&amp;lt;/au-onbehalfof&amp;gt;<br/&gt;            &amp;lt;collab type=&#34;string&#34;&amp;gt;{extract-data:get-collab($article)}&amp;lt;/collab&amp;gt;<br/&gt;            <br/&gt;            &amp;lt;au-surname type=&#34;array&#34;&amp;gt;<br/&gt;            {for $author in $author-names return &amp;lt;str type=&#34;string&#34;&amp;gt;{extract-data:get-author-surname($author)}&amp;lt;/str&amp;gt;}<br/&gt;            &amp;lt;/au-surname&amp;gt;<br/&gt;            &amp;lt;au-givenname type=&#34;array&#34;&amp;gt;<br/&gt;            {for $author in $author-names return &amp;lt;str type=&#34;string&#34;&amp;gt;{extract-data:get-author-given-name($author)}&amp;lt;/str&amp;gt;}<br/&gt;            &amp;lt;/au-givenname&amp;gt;<br/&gt;            &amp;lt;au-name type=&#34;array&#34;&amp;gt;<br/&gt;                {for $author in $author-names <br/&gt;                return &amp;lt;str type=&#34;string&#34;&amp;gt;{extract-data:get-author-surname($author)},{extract-data:get-author-given-name($author)}&amp;lt;/str&amp;gt;}<br/&gt;            &amp;lt;/au-name&amp;gt;<br/&gt;            &amp;lt;au-degree type=&#34;array&#34;&amp;gt;{for $deg in extract-data:get-author-degree($authors) return &amp;lt;str type=&#34;string&#34;&amp;gt;{$deg}&amp;lt;/str&amp;gt;}&amp;lt;/au-degree&amp;gt;<br/&gt;            <br/&gt;            &amp;lt;ar-file-name type=&#34;string&#34;&amp;gt;{extract-data:get-article-file-name($article)}&amp;lt;/ar-file-name&amp;gt;<br/&gt;            &amp;lt;z-pdf type=&#34;string&#34;&amp;gt;{extract-data:get-article-pdf($article)}&amp;lt;/z-pdf&amp;gt;<br/&gt;            &amp;lt;z-self-supplement type=&#34;array&#34;&amp;gt;{for $supple in $supplements return &amp;lt;str type=&#34;string&#34;&amp;gt;{$supple}&amp;lt;/str&amp;gt;}&amp;lt;/z-self-supplement&amp;gt;<br/&gt;            &amp;lt;has-supplement type=&#34;boolean&#34;&amp;gt;{if ($supplements) then &#34;true&#34; else &#34;false&#34;}&amp;lt;/has-supplement&amp;gt;<br/&gt;            &amp;lt;z-display-objects type=&#34;array&#34;&amp;gt;{for $object in $display-objects return &amp;lt;str type=&#34;string&#34;&amp;gt;{$object}&amp;lt;/str&amp;gt;}&amp;lt;/z-display-objects&amp;gt;<br/&gt;            &amp;lt;has-display-objects type=&#34;boolean&#34;&amp;gt;{if ($display-objects) then &#34;true&#34; else &#34;false&#34;}&amp;lt;/has-display-objects&amp;gt;<br/&gt;            &amp;lt;ml-article-link type=&#34;string&#34;&amp;gt;{extract-data:get-ml-link($article)}&amp;lt;/ml-article-link&amp;gt;<br/&gt;            &amp;lt;z-ppt-link type=&#34;string&#34;&amp;gt;{$ppt}&amp;lt;/z-ppt-link&amp;gt;<br/&gt;            &amp;lt;has-ppt type=&#34;boolean&#34;&amp;gt;{if ($ppt) then &#34;true&#34; else &#34;false&#34;}&amp;lt;/has-ppt&amp;gt;<br/&gt;            &amp;lt;ml-cpf-state type=&#34;string&#34;&amp;gt;{$cpf-prop/cpf:state/text()}&amp;lt;/ml-cpf-state&amp;gt;<br/&gt;            &amp;lt;ml-cpf-process-status type=&#34;string&#34;&amp;gt;{$cpf-prop/cpf:processing-status/text()}&amp;lt;/ml-cpf-process-status&amp;gt;<br/&gt;            &amp;lt;pub-date type=&#34;string&#34;&amp;gt;{$pub-date}&amp;lt;/pub-date&amp;gt;<br/&gt;            &amp;lt;pub-date-rss type=&#34;string&#34;&amp;gt;{$pub-date}&amp;lt;/pub-date-rss&amp;gt;<br/&gt;            &amp;lt;pub-date-d type=&#34;string&#34;&amp;gt;{$pub-date}&amp;lt;/pub-date-d&amp;gt;<br/&gt;            &amp;lt;article-pages type=&#34;string&#34;&amp;gt;{try {$vips/mms:lpage/data() - $vips/mms:fpage/data() + 1} catch ($excep) {0} }&amp;lt;/article-pages&amp;gt;<br/&gt;            &amp;lt;is-pap type=&#34;boolean&#34;&amp;gt;false&amp;lt;/is-pap&amp;gt;<br/&gt;            &amp;lt;is-free type=&#34;boolean&#34;&amp;gt;{extract-data:is-free($article)}&amp;lt;/is-free&amp;gt;<br/&gt;            &amp;lt;nlm-type type=&#34;string&#34;&amp;gt;{extract-data:get-nlm-type($article)}&amp;lt;/nlm-type&amp;gt;<br/&gt;            &amp;lt;record-text type=&#34;string&#34;&amp;gt;&amp;lt;/record-text&amp;gt;<br/&gt;            &amp;lt;has-cme type=&#34;boolean&#34;&amp;gt;false&amp;lt;/has-cme&amp;gt;<br/&gt;            &amp;lt;doi-cme type=&#34;string&#34;&amp;gt;&amp;lt;/doi-cme&amp;gt;<br/&gt;            &amp;lt;fn-financial-disclosure type=&#34;array&#34;&amp;gt;&amp;lt;/fn-financial-disclosure&amp;gt;<br/&gt;            &amp;lt;image-caption type=&#34;array&#34;&amp;gt;&amp;lt;/image-caption&amp;gt;<br/&gt;            &amp;lt;record-full type=&#34;string&#34;&amp;gt;&amp;lt;/record-full&amp;gt;<br/&gt;            &amp;lt;timestamp type=&#34;string&#34;/&amp;gt;<br/&gt;            &amp;lt;version type=&#34;string&#34;/&amp;gt;<br/&gt;            &amp;lt;has-inline-graphics type=&#34;boolean&#34;&amp;gt;{if ($inline-graphics) then &#34;true&#34; else &#34;false&#34;}&amp;lt;/has-inline-graphics&amp;gt;<br/&gt;            &amp;lt;has-attachment type=&#34;boolean&#34;&amp;gt;{extract-data:has-attachment($article)}&amp;lt;/has-attachment&amp;gt;<br/&gt;         &amp;lt;/doc&amp;gt;<br/&gt;        }<br/&gt;        &amp;lt;/result&amp;gt;<br/&gt;    &amp;lt;/response&amp;gt;<br/&gt;};<br/&gt;')">
+         view code
+      </a></li><li class="right">( $search-response as element(search:response))<br><br></li></ul><ul></ul><div class="methoddetail"><h6>External Functions that are used by this Function</h6><table class="inexternal"><tr><th align="left">Module URI</th><th align="left">Function Name</th></tr><tr><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td rowspan="34">http://www.marklogic.com/tutorial2/extract-data</td><td>get-abstract-from-meta</td></tr><tr><td>get-aff</td></tr><tr><td>get-article-file-name</td></tr><tr><td>get-article-meta</td></tr><tr><td>get-article-pdf</td></tr><tr><td>get-article-supplements</td></tr><tr><td>get-article-title</td></tr><tr><td>get-author-degree</td></tr><tr><td>get-author-given-name</td></tr><tr><td>get-author-names</td></tr><tr><td>get-author-surname</td></tr><tr><td>get-authors-from-meta</td></tr><tr><td>get-category</td></tr><tr><td>get-collab</td></tr><tr><td>get-cpf-properties</td></tr><tr><td>get-display-objects</td></tr><tr><td>get-doi</td></tr><tr><td>get-id-from-jmeta</td></tr><tr><td>get-inline-graphics</td></tr><tr><td>get-journal-meta</td></tr><tr><td>get-ml-link</td></tr><tr><td>get-nlm-type</td></tr><tr><td>get-on-behalf-of</td></tr><tr><td>get-ppt</td></tr><tr><td>get-pub-date</td></tr><tr><td>get-pub-id</td></tr><tr><td>get-publisher-from-jmeta</td></tr><tr><td>get-series-title</td></tr><tr><td>get-specialty-ids</td></tr><tr><td>get-sub-article-type</td></tr><tr><td>get-topic-ids</td></tr><tr><td>get-vips</td></tr><tr><td>has-attachment</td></tr><tr><td>is-free</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td rowspan="1">http://www.nejm.org/specialties</td><td>id-to-str</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td rowspan="1">http://www.nejm.org/topics</td><td>id-to-str</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td rowspan="3">http://www.w3.org/2005/xpath-functions</td><td>data</td></tr><tr><td>doc</td></tr><tr><td>tokenize</td></tr></table></div></div>&nbsp;<div id="get-format" class="methoddetail"><h5><a name="get-format"></a>get-format</h5><ul class="method"><li class="left"><a href="javascript:litePopUp('declare function formats:get-format(<br/&gt;    $search-response as element(search:response), <br/&gt;    $query as xs:string, <br/&gt;    $format as xs:string,<br/&gt;    $fields as xs:string){<br/&gt; 1<br/&gt;};<br/&gt;')">
+         view code
+      </a></li><li class="right">( $search-response as element(search:response) ,<br>&nbsp; $query as xs:string ,<br>&nbsp; $format as xs:string ,<br>&nbsp; $fields as xs:string)<br><br></li></ul><ul></ul></div>&nbsp;<div id="has-format" class="methoddetail"><h5><a name="has-format"></a>has-format</h5><ul class="method"><li class="left"><a href="javascript:litePopUp('declare function formats:has-format($format as xs:string){<br/&gt;    $format = (&#34;xml&#34;,&#34;json&#34;,&#34;rss&#34;,&#34;csv&#34;,&#34;html&#34;)<br/&gt;};<br/&gt;')">
+         view code
+      </a></li><li class="right">( $format as xs:string)<br><br></li></ul><ul></ul></div>&nbsp;</div>&nbsp;<div align="left"><i>Created by xqDoc-Lite version 1.0 on Mon Aug 25 10:57:09 EDT 2014</i></div></body></html>
